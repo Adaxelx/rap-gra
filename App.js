@@ -1,18 +1,21 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import styled from 'styled-components';
+import { NativeRouter, Route } from 'react-router-native';
 
-export default function App() {
-  return (
-    <StyledView>
-      <Text>siema Dzusia</Text>
-    </StyledView>
-  );
-}
+import Home from './views/Home';
+import Songs from './views/Songs';
+import Concerts from './views/Concerts';
+import Label from './views/Label';
+import MainTemplate from './templates/MainTemplate';
 
-const StyledView = styled(View)`
-  flex: 1;
-  background-color: blue;
-  align-items: center;
-  justify-content: center;
-`;
+const App = () => (
+  <NativeRouter>
+    <MainTemplate>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/songs" component={Songs} />
+      <Route exact path="/concerts" component={Concerts} />
+      <Route exact path="/label" component={Label} />
+    </MainTemplate>
+  </NativeRouter>
+);
+
+export default App;
