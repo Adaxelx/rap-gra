@@ -4,24 +4,32 @@ import styled from 'styled-components';
 import { Link } from 'react-router-native';
 
 const StyledView = styled(View)`
-  height: 100px;
   width: 100%;
-  background-color: yellow;
+  background-color: #254432;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const StyledText = styled(Text)`
+  color: white;
+  font-size: 20px;
 `;
 
 const Nav = () => (
   <StyledView>
-    <Link to="/">
-      <Text>Home</Text>
+    <Link underlayColor="transparent" to="/">
+      <StyledText>Home</StyledText>
     </Link>
-    <Link to="/songs">
-      <Text>Piosenki</Text>
+    <Link underlayColor="transparent" to="/songs">
+      <StyledText>Piosenki</StyledText>
     </Link>
-    <Link to="/concerts">
-      <Text>Koncerty</Text>
+    <Link underlayColor="transparent" to="/concerts">
+      <StyledText>Koncerty</StyledText>
     </Link>
-    <Link to="/label">
-      <Text>Wytwórnia</Text>
+    <Link underlayColor="transparent" to="/label">
+      <StyledText>Wytwórnia</StyledText>
     </Link>
   </StyledView>
 );
