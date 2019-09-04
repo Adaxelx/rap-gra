@@ -14,7 +14,8 @@ const StyledView = styled(View)`
 
 const StyledText = styled(Text)`
   color: white;
-  font-size: 20px;
+  font-size: 18;
+  padding: 5px;
 `;
 
 const Nav = () => (
