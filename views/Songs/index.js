@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Text, View, Button } from 'react-native';
+import { View, Button } from 'react-native';
 import styled, { css } from 'styled-components';
-import { Title } from '../../components/Title';
-import AddSong from './addPanels/AddSong';
+import { Paragraph } from 'rap-gra/components/Paragraph';
+import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
+import { Title } from 'rap-gra/components/Title';
 
 const StyledContainer = styled(View)`
   flex-grow: 1;
@@ -10,12 +11,12 @@ const StyledContainer = styled(View)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #5c826b;
+  background-color: ${({ theme }) => theme.greenL};
   ${({ open }) =>
     open &&
     css`
       flex-grow: 3;
-    `}
+    `};
 `;
 
 const StyledRowContainer = styled(View)`
@@ -26,6 +27,8 @@ const StyledRowContainer = styled(View)`
   padding: 15px 0px;
 `;
 
+const StyledButton = styled(Button)``;
+
 const Songs = () => {
   const [openSong, setOpenSong] = useState(false);
   const [openRec, setOpenRec] = useState(false);
@@ -35,14 +38,14 @@ const Songs = () => {
       <Title>Piosenki</Title>
       <StyledContainer>
         <StyledContainer last>
-          <Text>Ostatnie piosenki</Text>
+          <Paragraph>Ostatnie piosenki</Paragraph>
         </StyledContainer>
         <StyledRowContainer>
-          <Button onPress={() => setOpenSong(!openSong)} title="Dodaj piosenkę" />
-          <Button onPress={() => setOpenRec(!openRec)} title="Stwórz płytę" />
+          <StyledButton onPress={() => setOpenSong(!openSong)} title="Dodaj piosenkę" />
+          <StyledButton onPress={() => setOpenRec(!openRec)} title="Stwórz płytę" />
         </StyledRowContainer>
       </StyledContainer>
-      <AddSong open={openSong} />
+      <AddSong open={openSong} onPress={() => setOpenSong(!openSong)} />
     </StyledContainer>
   );
 };

@@ -1,19 +1,19 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { Paragraph } from 'rap-gra/components/Paragraph';
 import styled from 'styled-components';
 import { Link } from 'react-router-native';
 
 const StyledView = styled(View)`
   width: 100%;
-  background-color: #254432;
+  background-color: ${({ theme }) => theme.greenD};
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 `;
 
-const StyledText = styled(Text)`
-  color: white;
+const StyledText = styled(Paragraph)`
   font-size: 18;
   padding: 5px;
 `;
