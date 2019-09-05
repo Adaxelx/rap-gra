@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Text, View, Button } from 'react-native';
+import { View, Button } from 'react-native';
 import styled, { css } from 'styled-components';
-import { Title } from '../../components/Title';
-import AddSong from './addPanels/AddSong';
+import { Paragraph } from 'rap-gra/components/Paragraph';
+import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
+import { Title } from 'rap-gra/components/Title';
 
 const StyledContainer = styled(View)`
   flex-grow: 1;
@@ -37,7 +38,7 @@ const Songs = () => {
       <Title>Piosenki</Title>
       <StyledContainer>
         <StyledContainer last>
-          <Text>Ostatnie piosenki</Text>
+          <Paragraph>Ostatnie piosenki</Paragraph>
         </StyledContainer>
         <StyledRowContainer>
           <StyledButton onPress={() => setOpenSong(!openSong)} title="Dodaj piosenkę" />

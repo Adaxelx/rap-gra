@@ -1,12 +1,12 @@
 import React from 'react';
 import { NativeRouter, Route } from 'react-router-native';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './theme/mainTheme';
-import Home from './views/Home';
-import Songs from './views/Songs';
-import Concerts from './views/Concerts';
-import Label from './views/Label';
-import MainTemplate from './templates/MainTemplate';
+import { theme } from 'rap-gra/theme/mainTheme';
+import Home from 'rap-gra/views/Home';
+import Songs from 'rap-gra/views/Songs';
+import Concerts from 'rap-gra/views/Concerts';
+import Label from 'rap-gra/views/Label';
+import MainTemplate from 'rap-gra/templates/MainTemplate';
 
 const App = () => (
   <NativeRouter>

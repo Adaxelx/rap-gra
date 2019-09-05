@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TouchableHighlight } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
+import { Title } from 'rap-gra/components/Title';
 import styled, { css } from 'styled-components';
 
 const StyledContainer = styled(View)`
@@ -64,13 +65,12 @@ const AddSong = ({ open, onPress }) => {
     <>
       <StyledCurtain open={open} />
       <StyledContainer open={open}>
-        <>
-          <StyledCloseButton onPress={onPress} outline>
-            <>
-              <StyledLabel>X</StyledLabel>
-            </>
-          </StyledCloseButton>
-        </>
+        <StyledCloseButton onPress={onPress} outline>
+          <>
+            <StyledLabel>X</StyledLabel>
+          </>
+        </StyledCloseButton>
+        <Title>Dodaj piosenkę</Title>
       </StyledContainer>
     </>
   );
