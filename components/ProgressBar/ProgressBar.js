@@ -25,7 +25,7 @@ const StyledProgress = styled(View)`
 
 const StyledText = styled(Text)`
   font-size: 20px;
-  color: white;
+  color: ${({ theme }) => theme.fontColor};
 `;
 
 const ProgressBar = ({ progress, name }) => (
