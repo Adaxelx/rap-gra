@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, Button } from 'react-native';
 import styled, { css } from 'styled-components';
 import { Title } from '../../components/Title';
+import AddSong from './addPanels/AddSong';
 
 const StyledContainer = styled(View)`
   flex-grow: 1;
@@ -41,6 +42,7 @@ const Songs = () => {
           <Button onPress={() => setOpenRec(!openRec)} title="Stwórz płytę" />
         </StyledRowContainer>
       </StyledContainer>
+      <AddSong open={openSong} />
     </StyledContainer>
   );
 };
