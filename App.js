@@ -1,7 +1,7 @@
 import React from 'react';
 import { NativeRouter, Route } from 'react-router-native';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './theme';
+import { theme } from './theme/mainTheme';
 import Home from './views/Home';
 import Songs from './views/Songs';
 import Concerts from './views/Concerts';
