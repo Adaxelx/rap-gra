@@ -5,6 +5,7 @@ import { Title } from 'rap-gra/components/Title';
 import styled, { css } from 'styled-components';
 import { Input } from 'rap-gra/components/Input';
 import Switch from 'rap-gra/components/Switch';
+import Bar from 'rap-gra/components/Bar';
 
 const StyledContainer = styled(View)`
   position: absolute;
@@ -62,6 +63,15 @@ const StyledCurtain = styled(View)`
     `};
 `;
 
+const StyledRowCon = styled(View)`
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const AddSong = ({ open, onPress }) => {
   const [name, setName] = useState(`Piosenka 1`);
   const [vid, setVid] = useState(false);
@@ -76,7 +86,19 @@ const AddSong = ({ open, onPress }) => {
         </StyledCloseButton>
         <Title>Dodaj piosenkę</Title>
         <Input onChangeText={text => setName(text)} value={name} />
-        <Switch onPress={() => setVid(!vid)} active={vid} />
+        <StyledRowCon>
+          <Paragraph>Teledysk</Paragraph>
+          <Switch onPress={() => setVid(!vid)} active={vid} />
+        </StyledRowCon>
+        {vid ? (
+          <>
+            <Bar title="Wydatki" />
+          </>
+        ) : null}
+
+        <Bar title="Styl" val1="wolny" val2="szybki" />
+        <Bar title="Rymy" val1="mało" val2="dużo" />
+        <Bar title="Bit" val1="poważny" val2="imprezowy" />
       </StyledContainer>
     </>
   );

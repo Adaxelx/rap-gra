@@ -3,5 +3,5 @@ import { Text } from 'react-native';
 
 export const Paragraph = styled(Text)`
   color: ${({ theme }) => theme.fontColor};
-  font-size: 15px;
+  font-size: 20px;
 `;
