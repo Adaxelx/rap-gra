@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableHighlight } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import styled, { css } from 'styled-components';
+import { Input } from 'rap-gra/components/Input';
+import Switch from 'rap-gra/components/Switch';
 
 const StyledContainer = styled(View)`
   position: absolute;
@@ -61,6 +63,8 @@ const StyledCurtain = styled(View)`
 `;
 
 const AddSong = ({ open, onPress }) => {
+  const [name, setName] = useState(`Piosenka 1`);
+  const [vid, setVid] = useState(false);
   return (
     <>
       <StyledCurtain open={open} />
@@ -71,6 +75,8 @@ const AddSong = ({ open, onPress }) => {
           </>
         </StyledCloseButton>
         <Title>Dodaj piosenkę</Title>
+        <Input onChangeText={text => setName(text)} value={name} />
+        <Switch onPress={() => setVid(!vid)} active={vid} />
       </StyledContainer>
     </>
   );
