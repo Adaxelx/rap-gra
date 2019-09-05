@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledView = styled(View)`
   width: 100%;
-  background-color: #254432;
+  background-color: ${({ theme }) => theme.greenD};
   height: 20px;
 `;
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Text } from 'react-native';
+import { Paragraph } from 'rap-gra/components/Paragraph';
 
-export const Title = styled(Text)`
+export const Title = styled(Paragraph)`
   font-size: 25;
   margin: 10px 0px;
 `;
