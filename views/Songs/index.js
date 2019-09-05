@@ -10,12 +10,12 @@ const StyledContainer = styled(View)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #5c826b;
+  background-color: ${({ theme }) => theme.greenL};
   ${({ open }) =>
     open &&
     css`
       flex-grow: 3;
-    `}
+    `};
 `;
 
 const StyledRowContainer = styled(View)`
@@ -25,6 +25,8 @@ const StyledRowContainer = styled(View)`
   justify-content: space-around;
   padding: 15px 0px;
 `;
+
+const StyledButton = styled(Button)``;
 
 const Songs = () => {
   const [openSong, setOpenSong] = useState(false);
@@ -38,11 +40,11 @@ const Songs = () => {
           <Text>Ostatnie piosenki</Text>
         </StyledContainer>
         <StyledRowContainer>
-          <Button onPress={() => setOpenSong(!openSong)} title="Dodaj piosenkę" />
-          <Button onPress={() => setOpenRec(!openRec)} title="Stwórz płytę" />
+          <StyledButton onPress={() => setOpenSong(!openSong)} title="Dodaj piosenkę" />
+          <StyledButton onPress={() => setOpenRec(!openRec)} title="Stwórz płytę" />
         </StyledRowContainer>
       </StyledContainer>
-      <AddSong open={openSong} />
+      <AddSong open={openSong} onPress={() => setOpenSong(!openSong)} />
     </StyledContainer>
   );
 };
