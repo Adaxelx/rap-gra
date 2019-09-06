@@ -7,6 +7,7 @@ const StyledContainer = styled(View)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 15%;
 `;
 
 const StyledView = styled(View)`
@@ -19,7 +20,7 @@ const StyledView = styled(View)`
 
 const StyledButton = styled(TouchableOpacity)`
   width: 200px;
-  height: 50px;
+  height: 50%;
   border: 2px solid ${({ theme }) => theme.greenL};
   overflow: hidden;
   display: flex;

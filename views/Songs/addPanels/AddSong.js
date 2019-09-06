@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableHighlight } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import styled, { css } from 'styled-components';
@@ -29,7 +29,7 @@ const StyledContainer = styled(View)`
     `};
 `;
 
-const StyledCloseButton = styled(TouchableHighlight)`
+const StyledCloseButton = styled(TouchableOpacity)`
   background-color: transparent;
   height: 30px;
   width: 30px;
@@ -68,6 +68,7 @@ const StyledRowCon = styled(View)`
   display: flex;
   flex-direction: row;
   width: 50%;
+  height: 5%;
   align-items: center;
   justify-content: space-between;
 `;
@@ -99,6 +100,9 @@ const AddSong = ({ open, onPress }) => {
         <Bar title="Styl" val1="wolny" val2="szybki" />
         <Bar title="Rymy" val1="mało" val2="dużo" />
         <Bar title="Bit" val1="poważny" val2="imprezowy" />
+        <TouchableOpacity>
+          <Paragraph>Submit</Paragraph>
+        </TouchableOpacity>
       </StyledContainer>
     </>
   );

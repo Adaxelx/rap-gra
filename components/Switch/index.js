@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 import { View, TouchableOpacity } from 'react-native';
 
 const StyledView = styled(TouchableOpacity)`
-  width: 60px;
   height: 30px;
+  width: 60px;
   border: 2px solid black;
   border-radius: 20px;
   background-color: #ff8f8f;
