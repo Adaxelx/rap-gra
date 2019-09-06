@@ -10,6 +10,7 @@ const StyledProgressBar = styled(View)`
   margin: 5px 0;
   padding: 3px;
   border: 2px solid black;
+  position: relative;
 
   /* $::nth-child() */
 `;
@@ -26,13 +27,19 @@ const StyledProgress = styled(View)`
 const StyledText = styled(Text)`
   font-size: 20px;
   color: ${({ theme }) => theme.fontColor};
+  position: absolute;
+  z-index: 2;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-11px);
 `;
 
 const ProgressBar = ({ progress, name }) => (
   <StyledProgressBar>
-    <StyledProgress progress={progress}>
-      <StyledText>{progress >= 12 ? name : null}</StyledText>
-    </StyledProgress>
+    {/* <StyledText>{progress >= 15 ? name : null}</StyledText> */}
+    <StyledText>{name}</StyledText>
+
+    <StyledProgress progress={progress} />
   </StyledProgressBar>
 );
 
