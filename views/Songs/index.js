@@ -3,6 +3,7 @@ import { View, Button } from 'react-native';
 import styled, { css } from 'styled-components';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
+import AddRecord from 'rap-gra/views/Songs/addPanels/AddRecord';
 import { Title } from 'rap-gra/components/Title';
 
 const StyledContainer = styled(View)`
@@ -46,6 +47,7 @@ const Songs = () => {
         </StyledRowContainer>
       </StyledContainer>
       <AddSong open={openSong} onPress={() => setOpenSong(!openSong)} />
+      <AddRecord open={openRec} onPress={() => setOpenRec(!openRec)} />
     </StyledContainer>
   );
 };
