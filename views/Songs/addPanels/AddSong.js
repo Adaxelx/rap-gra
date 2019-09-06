@@ -73,8 +73,23 @@ const StyledRowCon = styled(View)`
   justify-content: space-between;
 `;
 
+const SubmitButton = styled(TouchableOpacity)`
+  border: 2px solid black;
+  height: 7%;
+  margin-top: 10px;
+  width: 50%;
+  background-color: ${({ theme }) => theme.greenL};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const AddSong = ({ open, onPress }) => {
   const [name, setName] = useState(`Piosenka 1`);
+  const [valueVid, setValueVid] = useState(0);
+  const [valueStyle, setValueStyle] = useState(0);
+  const [valueRhymes, setValueRhymes] = useState(0);
+  const [valueBit, setValueBit] = useState(0);
   const [vid, setVid] = useState(false);
   return (
     <>
@@ -93,16 +108,21 @@ const AddSong = ({ open, onPress }) => {
         </StyledRowCon>
         {vid ? (
           <>
-            <Bar title="Wydatki" />
+            <Bar
+              title="Wydatki"
+              val1={`${Math.floor((valueVid / 200) * 1000 * 0.1)}zł`}
+              value={valueVid}
+              setValue={setValueVid}
+            />
           </>
         ) : null}
 
-        <Bar title="Styl" val1="wolny" val2="szybki" />
-        <Bar title="Rymy" val1="mało" val2="dużo" />
-        <Bar title="Bit" val1="poważny" val2="imprezowy" />
-        <TouchableOpacity>
-          <Paragraph>Submit</Paragraph>
-        </TouchableOpacity>
+        <Bar title="Styl" val1="wolny" val2="szybki" value={valueStyle} setValue={setValueStyle} />
+        <Bar title="Rymy" val1="mało" val2="dużo" value={valueRhymes} setValue={setValueRhymes} />
+        <Bar title="Bit" val1="poważny" val2="imprezowy" value={valueBit} setValue={setValueBit} />
+        <SubmitButton>
+          <Paragraph>Dodaj piosenkę</Paragraph>
+        </SubmitButton>
       </StyledContainer>
     </>
   );
