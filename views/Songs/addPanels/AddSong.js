@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import styled from 'styled-components';
@@ -7,6 +7,7 @@ import { Input } from 'rap-gra/components/Input';
 import Switch from 'rap-gra/components/Switch';
 import Bar from 'rap-gra/components/Bar';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
+import { Button } from 'rap-gra/components/Button';
 
 const StyledRowCon = styled(View)`
   margin-top: 10px;
@@ -16,17 +17,6 @@ const StyledRowCon = styled(View)`
   height: 5%;
   align-items: center;
   justify-content: space-between;
-`;
-
-const SubmitButton = styled(TouchableOpacity)`
-  border: 2px solid black;
-  height: 7%;
-  margin-top: 10px;
-  width: 50%;
-  background-color: ${({ theme }) => theme.greenL};
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const AddSong = ({ open, onPress, setSong, openSubject }) => {
@@ -77,9 +67,9 @@ const AddSong = ({ open, onPress, setSong, openSubject }) => {
       <Bar title="Styl" val1="wolny" val2="szybki" value={valueStyle} setValue={setValueStyle} />
       <Bar title="Rymy" val1="mało" val2="dużo" value={valueRhymes} setValue={setValueRhymes} />
       <Bar title="Bit" val1="poważny" val2="imprezowy" value={valueBit} setValue={setValueBit} />
-      <SubmitButton onPress={saveData}>
+      <Button onPress={saveData}>
         <Paragraph>Dalej</Paragraph>
-      </SubmitButton>
+      </Button>
     </AddPanel>
   );
 };

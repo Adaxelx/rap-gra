@@ -4,6 +4,7 @@ import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import styled from 'styled-components';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
+import { Button } from 'rap-gra/components/Button';
 
 const StyledContainer = styled(View)`
   width: 95%;
@@ -24,17 +25,6 @@ const StyledSubject = styled(TouchableOpacity)`
   margin-bottom: 10px;
 `;
 
-const SubmitButton = styled(TouchableOpacity)`
-  border: 2px solid black;
-  height: 100%;
-  margin-top: 10px;
-  width: 40%;
-  background-color: ${({ theme }) => theme.greenL};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const StyledRowContainer = styled(View)`
   display: flex;
   flex-direction: row;
@@ -43,6 +33,10 @@ const StyledRowContainer = styled(View)`
   width: 100%;
   height: 10%;
   padding-bottom: 10px;
+`;
+
+const StyledButton = styled(Button)`
+  height: 100%;
 `;
 
 const AddSubject = ({ open, onPress, openAddSong, song, setFullSong }) => {
@@ -77,12 +71,12 @@ const AddSubject = ({ open, onPress, openAddSong, song, setFullSong }) => {
         </StyledSubject>
       </StyledContainer>
       <StyledRowContainer>
-        <SubmitButton onPress={handleBack}>
+        <StyledButton onPress={handleBack}>
           <Paragraph>Wstecz</Paragraph>
-        </SubmitButton>
-        <SubmitButton onPress={saveData}>
+        </StyledButton>
+        <StyledButton onPress={saveData}>
           <Paragraph>Dodaj piosenkę</Paragraph>
-        </SubmitButton>
+        </StyledButton>
       </StyledRowContainer>
     </AddPanel>
   );
