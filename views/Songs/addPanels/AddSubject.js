@@ -41,7 +41,7 @@ const StyledRowContainer = styled(View)`
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 7%;
+  height: 10%;
   padding-bottom: 10px;
 `;
 
