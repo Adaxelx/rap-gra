@@ -1,10 +1,18 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import styled from 'styled-components';
+import { View } from 'react-native';
+import { Title } from 'rap-gra/components/Title';
+
+const StyledWrapper = styled(View)`
+  height: 1550px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.greenL};
+`;
 
 const Concerts = () => (
-  <View>
-    <Text>Concerts</Text>
-  </View>
+  <StyledWrapper bounces>
+    <Title>Concerts</Title>
+  </StyledWrapper>
 );
 
 export default Concerts;
