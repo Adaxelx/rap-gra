@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { View, ScrollView } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { Title } from 'rap-gra/components/Title';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 
@@ -21,6 +21,17 @@ const StyledLabelTile = styled(View)`
   padding: 10px;
   font-size: 10px;
   color: white;
+`;
+
+const StyledTitle = styled(Title)`
+  text-align: center;
+`;
+
+const StyledText = styled(Text)`
+  font-size: 20px;
+  text-align: center;
+  color: ${({ theme }) => theme.fontColor};
+  margin-bottom: 10px;
 `;
 
 const labels = [
@@ -60,7 +71,8 @@ const labels = [
 
 const Label = () => (
   <StyledWrapper>
-    <Title>Wytwórnie</Title>
+    <StyledTitle>Wytwórnie</StyledTitle>
+    <StyledText>Obecna wytwórnia: brak</StyledText>
     {labels.map(label => (
       <StyledLabelTile key={label.key}>
         <Title>{label.name}</Title>
