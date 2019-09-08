@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SafeAreaView } from 'react-native';
-import Nav from '../components/Navigation/Nav';
-import Logo from '../components/Logo';
-import Messages from '../components/Messages';
+import Nav from 'rap-gra/components/Navigation/Nav';
+import Logo from 'rap-gra/components/Logo';
+// import Messages from 'rap-gracomponents/Messages';
 // import GlobalStyle from '../theme/GlobalStyle';
 
 const StyledCon = styled(SafeAreaView)`
@@ -20,7 +20,7 @@ const MainTemplate = ({ children }) => (
     <Logo />
     <Nav />
     {children}
-    <Messages />
+    {/* <Messages /> */}
   </StyledCon>
 );
 
