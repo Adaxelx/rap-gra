@@ -63,21 +63,41 @@ class Home extends React.Component {
     style: 95,
     rhymes: 12,
     nick: 'Young Krawczyk',
-    cash: 0,
-    reputation: 0,
-    fans: 0,
-    tiredness: 0,
+    cash: 1000000,
+    reputation: 900,
+    fans: 150000,
+    energy: 100,
   };
 
+  // displayFn = (value) => {
+  //   if(value >= 1000000){
+  //     return value.toString().substring(0,1) + "m"
+  //   }
+
+  //   else if(value >= 100000){
+  //     return value.toString().substring(0,3) + "k"
+  //   }
+
+  //   else if(value >= 10000){
+  //     return value.toString().substring(0,2) + "k"
+  //   }
+
+  //   else if(value >= 1000){
+  //     return value.toString().substring(0,1) + "k"
+  //   }
+
+  //   else return value
+  // }
+
   render() {
-    const { flow, style, rhymes, nick, cash, reputation, fans, tiredness } = this.state;
+    const { flow, style, rhymes, nick, cash, reputation, fans, energy } = this.state;
     return (
       <StyledWrapper>
         <StyledTitle>Statystyki</StyledTitle>
         <StyledStatValue>reputacja: {reputation}</StyledStatValue>
         <StyledStatValue>fani: {fans}</StyledStatValue>
-        <StyledStatValue>zmęczenie: {tiredness}</StyledStatValue>
-        <StyledStatValue>{cash}$</StyledStatValue>
+        <StyledStatValue>energia: {energy}%</StyledStatValue>
+        <StyledStatValue>{cash} $</StyledStatValue>
         <StyledStats>
           <StyledNick>{nick}</StyledNick>
           <ProgressBar name="flow" progress={flow} />
