@@ -3,6 +3,7 @@ import { View, Button } from 'react-native';
 import styled, { css } from 'styled-components';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
+import AddSubject from 'rap-gra/views/Songs/addPanels/AddSubject';
 import AddRecord from 'rap-gra/views/Songs/addPanels/AddRecord';
 import { Title } from 'rap-gra/components/Title';
 
@@ -33,6 +34,9 @@ const StyledButton = styled(Button)``;
 const Songs = () => {
   const [openSong, setOpenSong] = useState(false);
   const [openRec, setOpenRec] = useState(false);
+  const [song, setSong] = useState({ full: false });
+  const [fullSong, setFullSong] = useState({});
+  const [openSubject, setOpenSubject] = useState(false);
 
   return (
     <StyledContainer main>
@@ -46,8 +50,26 @@ const Songs = () => {
           <StyledButton onPress={() => setOpenRec(!openRec)} title="Stwórz płytę" />
         </StyledRowContainer>
       </StyledContainer>
-      <AddSong open={openSong} onPress={() => setOpenSong(!openSong)} />
-      <AddRecord open={openRec} onPress={() => setOpenRec(!openRec)} />
+      <AddSong
+        open={openSong}
+        setSong={setSong}
+        onPress={() => setOpenSong(!openSong)}
+        openSubject={() => setOpenSubject(!openSubject)}
+      />
+      <AddRecord
+        open={openRec}
+        song={song}
+        setSong={setSong}
+        onPress={() => setOpenRec(!openRec)}
+      />
+      <AddSubject
+        open={openSubject}
+        song={song}
+        setFullSong={setFullSong}
+        fullSong={fullSong}
+        onPress={() => setOpenSubject(!openSubject)}
+        openAddSong={() => setOpenSong(!openSong)}
+      />
     </StyledContainer>
   );
 };
