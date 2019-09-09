@@ -7,6 +7,7 @@ import styled, { css } from 'styled-components';
 import Switch from 'rap-gra/components/Switch';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
 import { Input } from 'rap-gra/components/Input';
+import { Button } from 'rap-gra/components/Button';
 
 const StyledFormType = styled(View)`
   display: flex;
@@ -29,13 +30,26 @@ const StyledRowContainer = styled(View)`
   align-items: center;
 `;
 
-const AddRecord = ({ open, onPress }) => {
+const AddRecord = ({ open, onPress, setRec, openSubject }) => {
   const [type, setType] = useState(false);
   const [name, setName] = useState('Płyta1');
   const [preorder, setPreorder] = useState(false);
   const [cover, setCover] = useState(0);
   const [special, setSpecial] = useState(0);
   const [ads, setAds] = useState(0);
+
+  const saveData = () => {
+    setRec({
+      full: false,
+      type: type ? 'LP' : 'EP',
+      preorder,
+      special,
+      cover,
+      ads,
+    });
+    onPress();
+    openSubject();
+  };
   return (
     <AddPanel open={open} onPress={onPress}>
       <Title>Stwórz płytę</Title>
@@ -62,6 +76,9 @@ const AddRecord = ({ open, onPress }) => {
       </StyledFormType>
       <Bar title="Okładka" val1={`${Math.floor(cover)}zł`} value={cover} setValue={setCover} />
       <Bar title="Kampania reklamowa" val1={`${Math.floor(ads)}zł`} value={ads} setValue={setAds} />
+      <Button onPress={saveData}>
+        <Paragraph>Dalej</Paragraph>
+      </Button>
     </AddPanel>
   );
 };
