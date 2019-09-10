@@ -64,7 +64,87 @@ const labels = [
   },
   {
     key: 1,
-    name: 'Krzywo',
+    name: 'Krzywo Label',
+    requaierments: {
+      fans: 20000,
+      reputation: 2000,
+      flow: 30,
+      style: 35,
+      rhymes: 35,
+    },
+    profits: {
+      fansIncrease: 3,
+      reputationIncrease: 3,
+      cashIncrease: 3,
+    },
+  },
+  {
+    key: 2,
+    name: 'Krzywo2',
+    requaierments: {
+      fans: 20000,
+      reputation: 2000,
+      flow: 30,
+      style: 35,
+      rhymes: 35,
+    },
+    profits: {
+      fansIncrease: 3,
+      reputationIncrease: 3,
+      cashIncrease: 3,
+    },
+  },
+  {
+    key: 3,
+    name: 'Krzywo3',
+    requaierments: {
+      fans: 20000,
+      reputation: 2000,
+      flow: 30,
+      style: 35,
+      rhymes: 35,
+    },
+    profits: {
+      fansIncrease: 3,
+      reputationIncrease: 3,
+      cashIncrease: 3,
+    },
+  },
+  {
+    key: 4,
+    name: 'Krzywo4',
+    requaierments: {
+      fans: 20000,
+      reputation: 2000,
+      flow: 30,
+      style: 35,
+      rhymes: 35,
+    },
+    profits: {
+      fansIncrease: 3,
+      reputationIncrease: 3,
+      cashIncrease: 3,
+    },
+  },
+  {
+    key: 5,
+    name: 'Krzywo5',
+    requaierments: {
+      fans: 20000,
+      reputation: 2000,
+      flow: 30,
+      style: 35,
+      rhymes: 35,
+    },
+    profits: {
+      fansIncrease: 3,
+      reputationIncrease: 3,
+      cashIncrease: 3,
+    },
+  },
+  {
+    key: 6,
+    name: 'Krzywo6',
     requaierments: {
       fans: 20000,
       reputation: 2000,
@@ -86,6 +166,11 @@ const Label = () => {
     <StyledWrapper>
       <StyledTitle>Wytwórnie</StyledTitle>
       <StyledText>Obecna wytwórnia: brak</StyledText>
+
+      <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
+        <StyledText>+ Załóż własną wytwórnię</StyledText>
+      </StyledButton>
+
       {labels.map(label => (
         <StyledLabelTile key={label.key} onPress={() => setAddLabel(!openAddLabel)}>
           <Title>{label.name}</Title>
@@ -100,11 +185,8 @@ const Label = () => {
           </View>
         </StyledLabelTile>
       ))}
-      <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
-        <StyledText>+ Załóż własną wytwórnię</StyledText>
-      </StyledButton>
 
-      <AddLabel openAddLabel={openAddLabel} />
+      <AddLabel openAddLabel={openAddLabel} onPress={() => setAddLabel(!openAddLabel)} />
     </StyledWrapper>
   );
 };

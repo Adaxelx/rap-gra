@@ -1,38 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
+import { Input } from 'rap-gra/components/Input';
+import { Paragraph } from 'rap-gra/components/Paragraph';
+import { Button } from 'rap-gra/components/Button';
+import AddPanel from 'rap-gra/templates/AddPanelTemplate';
 
-// const StyledWrapper = styled(View)`
-//     height: 100%;
-//     width: 100%;
-//     transform: ${({ openAddLabel }) => openAddLabel ? 'scale(1)' : 'scale(0)'};
-// `;
-
-// const StyledBlackOpacity = styled(View)`
-//     height: 100%;
-//     width: 100%;
-//     background-color: black;
-//     opacity: 0.7;
-//     z-index: 2;
-//     transform: ${({ openAddLabel }) => openAddLabel ? 'scale(1)' : 'scale(0)'};
-
-// `;
-
-const StyledAddLabel = styled(View)`
-  width: 80%;
-  height: 80%;
-  background-color: ${({ theme }) => theme.greenD};
-  z-index: 3;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: ${({ openAddLabel }) => (openAddLabel ? 'translateX(0)' : 'translateX(-1000px)')};
+const StyledAddPanel = styled(AddPanel)`
+  padding: 40px;
 `;
 
-const AddLabel = ({ openAddLabel }) => (
-  <StyledAddLabel openAddLabel={openAddLabel}>
-    <Text>123</Text>
-  </StyledAddLabel>
-);
+const AddLabel = ({ openAddLabel, onPress }) => {
+  const [value, onChangeText] = React.useState('Nazwa twojej wytwórni');
+  return (
+    <StyledAddPanel open={openAddLabel} onPress={onPress}>
+      <Input onChangeText={text => onChangeText(text)} value={value} />
+      <Paragraph>Koszt założenia własnej wytwórni to:</Paragraph>
+      <Button title="potwierdź">
+        <Text>potwierdź</Text>
+      </Button>
+    </StyledAddPanel>
+  );
+};
 
 export default AddLabel;
