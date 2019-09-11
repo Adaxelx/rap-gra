@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
 import { View } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
@@ -28,7 +28,11 @@ const StyledButton = styled(Button)`
   height: 100%;
 `;
 
-const AddSongRec = ({ onPress, open, openAddRec }) => {
+const id = ['12', '16', '13', '14', '18', '32', '53'];
+
+const AddSongRec = ({ onPress, open, openAddRec, setId }) => {
+  const [idActive, setIdActive] = useState([]);
+
   const handleBack = () => {
     onPress();
     openAddRec();
@@ -36,13 +40,16 @@ const AddSongRec = ({ onPress, open, openAddRec }) => {
 
   const saveData = () => {
     onPress();
+    setId(idActive);
   };
+
+  const items = id.map(item => (
+    <SongItem id={item} key={item} idActive={idActive} setIdActive={setIdActive} />
+  ));
   return (
     <AddPanel onPress={onPress} open={open}>
       <Title>Wybierz piosenki:</Title>
-      <StyledCon>
-        <SongItem />
-      </StyledCon>
+      <StyledCon>{items}</StyledCon>
       <StyledRowContainer>
         <StyledButton onPress={handleBack}>
           <Paragraph>Wstecz</Paragraph>

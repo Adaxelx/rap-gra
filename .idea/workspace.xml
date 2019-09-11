@@ -5,10 +5,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12af8f15-968c-4d50-aa51-561382fd01fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/views/Songs/addPanels/AddSongRec.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/addPanels/AddSongRec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Songs/addPanels/AddSubject.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/addPanels/AddSubject.js" afterDir="false" />
-    </list>
+    <list default="true" id="12af8f15-968c-4d50-aa51-561382fd01fa" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +29,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="-6" />
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="793" />
@@ -76,7 +72,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="23" width="1440" height="793" extended-state="1" />
+    <frame x="-6" y="23" width="1440" height="793" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.3298969" />
@@ -89,7 +85,6 @@
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info active="true" anchor="bottom" id="Logcat" order="1" visible="true" weight="0.31241083" />
-      <window_info anchor="bottom" id="Logcat" order="1" visible="true" weight="0.14903846" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />

@@ -82,6 +82,10 @@ const Songs = () => {
   const [fullRec, setFullRec] = useState({});
   const [openRecSub, setOpenRecSub] = useState(false);
 
+  /* */
+
+  const [id, setId] = useState([]);
+
   return (
     <StyledContainer>
       <StyledTitle>Piosenki</StyledTitle>
@@ -89,6 +93,7 @@ const Songs = () => {
         <>
           <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
           <StyledLastSong>
+            <Paragraph>{id}</Paragraph>
             <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
             <StyledStatsCon>
               <StyledP>Przesłuchania: 10120231</StyledP>
@@ -181,6 +186,7 @@ const Songs = () => {
         rec={rec}
         fullRec={fullRec}
         openAddRec={() => setOpenRec(!openRec)}
+        setId={setId}
       />
     </StyledContainer>
   );
