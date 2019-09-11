@@ -6,7 +6,7 @@ const StyledProgressBar = styled(View)`
   display: flex;
   flex-basis: 100%;
   flex-grow: 1;
-  height: 45px;
+  height: 8%;
   margin: 5px 0;
   padding: 3px;
   border: 2px solid black;
