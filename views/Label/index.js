@@ -5,6 +5,7 @@ import { Title } from 'rap-gra/components/Title';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Button } from 'rap-gra/components/Button';
 import AddLabel from './addLabel/AddLabel';
+import LabelDetails from './addLabel/LabelDetails';
 
 const StyledWrapper = styled(ScrollView)`
   min-height: 100%;
@@ -162,17 +163,27 @@ const labels = [
 
 const Label = () => {
   const [openAddLabel, setAddLabel] = useState(false);
+  const [openLabelDetails, setLabelDetails] = useState(false);
+  const [yourLabelName, setYourLabelName] = useState('');
+  const [clickedLabelName, setClickedLabelName] = useState('');
+
+  const buttonFn = label => {
+    setLabelDetails(!openLabelDetails);
+    setClickedLabelName(label.name);
+  };
+
   return (
     <StyledWrapper>
       <StyledTitle>Wytwórnie</StyledTitle>
-      <StyledText>Obecna wytwórnia: brak</StyledText>
+      <StyledText>Obecna wytwórnia: {clickedLabelName}</StyledText>
+      <StyledText>Nazwa twojej wytrwórni: {yourLabelName}</StyledText>
 
       <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
         <StyledText>+ Załóż własną wytwórnię</StyledText>
       </StyledButton>
 
       {labels.map(label => (
-        <StyledLabelTile key={label.key} onPress={() => setAddLabel(!openAddLabel)}>
+        <StyledLabelTile key={label.key} onPress={() => buttonFn(label)}>
           <Title>{label.name}</Title>
           <View>
             <Paragraph>Wymagania: </Paragraph>
@@ -186,7 +197,16 @@ const Label = () => {
         </StyledLabelTile>
       ))}
 
-      <AddLabel openAddLabel={openAddLabel} onPress={() => setAddLabel(!openAddLabel)} />
+      <AddLabel
+        openAddLabel={openAddLabel}
+        onPress={() => setAddLabel(!openAddLabel)}
+        setYourLabelName={setYourLabelName}
+      />
+      <LabelDetails
+        openLabelDetails={openLabelDetails}
+        onPress={() => setLabelDetails(!openLabelDetails)}
+        clickedLabelName={clickedLabelName}
+      />
     </StyledWrapper>
   );
 };
