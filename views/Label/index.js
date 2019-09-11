@@ -11,6 +11,7 @@ const StyledWrapper = styled(ScrollView)`
   min-height: 100%;
   width: 100%;
   background-color: ${({ theme }) => theme.greenL};
+  padding-bottom: 200px;
 `;
 
 const StyledLabelTile = styled(TouchableOpacity)`
@@ -166,17 +167,25 @@ const Label = () => {
   const [openLabelDetails, setLabelDetails] = useState(false);
   const [yourLabelName, setYourLabelName] = useState('');
   const [clickedLabelName, setClickedLabelName] = useState('');
+  const [clickedLabelRequaierments, setClickedLabelRequaierments] = useState('');
+  const [clickedLabelProfits, setClickedLabelProfits] = useState('');
+  const [currentLabel, setCurrentLabel] = useState('');
+
+  // const [currentLabelName, setCurrentLabelName] = useState('');
 
   const buttonFn = label => {
     setLabelDetails(!openLabelDetails);
     setClickedLabelName(label.name);
+    setClickedLabelRequaierments(label.requaierments);
+    setClickedLabelProfits(label.profits);
   };
 
   return (
     <StyledWrapper>
       <StyledTitle>Wytwórnie</StyledTitle>
-      <StyledText>Obecna wytwórnia: {clickedLabelName}</StyledText>
+      <StyledText>Obecna wytwórnia: {currentLabel}</StyledText>
       <StyledText>Nazwa twojej wytrwórni: {yourLabelName}</StyledText>
+      <StyledText>Kliknięta wytrwórnia: {clickedLabelName}</StyledText>
 
       <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
         <StyledText>+ Załóż własną wytwórnię</StyledText>
@@ -206,6 +215,9 @@ const Label = () => {
         openLabelDetails={openLabelDetails}
         onPress={() => setLabelDetails(!openLabelDetails)}
         clickedLabelName={clickedLabelName}
+        clickedLabelRequaierments={clickedLabelRequaierments}
+        clickedLabelProfits={clickedLabelProfits}
+        setCurrentLabel={setCurrentLabel}
       />
     </StyledWrapper>
   );
