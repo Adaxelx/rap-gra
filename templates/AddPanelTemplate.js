@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Dimensions } from 'react-native';
 import styled, { css } from 'styled-components';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 
@@ -9,11 +9,11 @@ const StyledContainer = styled(View)`
   bottom: 20;
   left: 20;
   right: 20;
-  top: 20;
-
+  height: ${`${Dimensions.get('window').height - 125}px`};
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   background-color: ${({ theme }) => theme.greenD};
 
