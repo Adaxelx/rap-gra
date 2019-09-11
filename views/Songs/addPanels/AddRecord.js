@@ -76,6 +76,7 @@ const AddRecord = ({ open, onPress, setRec, openSubject }) => {
       </StyledFormType>
       <Bar title="Okładka" val1={`${Math.floor(cover)}zł`} value={cover} setValue={setCover} />
       <Bar title="Kampania reklamowa" val1={`${Math.floor(ads)}zł`} value={ads} setValue={setAds} />
+      <Paragraph>Wydasz: 1230 zł</Paragraph>
       <Button onPress={saveData}>
         <Paragraph>Dalej</Paragraph>
       </Button>

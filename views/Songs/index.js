@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import styled from 'styled-components';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
@@ -9,26 +9,64 @@ import AddSongRec from 'rap-gra/views/Songs/addPanels/AddSongRec';
 import { Title } from 'rap-gra/components/Title';
 import { Button } from 'rap-gra/components/Button';
 
-const StyledContainer = styled(View)`
+const StyledContainer = styled(ScrollView)`
   flex-grow: 1;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: ${({ theme }) => theme.greenL};
 `;
 
 const StyledRowContainer = styled(View)`
   width: 100%;
-  height: 15%;
+  height: 100px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  padding: 15px 0px;
+  justify-content: space-between;
+  padding: 15px;
 `;
 
 const StyledButton = styled(Button)`
   height: 100%;
+`;
+
+const StyledLastSong = styled(View)`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${({ theme }) => theme.greenD};
+  padding: 5px 0;
+  margin-top: 10px;
+  flex-grow: 1;
+`;
+
+const StyledSongTitle = styled(Paragraph)`
+  width: 40%;
+  font-size: 18px;
+  text-align: center;
+`;
+
+const StyledP = styled(Paragraph)`
+  width: 100%;
+`;
+
+const StyledStatsCon = styled(View)`
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledTitle = styled(Title)`
+  width: 100%;
+  text-align: center;
+`;
+
+const StyledSubtitle = styled(Title)`
+  font-size: 17px;
+  width: 100%;
+  text-align: center;
 `;
 
 const Songs = () => {
@@ -46,11 +84,65 @@ const Songs = () => {
 
   return (
     <StyledContainer>
-      <Title>Piosenki</Title>
+      <StyledTitle>Piosenki</StyledTitle>
       <StyledContainer>
-        <StyledContainer>
-          <Paragraph>Ostatnie piosenki</Paragraph>
-        </StyledContainer>
+        <>
+          <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
+          <StyledLastSong>
+            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
+            <StyledStatsCon>
+              <StyledP>Przesłuchania: 10120231</StyledP>
+              <StyledP>Zarobiła: 123103zł</StyledP>
+              <StyledP>Miejsce na liście: 190</StyledP>
+              <StyledP>Zdobytych fanów: 12312</StyledP>
+            </StyledStatsCon>
+          </StyledLastSong>
+          <StyledLastSong>
+            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
+            <StyledStatsCon>
+              <StyledP>Przesłuchania: 10120231</StyledP>
+              <StyledP>Zarobiła: 123103zł</StyledP>
+              <StyledP>Miejsce na liście: 190</StyledP>
+              <StyledP>Zdobytych fanów: 12312</StyledP>
+            </StyledStatsCon>
+          </StyledLastSong>
+          <StyledLastSong>
+            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
+            <StyledStatsCon>
+              <StyledP>Przesłuchania: 10120231</StyledP>
+              <StyledP>Zarobiła: 123103 zł</StyledP>
+              <StyledP>Miejsce na liście: 190</StyledP>
+              <StyledP>Zdobytych fanów: 12312</StyledP>
+            </StyledStatsCon>
+          </StyledLastSong>
+          <StyledLastSong>
+            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
+            <StyledStatsCon>
+              <StyledP>Przesłuchania: 10120231</StyledP>
+              <StyledP>Zarobiła: 123103 zł</StyledP>
+              <StyledP>Miejsce na liście: 190</StyledP>
+              <StyledP>Zdobytych fanów: 12312</StyledP>
+            </StyledStatsCon>
+          </StyledLastSong>
+          <StyledLastSong>
+            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
+            <StyledStatsCon>
+              <StyledP>Przesłuchania: 10120231</StyledP>
+              <StyledP>Zarobiła: 123103 zł</StyledP>
+              <StyledP>Miejsce na liście: 190</StyledP>
+              <StyledP>Zdobytych fanów: 12312</StyledP>
+            </StyledStatsCon>
+          </StyledLastSong>
+          <StyledLastSong>
+            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
+            <StyledStatsCon>
+              <StyledP>Przesłuchania: 10120231</StyledP>
+              <StyledP>Zarobiła: 123103 zł</StyledP>
+              <StyledP>Miejsce na liście: 190</StyledP>
+              <StyledP>Zdobytych fanów: 12312</StyledP>
+            </StyledStatsCon>
+          </StyledLastSong>
+        </>
         <StyledRowContainer>
           <StyledButton onPress={() => setOpenSong(!openSong)}>
             <Paragraph>Dodaj piosenkę</Paragraph>
@@ -60,6 +152,7 @@ const Songs = () => {
           </StyledButton>
         </StyledRowContainer>
       </StyledContainer>
+
       <AddSong
         open={openSong}
         setSong={setSong}
