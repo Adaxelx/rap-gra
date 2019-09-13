@@ -143,22 +143,6 @@ const labels = [
       cashIncrease: 3,
     },
   },
-  {
-    key: 6,
-    name: 'Krzywo6',
-    requaierments: {
-      fans: 20000,
-      reputation: 2000,
-      flow: 30,
-      style: 35,
-      rhymes: 35,
-    },
-    profits: {
-      fansIncrease: 3,
-      reputationIncrease: 3,
-      cashIncrease: 3,
-    },
-  },
 ];
 
 const Label = () => {
