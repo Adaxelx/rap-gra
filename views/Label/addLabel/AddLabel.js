@@ -10,14 +10,18 @@ const StyledAddPanel = styled(AddPanel)`
   padding: 40px;
 `;
 
-const AddLabel = ({ openAddLabel, onPress }) => {
+const AddLabel = ({ openAddLabel, onPress, setYourLabelName }) => {
   const [value, onChangeText] = React.useState('Nazwa twojej wytwórni');
+  const buttonFn = () => {
+    setYourLabelName(value);
+    onPress();
+  };
   return (
     <StyledAddPanel open={openAddLabel} onPress={onPress}>
       <Input onChangeText={text => onChangeText(text)} value={value} />
       <Paragraph>Koszt założenia własnej wytwórni to:</Paragraph>
-      <Button title="potwierdź">
-        <Text>potwierdź</Text>
+      <Button title="potwierdź" onPress={buttonFn}>
+        <Text>Potwierdź</Text>
       </Button>
     </StyledAddPanel>
   );

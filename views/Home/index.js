@@ -69,26 +69,6 @@ class Home extends React.Component {
     energy: 100,
   };
 
-  // displayFn = (value) => {
-  //   if(value >= 1000000){
-  //     return value.toString().substring(0,1) + "m"
-  //   }
-
-  //   else if(value >= 100000){
-  //     return value.toString().substring(0,3) + "k"
-  //   }
-
-  //   else if(value >= 10000){
-  //     return value.toString().substring(0,2) + "k"
-  //   }
-
-  //   else if(value >= 1000){
-  //     return value.toString().substring(0,1) + "k"
-  //   }
-
-  //   else return value
-  // }
-
   render() {
     const { flow, style, rhymes, nick, cash, reputation, fans, energy } = this.state;
     return (
