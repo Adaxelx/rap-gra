@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import styled from 'styled-components';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
@@ -10,6 +10,7 @@ import { Title } from 'rap-gra/components/Title';
 import { Button } from 'rap-gra/components/Button';
 import { Link } from 'react-router-native';
 import { RowContainer } from 'rap-gra/components/RowContainer';
+import ListItem from 'rap-gra/views/Songs/ListItem';
 
 const StyledContainer = styled(ScrollView)`
   flex-grow: 1;
@@ -25,31 +26,6 @@ const StyledRowContainer = styled(RowContainer)`
 
 const StyledButton = styled(Button)`
   height: 100%;
-`;
-
-const StyledLastSong = styled(RowContainer)`
-  width: 100%;
-  justify-content: space-between;
-  background-color: ${({ theme }) => theme.greenD};
-  padding: 5px 0;
-  margin-top: 10px;
-  flex-grow: 1;
-`;
-
-const StyledSongTitle = styled(Paragraph)`
-  width: 40%;
-  font-size: 18px;
-  text-align: center;
-`;
-
-const StyledP = styled(Paragraph)`
-  width: 100%;
-`;
-
-const StyledStatsCon = styled(View)`
-  width: 60%;
-  display: flex;
-  flex-direction: column;
 `;
 
 const StyledTitle = styled(Title)`
@@ -68,6 +44,45 @@ const StyledLink = styled(Link)`
   padding: 5px;
 `;
 
+const data = [
+  {
+    type: 'song',
+    title: 'Piosenka5',
+    value: '120232',
+    earnings: '12313123',
+    place: '210',
+    fans: '12344',
+    rate: '9/10',
+  },
+  {
+    type: 'song',
+    title: 'Piosenka4',
+    value: '120232',
+    earnings: '12313123',
+    place: '210',
+    fans: '12344',
+    rate: '9/10',
+  },
+  {
+    type: 'song',
+    title: 'Piosenka3',
+    value: '120232',
+    earnings: '12313123',
+    place: '210',
+    fans: '12344',
+    rate: '9/10',
+  },
+  {
+    type: 'record',
+    title: 'Piosenka2',
+    value: '120232',
+    earnings: '12313123',
+    place: '210',
+    fans: '12344',
+    rate: '9/10',
+  },
+];
+
 const Songs = () => {
   const [openSong, setOpenSong] = useState(false);
   const [song, setSong] = useState({ full: false });
@@ -85,12 +100,24 @@ const Songs = () => {
 
   const [id, setId] = useState([]);
 
+  const mapData = data.map(i => (
+    <ListItem
+      key={i.title}
+      title={i.title}
+      place={i.place}
+      type={i.type}
+      value={i.value}
+      earnings={i.earnings}
+      fans={i.fans}
+      rate={i.rate}
+    />
+  ));
+
   return (
-    <StyledContainer>
+    <StyledContainer id={id}>
       <StyledTitle>Piosenki</StyledTitle>
       <StyledContainer>
         <>
-          <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
           <RowContainer>
             <StyledLink underlayColor="transparent" to="/allsongs">
               <Paragraph>Wszystkie piosenki</Paragraph>
@@ -99,61 +126,8 @@ const Songs = () => {
               <Paragraph>Wszystkie płyty</Paragraph>
             </StyledLink>
           </RowContainer>
-          <StyledLastSong>
-            <Paragraph>{id}</Paragraph>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103 zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103 zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103 zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103 zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
+          <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
+          {mapData}
         </>
         <StyledRowContainer>
           <StyledButton onPress={() => setOpenSong(!openSong)}>

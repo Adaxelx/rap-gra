@@ -18,7 +18,7 @@ const StyledLink = styled(Link)`
   padding: 5px;
 `;
 
-const AllItemsTemplate = ({ children, title }) => {
+const AllItemsTemplate = ({ children, title, onChangeText, value }) => {
   return (
     <StyledContainer>
       <Title>{title}</Title>
@@ -26,7 +26,7 @@ const AllItemsTemplate = ({ children, title }) => {
         <StyledLink underlayColor="transparent" to="/songs">
           <Paragraph>Wstecz</Paragraph>
         </StyledLink>
-        <Input />
+        <Input onChangeText={onChangeText} value={value} />
       </RowContainer>
       <>{children}</>
     </StyledContainer>
