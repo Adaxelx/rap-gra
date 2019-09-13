@@ -46,7 +46,7 @@ const LabelDetails = ({
       <Paragraph>Przyrost Kasy: {clickedLabelProfits.cashIncrease}x</Paragraph>
 
       <Button onPress={buttonFn}>
-        <Text>Wyślij CV</Text>
+        <Text>Dołącz</Text>
       </Button>
     </StyledAddPanelTemplate>
   );
