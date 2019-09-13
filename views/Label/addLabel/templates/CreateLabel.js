@@ -15,8 +15,8 @@ const StyledWrapper = styled(View)`
   align-content: center;
 `;
 
-const AddLabel = ({ setYourLabelName, setCurrentLabel, onPress }) => {
-  const [value, onChangeText] = React.useState('Nazwa twojej wytwórni');
+const CreateLabel = ({ setYourLabelName, setCurrentLabel, onPress }) => {
+  const [value, onChangeText] = React.useState('Nazwa wytwórni');
   const buttonFn = () => {
     setYourLabelName(value);
     setCurrentLabel(value);
@@ -33,4 +33,4 @@ const AddLabel = ({ setYourLabelName, setCurrentLabel, onPress }) => {
   );
 };
 
-export default AddLabel;
+export default CreateLabel;

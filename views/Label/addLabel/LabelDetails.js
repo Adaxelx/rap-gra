@@ -6,11 +6,6 @@ import { Title } from 'rap-gra/components/Title';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Button } from 'rap-gra/components/Button';
 
-const StyledAddPanelTemplate = styled(AddPanelTemplate)`
-  top: 0;
-  justify-content: space-between;
-`;
-
 const StyledParagraph = styled(Paragraph)`
   margin-top: 10px;
   font-size: 20px;
@@ -30,7 +25,7 @@ const LabelDetails = ({
   };
 
   return (
-    <StyledAddPanelTemplate open={openLabelDetails} onPress={onPress}>
+    <AddPanelTemplate open={openLabelDetails} onPress={onPress} top>
       <Title>{clickedLabelName}</Title>
       <StyledParagraph>Wymagania: </StyledParagraph>
       <Paragraph>Fani: {clickedLabelRequaierments.fans}</Paragraph>
@@ -48,7 +43,7 @@ const LabelDetails = ({
       <Button onPress={buttonFn}>
         <Text>Dołącz</Text>
       </Button>
-    </StyledAddPanelTemplate>
+    </AddPanelTemplate>
   );
 };
 

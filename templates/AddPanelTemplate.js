@@ -6,7 +6,7 @@ import { Paragraph } from 'rap-gra/components/Paragraph';
 const StyledContainer = styled(View)`
   position: absolute;
   color: ${({ theme }) => theme.fontColor};
-  bottom: 20;
+  ${({ top }) => (top ? 'top:20' : 'bottom:20')};
   left: 20;
   right: 20;
   height: ${`${Dimensions.get('window').height - 125}px`};
@@ -59,10 +59,10 @@ const StyledLabel = styled(Paragraph)`
   font-size: 25px;
 `;
 
-const AddPanelTemplate = ({ children, open, onPress }) => (
+const AddPanelTemplate = ({ children, open, onPress, top }) => (
   <>
     <StyledCurtain open={open} />
-    <StyledContainer open={open}>
+    <StyledContainer open={open} top={top}>
       <StyledCloseButton onPress={onPress} outline>
         <>
           <StyledLabel>X</StyledLabel>
