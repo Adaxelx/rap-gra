@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import styled from 'styled-components';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
@@ -8,54 +8,24 @@ import AddRecord from 'rap-gra/views/Songs/addPanels/AddRecord';
 import AddSongRec from 'rap-gra/views/Songs/addPanels/AddSongRec';
 import { Title } from 'rap-gra/components/Title';
 import { Button } from 'rap-gra/components/Button';
+import { Link } from 'react-router-native';
+import { RowContainer } from 'rap-gra/components/RowContainer';
+import ListItem from 'rap-gra/views/Songs/ListItem';
 
 const StyledContainer = styled(ScrollView)`
   flex-grow: 1;
   width: 100%;
-  display: flex;
-  flex-direction: column;
   background-color: ${({ theme }) => theme.greenL};
 `;
 
-const StyledRowContainer = styled(View)`
+const StyledRowContainer = styled(RowContainer)`
   width: 100%;
   height: 100px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   padding: 15px;
 `;
 
 const StyledButton = styled(Button)`
   height: 100%;
-`;
-
-const StyledLastSong = styled(View)`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background-color: ${({ theme }) => theme.greenD};
-  padding: 5px 0;
-  margin-top: 10px;
-  flex-grow: 1;
-`;
-
-const StyledSongTitle = styled(Paragraph)`
-  width: 40%;
-  font-size: 18px;
-  text-align: center;
-`;
-
-const StyledP = styled(Paragraph)`
-  width: 100%;
-`;
-
-const StyledStatsCon = styled(View)`
-  width: 60%;
-  display: flex;
-  flex-direction: column;
 `;
 
 const StyledTitle = styled(Title)`
@@ -68,6 +38,50 @@ const StyledSubtitle = styled(Title)`
   width: 100%;
   text-align: center;
 `;
+
+const StyledLink = styled(Link)`
+  border: 2px solid ${({ theme }) => theme.greenD};
+  padding: 5px;
+`;
+
+const data = [
+  {
+    type: 'song',
+    title: 'Piosenka5',
+    value: '120232',
+    earnings: '12313123',
+    place: '210',
+    fans: '12344',
+    rate: '9/10',
+  },
+  {
+    type: 'song',
+    title: 'Piosenka4',
+    value: '120232',
+    earnings: '12313123',
+    place: '210',
+    fans: '12344',
+    rate: '9/10',
+  },
+  {
+    type: 'song',
+    title: 'Piosenka3',
+    value: '120232',
+    earnings: '12313123',
+    place: '210',
+    fans: '12344',
+    rate: '9/10',
+  },
+  {
+    type: 'record',
+    title: 'Piosenka2',
+    value: '120232',
+    earnings: '12313123',
+    place: '210',
+    fans: '12344',
+    rate: '9/10',
+  },
+];
 
 const Songs = () => {
   const [openSong, setOpenSong] = useState(false);
@@ -82,66 +96,38 @@ const Songs = () => {
   const [fullRec, setFullRec] = useState({});
   const [openRecSub, setOpenRecSub] = useState(false);
 
+  /* */
+
+  const [id, setId] = useState([]);
+
+  const mapData = data.map(i => (
+    <ListItem
+      key={i.title}
+      title={i.title}
+      place={i.place}
+      type={i.type}
+      value={i.value}
+      earnings={i.earnings}
+      fans={i.fans}
+      rate={i.rate}
+    />
+  ));
+
   return (
-    <StyledContainer>
+    <StyledContainer id={id}>
       <StyledTitle>Piosenki</StyledTitle>
       <StyledContainer>
         <>
+          <RowContainer>
+            <StyledLink underlayColor="transparent" to="/allsongs">
+              <Paragraph>Wszystkie piosenki</Paragraph>
+            </StyledLink>
+            <StyledLink underlayColor="transparent" to="/allrecords">
+              <Paragraph>Wszystkie płyty</Paragraph>
+            </StyledLink>
+          </RowContainer>
           <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103 zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103 zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103 zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
-          <StyledLastSong>
-            <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
-            <StyledStatsCon>
-              <StyledP>Przesłuchania: 10120231</StyledP>
-              <StyledP>Zarobiła: 123103 zł</StyledP>
-              <StyledP>Miejsce na liście: 190</StyledP>
-              <StyledP>Zdobytych fanów: 12312</StyledP>
-            </StyledStatsCon>
-          </StyledLastSong>
+          {mapData}
         </>
         <StyledRowContainer>
           <StyledButton onPress={() => setOpenSong(!openSong)}>
@@ -181,6 +167,7 @@ const Songs = () => {
         rec={rec}
         fullRec={fullRec}
         openAddRec={() => setOpenRec(!openRec)}
+        setId={setId}
       />
     </StyledContainer>
   );
