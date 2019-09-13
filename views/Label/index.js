@@ -8,7 +8,6 @@ import AddLabel from './addLabel/AddLabel';
 import LabelDetails from './addLabel/LabelDetails';
 
 const StyledWrapper = styled(ScrollView)`
-  min-height: 100%;
   width: 100%;
   background-color: ${({ theme }) => theme.greenL};
   padding-bottom: 200px;
@@ -187,10 +186,6 @@ const Label = () => {
       <StyledText>Nazwa twojej wytrwórni: {yourLabelName}</StyledText>
       <StyledText>Kliknięta wytrwórnia: {clickedLabelName}</StyledText>
 
-      <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
-        <StyledText>+ Załóż własną wytwórnię</StyledText>
-      </StyledButton>
-
       {labels.map(label => (
         <StyledLabelTile key={label.key} onPress={() => buttonFn(label)}>
           <Title>{label.name}</Title>
@@ -206,10 +201,18 @@ const Label = () => {
         </StyledLabelTile>
       ))}
 
+      <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
+        <StyledText>
+          {yourLabelName ? 'Zarządzaj wytwórnią' : '+ Załóż własną wytwórnię'}
+        </StyledText>
+      </StyledButton>
+
       <AddLabel
         openAddLabel={openAddLabel}
         onPress={() => setAddLabel(!openAddLabel)}
         setYourLabelName={setYourLabelName}
+        yourLabelName={yourLabelName}
+        setCurrentLabel={setCurrentLabel}
       />
       <LabelDetails
         openLabelDetails={openLabelDetails}
