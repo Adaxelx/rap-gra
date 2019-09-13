@@ -8,21 +8,18 @@ import AddRecord from 'rap-gra/views/Songs/addPanels/AddRecord';
 import AddSongRec from 'rap-gra/views/Songs/addPanels/AddSongRec';
 import { Title } from 'rap-gra/components/Title';
 import { Button } from 'rap-gra/components/Button';
+import { Link } from 'react-router-native';
+import { RowContainer } from 'rap-gra/components/RowContainer';
 
 const StyledContainer = styled(ScrollView)`
   flex-grow: 1;
   width: 100%;
-  display: flex;
-  flex-direction: column;
   background-color: ${({ theme }) => theme.greenL};
 `;
 
-const StyledRowContainer = styled(View)`
+const StyledRowContainer = styled(RowContainer)`
   width: 100%;
   height: 100px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   padding: 15px;
 `;
 
@@ -30,12 +27,9 @@ const StyledButton = styled(Button)`
   height: 100%;
 `;
 
-const StyledLastSong = styled(View)`
+const StyledLastSong = styled(RowContainer)`
   width: 100%;
-  display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
   background-color: ${({ theme }) => theme.greenD};
   padding: 5px 0;
   margin-top: 10px;
@@ -69,6 +63,11 @@ const StyledSubtitle = styled(Title)`
   text-align: center;
 `;
 
+const StyledLink = styled(Link)`
+  border: 2px solid ${({ theme }) => theme.greenD};
+  padding: 5px;
+`;
+
 const Songs = () => {
   const [openSong, setOpenSong] = useState(false);
   const [song, setSong] = useState({ full: false });
@@ -92,6 +91,14 @@ const Songs = () => {
       <StyledContainer>
         <>
           <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
+          <RowContainer>
+            <StyledLink underlayColor="transparent" to="/allsongs">
+              <Paragraph>Wszystkie piosenki</Paragraph>
+            </StyledLink>
+            <StyledLink underlayColor="transparent" to="/allrecords">
+              <Paragraph>Wszystkie płyty</Paragraph>
+            </StyledLink>
+          </RowContainer>
           <StyledLastSong>
             <Paragraph>{id}</Paragraph>
             <StyledSongTitle>Tytuł piosenki</StyledSongTitle>
