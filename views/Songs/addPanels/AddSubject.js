@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
@@ -39,37 +39,35 @@ const StyledButton = styled(Button)`
   height: 100%;
 `;
 
+const subjects = ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'];
+
 const AddSubject = ({ open, onPress, openAddSong, song, setFullSong }) => {
   const handleBack = () => {
     onPress();
     openAddSong();
   };
 
+  const [subj, setSubj] = useState('');
+
   const saveData = () => {
     setFullSong({
       ...song,
       full: true,
-      subject: 'Miłość',
+      subject: subj,
     });
     onPress();
   };
+
+  const setData = subjects.map(sub => (
+    <StyledSubject key={sub} onPress={() => setSubj(sub)}>
+      <Paragraph>{sub}</Paragraph>
+    </StyledSubject>
+  ));
   return (
     <AddPanel open={open} onPress={onPress}>
       <Title>Wybierz temat</Title>
-      <StyledContainer>
-        <StyledSubject>
-          <Paragraph>Miłość</Paragraph>
-        </StyledSubject>
-        <StyledSubject>
-          <Paragraph>Miłość</Paragraph>
-        </StyledSubject>
-        <StyledSubject>
-          <Paragraph>Miłość</Paragraph>
-        </StyledSubject>
-        <StyledSubject>
-          <Paragraph>Miłość</Paragraph>
-        </StyledSubject>
-      </StyledContainer>
+      <Paragraph>{`Wybrany temat to: ${subj}`}</Paragraph>
+      <StyledContainer>{setData}</StyledContainer>
       <StyledRowContainer>
         <StyledButton onPress={handleBack}>
           <Paragraph>Wstecz</Paragraph>

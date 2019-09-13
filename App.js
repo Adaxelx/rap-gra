@@ -6,6 +6,8 @@ import Home from 'rap-gra/views/Home';
 import Songs from 'rap-gra/views/Songs';
 import Concerts from 'rap-gra/views/Concerts';
 import Label from 'rap-gra/views/Label';
+import AllSongs from 'rap-gra/views/Songs/AllSongs';
+import AllRecords from 'rap-gra/views/Songs/AllRecords';
 import MainTemplate from 'rap-gra/templates/MainTemplate';
 
 const App = () => (
@@ -16,6 +18,8 @@ const App = () => (
         <Route exact path="/songs" component={Songs} />
         <Route exact path="/concerts" component={Concerts} />
         <Route exact path="/label" component={Label} />
+        <Route exact path="/allsongs" component={AllSongs} />
+        <Route exact path="/allrecords" component={AllRecords} />
       </MainTemplate>
     </ThemeProvider>
   </NativeRouter>
