@@ -7,8 +7,18 @@ import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Button } from 'rap-gra/components/Button';
 
 const StyledParagraph = styled(Paragraph)`
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-size: 25px;
+`;
+
+const StyledText = styled(Text)`
   font-size: 20px;
+  color: ${({ theme }) => theme.fontColor};
+`;
+
+const StyledTitle = styled(Title)`
+  font-size: 30px;
 `;
 
 const LabelDetails = ({
@@ -26,22 +36,22 @@ const LabelDetails = ({
 
   return (
     <AddPanelTemplate open={openLabelDetails} onPress={onPress} top>
-      <Title>{clickedLabelName}</Title>
+      <StyledTitle>{clickedLabelName}</StyledTitle>
       <StyledParagraph>Wymagania: </StyledParagraph>
-      <Paragraph>Fani: {clickedLabelRequaierments.fans}</Paragraph>
-      <Paragraph>Reputacja: {clickedLabelRequaierments.reputation}</Paragraph>
-      <Paragraph>
+      <StyledText>Fani: {clickedLabelRequaierments.fans}</StyledText>
+      <StyledText>Reputacja: {clickedLabelRequaierments.reputation}</StyledText>
+      <StyledText>
         Flow: {clickedLabelRequaierments.flow} Styl: {clickedLabelRequaierments.style} Rymy:{' '}
         {clickedLabelRequaierments.rhymes}
-      </Paragraph>
+      </StyledText>
 
       <StyledParagraph>Przywileje: </StyledParagraph>
-      <Paragraph>Przyrost Fanów: {clickedLabelProfits.fansIncrease}x</Paragraph>
-      <Paragraph>Przyrost Reputacji: {clickedLabelProfits.reputationIncrease}x</Paragraph>
-      <Paragraph>Przyrost Kasy: {clickedLabelProfits.cashIncrease}x</Paragraph>
+      <StyledText>Przyrost Fanów: {clickedLabelProfits.fansIncrease}x</StyledText>
+      <StyledText>Przyrost Reputacji: {clickedLabelProfits.reputationIncrease}x</StyledText>
+      <StyledText>Przyrost Kasy: {clickedLabelProfits.cashIncrease}x</StyledText>
 
       <Button onPress={buttonFn}>
-        <Text>Dołącz</Text>
+        <StyledText>Dołącz</StyledText>
       </Button>
     </AddPanelTemplate>
   );
