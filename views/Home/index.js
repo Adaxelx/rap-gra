@@ -50,7 +50,7 @@ const StyledStatValue = styled(Text)`
   /* margin: 10px 0 0 0; */
   display: flex;
   text-align: center;
-  flex-basis: 25%;
+  flex-basis: 33.33333%;
   /* position: absolute;
   top: 5%;
   right: 5%; */
@@ -66,17 +66,15 @@ class Home extends React.Component {
     cash: 1000000,
     reputation: 900,
     fans: 150000,
-    energy: 100,
   };
 
   render() {
-    const { flow, style, rhymes, nick, cash, reputation, fans, energy } = this.state;
+    const { flow, style, rhymes, nick, cash, reputation, fans } = this.state;
     return (
       <StyledWrapper>
         <StyledTitle>Statystyki</StyledTitle>
         <StyledStatValue>reputacja: {reputation}</StyledStatValue>
         <StyledStatValue>fani: {fans}</StyledStatValue>
-        <StyledStatValue>energia: {energy}%</StyledStatValue>
         <StyledStatValue>{cash} $</StyledStatValue>
         <StyledStats>
           <StyledNick>{nick}</StyledNick>

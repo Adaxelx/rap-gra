@@ -6,14 +6,19 @@ import { Title } from 'rap-gra/components/Title';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Button } from 'rap-gra/components/Button';
 
-const StyledAddPanelTemplate = styled(AddPanelTemplate)`
-  top: 0;
-  justify-content: space-between;
+const StyledParagraph = styled(Paragraph)`
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-size: 25px;
 `;
 
-const StyledParagraph = styled(Paragraph)`
-  margin-top: 10px;
+const StyledText = styled(Text)`
   font-size: 20px;
+  color: ${({ theme }) => theme.fontColor};
+`;
+
+const StyledTitle = styled(Title)`
+  font-size: 30px;
 `;
 
 const LabelDetails = ({
@@ -30,25 +35,25 @@ const LabelDetails = ({
   };
 
   return (
-    <StyledAddPanelTemplate open={openLabelDetails} onPress={onPress}>
-      <Title>{clickedLabelName}</Title>
+    <AddPanelTemplate open={openLabelDetails} onPress={onPress} top>
+      <StyledTitle>{clickedLabelName}</StyledTitle>
       <StyledParagraph>Wymagania: </StyledParagraph>
-      <Paragraph>Fani: {clickedLabelRequaierments.fans}</Paragraph>
-      <Paragraph>Reputacja: {clickedLabelRequaierments.reputation}</Paragraph>
-      <Paragraph>
+      <StyledText>Fani: {clickedLabelRequaierments.fans}</StyledText>
+      <StyledText>Reputacja: {clickedLabelRequaierments.reputation}</StyledText>
+      <StyledText>
         Flow: {clickedLabelRequaierments.flow} Styl: {clickedLabelRequaierments.style} Rymy:{' '}
         {clickedLabelRequaierments.rhymes}
-      </Paragraph>
+      </StyledText>
 
       <StyledParagraph>Przywileje: </StyledParagraph>
-      <Paragraph>Przyrost Fanów: {clickedLabelProfits.fansIncrease}x</Paragraph>
-      <Paragraph>Przyrost Reputacji: {clickedLabelProfits.reputationIncrease}x</Paragraph>
-      <Paragraph>Przyrost Kasy: {clickedLabelProfits.cashIncrease}x</Paragraph>
+      <StyledText>Przyrost Fanów: {clickedLabelProfits.fansIncrease}x</StyledText>
+      <StyledText>Przyrost Reputacji: {clickedLabelProfits.reputationIncrease}x</StyledText>
+      <StyledText>Przyrost Kasy: {clickedLabelProfits.cashIncrease}x</StyledText>
 
       <Button onPress={buttonFn}>
-        <Text>Wyślij CV</Text>
+        <StyledText>Dołącz</StyledText>
       </Button>
-    </StyledAddPanelTemplate>
+    </AddPanelTemplate>
   );
 };
 
