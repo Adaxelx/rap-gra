@@ -6,9 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12af8f15-968c-4d50-aa51-561382fd01fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Label/addLabel/LabelDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Label/addLabel/LabelDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Label/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Label/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Concerts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Concerts/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,10 +21,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="793" />
-
     <option name="x" value="7" />
     <option name="y" value="88" />
     <option name="width" value="1400" />
@@ -83,8 +77,6 @@
       <window_info id="Resources Explorer" order="7" weight="0.3298969" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Version Control" order="0" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="1" visible="true" weight="0.31241083" />
-
       <window_info anchor="bottom" id="Logcat" order="1" visible="true" weight="0.14903846" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" />
