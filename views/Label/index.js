@@ -51,6 +51,8 @@ const labels = [
   {
     key: 0,
     name: 'B.O.Ł Łecołds',
+    history:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     requaierments: {
       fans: 10000,
       reputation: 1000,
@@ -67,6 +69,8 @@ const labels = [
   {
     key: 1,
     name: 'Krzywo Label',
+    history:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     requaierments: {
       fans: 20000,
       reputation: 2000,
@@ -83,6 +87,8 @@ const labels = [
   {
     key: 2,
     name: 'Krzywo2',
+    history:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     requaierments: {
       fans: 20000,
       reputation: 2000,
@@ -99,6 +105,8 @@ const labels = [
   {
     key: 3,
     name: 'Krzywo3',
+    history:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     requaierments: {
       fans: 20000,
       reputation: 2000,
@@ -115,6 +123,8 @@ const labels = [
   {
     key: 4,
     name: 'Krzywo4',
+    history:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     requaierments: {
       fans: 20000,
       reputation: 2000,
@@ -131,6 +141,8 @@ const labels = [
   {
     key: 5,
     name: 'Krzywo5',
+    history:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     requaierments: {
       fans: 20000,
       reputation: 2000,
@@ -151,6 +163,7 @@ const Label = () => {
   const [openLabelDetails, setLabelDetails] = useState(false);
   const [yourLabelName, setYourLabelName] = useState('');
   const [clickedLabelName, setClickedLabelName] = useState('');
+  const [clickedLabelHistory, setClickedLabelHistory] = useState('');
   const [clickedLabelRequaierments, setClickedLabelRequaierments] = useState('');
   const [clickedLabelProfits, setClickedLabelProfits] = useState('');
 
@@ -159,6 +172,7 @@ const Label = () => {
   const buttonFn = label => {
     setLabelDetails(!openLabelDetails);
     setClickedLabelName(label.name);
+    setClickedLabelHistory(label.history);
     setClickedLabelRequaierments(label.requaierments);
     setClickedLabelProfits(label.profits);
   };
@@ -204,6 +218,7 @@ const Label = () => {
             openLabelDetails={openLabelDetails}
             onPress={() => setLabelDetails(!openLabelDetails)}
             clickedLabelName={clickedLabelName}
+            clickedLabelHistory={clickedLabelHistory}
             clickedLabelRequaierments={clickedLabelRequaierments}
             clickedLabelProfits={clickedLabelProfits}
             labelFn={context.labelFn}

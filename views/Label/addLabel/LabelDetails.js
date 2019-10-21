@@ -12,6 +12,12 @@ const StyledParagraph = styled(Paragraph)`
   font-size: 25px;
 `;
 
+const StyledParagraphHistory = styled(Paragraph)`
+  font-size: 15px;
+  text-align: justify;
+  margin: 0 10px;
+`;
+
 const StyledText = styled(Text)`
   font-size: 20px;
   color: ${({ theme }) => theme.fontColor};
@@ -25,6 +31,7 @@ const LabelDetails = ({
   openLabelDetails,
   onPress,
   clickedLabelName,
+  clickedLabelHistory,
   clickedLabelRequaierments,
   clickedLabelProfits,
   labelFn,
@@ -37,6 +44,7 @@ const LabelDetails = ({
   return (
     <AddPanelTemplate open={openLabelDetails} onPress={onPress} top>
       <StyledTitle>{clickedLabelName}</StyledTitle>
+      <StyledParagraphHistory>{clickedLabelHistory}</StyledParagraphHistory>
       <StyledParagraph>Wymagania: </StyledParagraph>
       <StyledText>Fani: {clickedLabelRequaierments.fans}</StyledText>
       <StyledText>Reputacja: {clickedLabelRequaierments.reputation}</StyledText>
