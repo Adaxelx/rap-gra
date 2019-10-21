@@ -15,6 +15,7 @@ import MainTemplate from 'rap-gra/templates/MainTemplate';
 
 class App extends React.Component {
   state = {
+    // stats
     flow: 25,
     style: 95,
     rhymes: 92,
@@ -22,12 +23,23 @@ class App extends React.Component {
     cash: 1000000,
     reputation: 9000,
     fans: 150000,
+    // label
+    currentLabel: '',
+  };
+
+  labelFn = value => {
+    this.setState({ currentLabel: value });
   };
 
   render() {
     return (
       <NativeRouter>
-        <AppContext.Provider value={this.state}>
+        <AppContext.Provider
+          value={{
+            state: this.state,
+            labelFn: this.labelFn,
+          }}
+        >
           <ThemeProvider theme={theme}>
             <MainTemplate>
               <Route exact path="/" component={Home} />

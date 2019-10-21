@@ -27,10 +27,10 @@ const LabelDetails = ({
   clickedLabelName,
   clickedLabelRequaierments,
   clickedLabelProfits,
-  setCurrentLabel,
+  labelFn,
 }) => {
   const buttonFn = () => {
-    setCurrentLabel(clickedLabelName);
+    labelFn(clickedLabelName);
     onPress();
   };
 

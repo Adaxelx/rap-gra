@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import AppContext from 'rap-gra/context/context';
 import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Title } from 'rap-gra/components/Title';
 import { Paragraph } from 'rap-gra/components/Paragraph';
@@ -152,7 +153,6 @@ const Label = () => {
   const [clickedLabelName, setClickedLabelName] = useState('');
   const [clickedLabelRequaierments, setClickedLabelRequaierments] = useState('');
   const [clickedLabelProfits, setClickedLabelProfits] = useState('');
-  const [currentLabel, setCurrentLabel] = useState('');
 
   // const [currentLabelName, setCurrentLabelName] = useState('');
 
@@ -164,49 +164,53 @@ const Label = () => {
   };
 
   return (
-    <StyledWrapper>
-      <StyledTitle>Wytwórnie</StyledTitle>
-      <StyledText>Obecna wytwórnia: {currentLabel}</StyledText>
-      <StyledText>Nazwa twojej wytrwórni: {yourLabelName}</StyledText>
-      <StyledText>Kliknięta wytrwórnia: {clickedLabelName}</StyledText>
+    <AppContext.Consumer>
+      {context => (
+        <StyledWrapper>
+          <StyledTitle>Wytwórnie</StyledTitle>
+          <StyledText>Obecna wytwórnia: {context.state.currentLabel}</StyledText>
+          <StyledText>Nazwa twojej wytrwórni: {yourLabelName}</StyledText>
+          <StyledText>Kliknięta wytrwórnia: {clickedLabelName}</StyledText>
 
-      {labels.map(label => (
-        <StyledLabelTile key={label.key} onPress={() => buttonFn(label)}>
-          <Title>{label.name}</Title>
-          <View>
-            <Paragraph>Wymagania: </Paragraph>
-            <Paragraph>Fani: {label.requaierments.fans}</Paragraph>
-            <Paragraph>Reputacja: {label.requaierments.reputation}</Paragraph>
-            <Paragraph>
-              Flow: {label.requaierments.flow} Styl: {label.requaierments.style} Rymy:{' '}
-              {label.requaierments.rhymes}
-            </Paragraph>
-          </View>
-        </StyledLabelTile>
-      ))}
+          {labels.map(label => (
+            <StyledLabelTile key={label.key} onPress={() => buttonFn(label)}>
+              <Title>{label.name}</Title>
+              <View>
+                <Paragraph>Wymagania: </Paragraph>
+                <Paragraph>Fani: {label.requaierments.fans}</Paragraph>
+                <Paragraph>Reputacja: {label.requaierments.reputation}</Paragraph>
+                <Paragraph>
+                  Flow: {label.requaierments.flow} Styl: {label.requaierments.style} Rymy:{' '}
+                  {label.requaierments.rhymes}
+                </Paragraph>
+              </View>
+            </StyledLabelTile>
+          ))}
 
-      <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
-        <StyledText>
-          {yourLabelName ? 'Zarządzaj wytwórnią' : '+ Załóż własną wytwórnię'}
-        </StyledText>
-      </StyledButton>
+          <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
+            <StyledText>
+              {yourLabelName ? 'Zarządzaj wytwórnią' : '+ Załóż własną wytwórnię'}
+            </StyledText>
+          </StyledButton>
 
-      <AddLabel
-        openAddLabel={openAddLabel}
-        onPress={() => setAddLabel(!openAddLabel)}
-        setYourLabelName={setYourLabelName}
-        yourLabelName={yourLabelName}
-        setCurrentLabel={setCurrentLabel}
-      />
-      <LabelDetails
-        openLabelDetails={openLabelDetails}
-        onPress={() => setLabelDetails(!openLabelDetails)}
-        clickedLabelName={clickedLabelName}
-        clickedLabelRequaierments={clickedLabelRequaierments}
-        clickedLabelProfits={clickedLabelProfits}
-        setCurrentLabel={setCurrentLabel}
-      />
-    </StyledWrapper>
+          <AddLabel
+            openAddLabel={openAddLabel}
+            onPress={() => setAddLabel(!openAddLabel)}
+            setYourLabelName={setYourLabelName}
+            yourLabelName={yourLabelName}
+            labelFn={context.labelFn}
+          />
+          <LabelDetails
+            openLabelDetails={openLabelDetails}
+            onPress={() => setLabelDetails(!openLabelDetails)}
+            clickedLabelName={clickedLabelName}
+            clickedLabelRequaierments={clickedLabelRequaierments}
+            clickedLabelProfits={clickedLabelProfits}
+            labelFn={context.labelFn}
+          />
+        </StyledWrapper>
+      )}
+    </AppContext.Consumer>
   );
 };
 export default Label;

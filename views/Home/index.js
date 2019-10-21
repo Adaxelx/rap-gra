@@ -63,14 +63,14 @@ const Home = () => (
     {context => (
       <StyledWrapper>
         <StyledTitle>Statystyki</StyledTitle>
-        <StyledStatValue>reputacja: {context.reputation}</StyledStatValue>
-        <StyledStatValue>fani: {context.fans}</StyledStatValue>
-        <StyledStatValue>{context.cash} $</StyledStatValue>
+        <StyledStatValue>reputacja: {context.state.reputation}</StyledStatValue>
+        <StyledStatValue>fani: {context.state.fans}</StyledStatValue>
+        <StyledStatValue>{context.state.cash} $</StyledStatValue>
         <StyledStats>
-          <StyledNick>{context.nick}</StyledNick>
-          <ProgressBar name="flow" progress={context.flow} />
-          <ProgressBar name="styl" progress={context.style} />
-          <ProgressBar name="rymy" progress={context.rhymes} />
+          <StyledNick>{context.state.nick}</StyledNick>
+          <ProgressBar name="flow" progress={context.state.flow} />
+          <ProgressBar name="styl" progress={context.state.style} />
+          <ProgressBar name="rymy" progress={context.state.rhymes} />
           <Avatar source={require('../../assets/avatar.png')} />
         </StyledStats>
       </StyledWrapper>
