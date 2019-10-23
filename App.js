@@ -16,13 +16,15 @@ import MainTemplate from 'rap-gra/templates/MainTemplate';
 class App extends React.Component {
   state = {
     // stats
-    flow: 25,
-    style: 95,
-    rhymes: 92,
     nick: 'Young Krawczyk',
     cash: 1000000,
-    reputation: 9000,
-    fans: 150000,
+    stats: {
+      fans: 150000,
+      reputation: 1500,
+      flow: 25,
+      style: 95,
+      rhymes: 92,
+    },
     // label
     currentLabel: '',
   };

@@ -222,6 +222,7 @@ const Label = () => {
             clickedLabelRequaierments={clickedLabelRequaierments}
             clickedLabelProfits={clickedLabelProfits}
             labelFn={context.labelFn}
+            stats={context.state.stats}
           />
         </StyledWrapper>
       )}
