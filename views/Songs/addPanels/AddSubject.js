@@ -41,7 +41,7 @@ const StyledButton = styled(Button)`
 
 const subjects = ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'];
 
-const AddSubject = ({ visible, onPress, openAddSong, song, setFullSong }) => {
+const AddSubject = ({ open, onPress, openAddSong, song, setFullSong }) => {
   const handleBack = () => {
     onPress();
     openAddSong();
@@ -64,7 +64,7 @@ const AddSubject = ({ visible, onPress, openAddSong, song, setFullSong }) => {
     </StyledSubject>
   ));
   return (
-    <AddPanel visible={visible} onPress={onPress}>
+    <AddPanel open={open} onPress={onPress}>
       <Title>Wybierz temat</Title>
       <Paragraph>{`Wybrany temat to: ${subj}`}</Paragraph>
       <StyledContainer>{setData}</StyledContainer>
