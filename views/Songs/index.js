@@ -20,7 +20,7 @@ const StyledContainer = styled(ScrollView)`
 
 const StyledRowContainer = styled(RowContainer)`
   width: 100%;
-  height: 100px;
+  height: 70px;
   padding: 15px;
 `;
 
@@ -31,6 +31,7 @@ const StyledButton = styled(Button)`
 const StyledTitle = styled(Title)`
   width: 100%;
   text-align: center;
+  margin-bottom: 0;
 `;
 
 const StyledSubtitle = styled(Title)`
@@ -118,24 +119,24 @@ const Songs = () => {
       <StyledTitle>Piosenki</StyledTitle>
       <StyledContainer>
         <>
-          <RowContainer>
-            <StyledLink underlayColor="transparent" to="/allsongs">
-              <Paragraph>Wszystkie piosenki</Paragraph>
-            </StyledLink>
-            <StyledLink underlayColor="transparent" to="/allrecords">
-              <Paragraph>Wszystkie płyty</Paragraph>
-            </StyledLink>
-          </RowContainer>
+          <StyledRowContainer>
+            <StyledButton onPress={() => setOpenSong(!openSong)}>
+              <Paragraph>Dodaj piosenkę</Paragraph>
+            </StyledButton>
+            <StyledButton onPress={() => setOpenRec(!openRec)}>
+              <Paragraph>Stwórz płytę</Paragraph>
+            </StyledButton>
+          </StyledRowContainer>
           <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
           {mapData}
         </>
         <StyledRowContainer>
-          <StyledButton onPress={() => setOpenSong(!openSong)}>
-            <Paragraph>Dodaj piosenkę</Paragraph>
-          </StyledButton>
-          <StyledButton onPress={() => setOpenRec(!openRec)}>
-            <Paragraph>Stwórz płytę</Paragraph>
-          </StyledButton>
+          <StyledLink underlayColor="transparent" to="/allsongs">
+            <Paragraph>Wszystkie piosenki</Paragraph>
+          </StyledLink>
+          <StyledLink underlayColor="transparent" to="/allrecords">
+            <Paragraph>Wszystkie płyty</Paragraph>
+          </StyledLink>
         </StyledRowContainer>
       </StyledContainer>
 
