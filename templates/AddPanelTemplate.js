@@ -1,15 +1,15 @@
 import React from 'react';
-import { View, TouchableOpacity, Dimensions } from 'react-native';
+import { View, TouchableOpacity, Dimensions, Modal } from 'react-native';
 import styled, { css } from 'styled-components';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 
-const StyledContainer = styled(View)`
+const StyledContainer = styled(Modal)`
   position: absolute;
   color: ${({ theme }) => theme.fontColor};
   ${({ top }) => (top ? 'top:20' : 'bottom:20')};
   left: 20;
   right: 20;
-  ${({ top }) => (top ? 'height:90%' : `${Dimensions.get('window').height - 125}px`)};
+  ${({ top }) => (top ? 'height:90%' : `height: ${Dimensions.get('window').height - 125}px`)};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,10 +59,10 @@ const StyledLabel = styled(Paragraph)`
   font-size: 25px;
 `;
 
-const AddPanelTemplate = ({ children, open, onPress, top }) => (
+const AddPanelTemplate = ({ children, visible, onPress }) => (
   <>
-    <StyledCurtain open={open} />
-    <StyledContainer open={open} top={top}>
+    <StyledCurtain />
+    <StyledContainer animationType="slide" visible={visible}>
       <StyledCloseButton onPress={onPress} outline>
         <>
           <StyledLabel>X</StyledLabel>
