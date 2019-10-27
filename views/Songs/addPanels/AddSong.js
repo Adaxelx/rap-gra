@@ -19,7 +19,7 @@ const StyledRowCon = styled(View)`
   justify-content: space-between;
 `;
 
-const AddSong = ({ visible, onPress, setSong, openSubject }) => {
+const AddSong = ({ open, onPress, setSong, openSubject }) => {
   const [name, setName] = useState(`Piosenka 1`);
   const [valueVid, setValueVid] = useState(0);
   const [valueStyle, setValueStyle] = useState(0);
@@ -46,7 +46,7 @@ const AddSong = ({ visible, onPress, setSong, openSubject }) => {
   };
 
   return (
-    <AddPanel visible={visible} onPress={onPress}>
+    <AddPanel open={open} onPress={onPress}>
       <Title>Dodaj piosenkę</Title>
       <Input onChangeText={text => setName(text)} value={name} />
       <StyledRowCon>

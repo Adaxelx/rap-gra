@@ -30,7 +30,7 @@ const StyledButton = styled(Button)`
 
 const id = ['12', '16', '13', '14', '18', '32', '53'];
 
-const AddSongRec = ({ onPress, visible, openAddRec, setId }) => {
+const AddSongRec = ({ onPress, open, openAddRec, setId }) => {
   const [idActive, setIdActive] = useState([]);
 
   const handleBack = () => {
@@ -47,7 +47,7 @@ const AddSongRec = ({ onPress, visible, openAddRec, setId }) => {
     <SongItem id={item} key={item} idActive={idActive} setIdActive={setIdActive} />
   ));
   return (
-    <AddPanel onPress={onPress} visible={visible}>
+    <AddPanel onPress={onPress} open={open}>
       <Title>Wybierz piosenki:</Title>
       <StyledCon>{items}</StyledCon>
       <StyledRowContainer>
