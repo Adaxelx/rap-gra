@@ -140,20 +140,20 @@ const Songs = () => {
       </StyledContainer>
 
       <AddSong
-        open={openSong}
+        visible={openSong}
         setSong={setSong}
         onPress={() => setOpenSong(!openSong)}
         openSubject={() => setOpenSubject(!openSubject)}
       />
       <AddRecord
-        open={openRec}
+        visible={openRec}
         song={song}
         setRec={setRec}
         onPress={() => setOpenRec(!openRec)}
         openSubject={() => setOpenRecSub(!openRecSub)}
       />
       <AddSubject
-        open={openSubject}
+        visible={openSubject}
         song={song}
         setFullSong={setFullSong}
         fullSong={fullSong}
@@ -162,7 +162,7 @@ const Songs = () => {
       />
       <AddSongRec
         onPress={() => setOpenRecSub(!openRecSub)}
-        open={openRecSub}
+        visible={openRecSub}
         setFullRec={setFullRec}
         rec={rec}
         fullRec={fullRec}

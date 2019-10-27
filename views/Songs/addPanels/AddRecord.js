@@ -30,7 +30,7 @@ const StyledRowContainer = styled(View)`
   align-items: center;
 `;
 
-const AddRecord = ({ open, onPress, setRec, openSubject }) => {
+const AddRecord = ({ visible, onPress, setRec, openSubject }) => {
   const [type, setType] = useState(false);
   const [name, setName] = useState('Płyta1');
   const [preorder, setPreorder] = useState(false);
@@ -51,7 +51,7 @@ const AddRecord = ({ open, onPress, setRec, openSubject }) => {
     openSubject();
   };
   return (
-    <AddPanel open={open} onPress={onPress}>
+    <AddPanel visible={visible} onPress={onPress}>
       <Title>Stwórz płytę</Title>
       <Input onChangeText={text => setName(text)} value={name} />
       <StyledFormType two>
