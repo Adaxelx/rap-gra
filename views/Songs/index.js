@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, AsyncStorage } from 'react-native';
 import styled from 'styled-components';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
@@ -45,51 +45,49 @@ const StyledLink = styled(Link)`
   padding: 5px;
 `;
 
-const data = [
-  {
-    type: 'song',
-    title: 'Piosenka5',
-    value: '120232',
-    earnings: '12313123',
-    place: '210',
-    fans: '12344',
-    rate: '9/10',
-  },
-  {
-    type: 'song',
-    title: 'Piosenka4',
-    value: '120232',
-    earnings: '12313123',
-    place: '210',
-    fans: '12344',
-    rate: '9/10',
-  },
-  {
-    type: 'song',
-    title: 'Piosenka3',
-    value: '120232',
-    earnings: '12313123',
-    place: '210',
-    fans: '12344',
-    rate: '9/10',
-  },
-  {
-    type: 'record',
-    title: 'Piosenka2',
-    value: '120232',
-    earnings: '12313123',
-    place: '210',
-    fans: '12344',
-    rate: '9/10',
-  },
-];
+// {
+//   type: 'song',
+//     title: 'Piosenka5',
+//       value: '120232',
+//         earnings: '12313123',
+//           place: '210',
+//             fans: '12344',
+//               rate: '9/10',
+//   },
+// {
+//   type: 'song',
+//     title: 'Piosenka4',
+//       value: '120232',
+//         earnings: '12313123',
+//           place: '210',
+//             fans: '12344',
+//               rate: '9/10',
+//   },
+// {
+//   type: 'song',
+//     title: 'Piosenka3',
+//       value: '120232',
+//         earnings: '12313123',
+//           place: '210',
+//             fans: '12344',
+//               rate: '9/10',
+//   },
+// {
+//   type: 'record',
+//     title: 'Piosenka2',
+//       value: '120232',
+//         earnings: '12313123',
+//           place: '210',
+//             fans: '12344',
+//               rate: '9/10',
+//   },
 
 const Songs = () => {
   const [openSong, setOpenSong] = useState(false);
   const [song, setSong] = useState({ full: false });
   const [fullSong, setFullSong] = useState({});
   const [openSubject, setOpenSubject] = useState(false);
-
+  const [data, setData] = useState([]);
   /* record state */
 
   const [openRec, setOpenRec] = useState(false);
@@ -99,18 +97,29 @@ const Songs = () => {
 
   /* */
 
-  const [id, setId] = useState([]);
+  const storeSong = async object => {
+    try {
+      await AsyncStorage.setItem('song', JSON.stringify(object), () => {
+        AsyncStorage.getItem('song', (err, result) => {
+          setData([...data, JSON.parse(result)]);
+        });
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 
+  const [id, setId] = useState([]);
   const mapData = data.map(i => (
     <ListItem
-      key={i.title}
-      title={i.title}
-      place={i.place}
-      type={i.type}
-      value={i.value}
-      earnings={i.earnings}
-      fans={i.fans}
-      rate={i.rate}
+      key={i.name}
+      title={i.name}
+      place={i.values.bit}
+      type={i.values.rhymes}
+      value={i.values.style}
+      earnings={i.values.video.active}
+      fans={i.values.video.value}
+      rate={i.subject}
     />
   ));
 
@@ -158,6 +167,7 @@ const Songs = () => {
         song={song}
         setFullSong={setFullSong}
         fullSong={fullSong}
+        storeSong={storeSong}
         onPress={() => setOpenSubject(!openSubject)}
         openAddSong={() => setOpenSong(!openSong)}
       />

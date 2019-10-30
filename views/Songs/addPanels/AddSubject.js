@@ -41,7 +41,7 @@ const StyledButton = styled(Button)`
 
 const subjects = ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'];
 
-const AddSubject = ({ open, onPress, openAddSong, song, setFullSong }) => {
+const AddSubject = ({ open, onPress, openAddSong, song, setFullSong, storeSong }) => {
   const handleBack = () => {
     onPress();
     openAddSong();
@@ -56,6 +56,11 @@ const AddSubject = ({ open, onPress, openAddSong, song, setFullSong }) => {
       subject: subj,
     });
     onPress();
+    storeSong({
+      ...song,
+      full: true,
+      subject: subj,
+    });
   };
 
   const setData = subjects.map(sub => (
