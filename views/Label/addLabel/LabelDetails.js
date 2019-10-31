@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
 import { Text } from 'react-native';
@@ -10,6 +10,19 @@ const StyledParagraph = styled(Paragraph)`
   margin-top: 15px;
   margin-bottom: 5px;
   font-size: 25px;
+`;
+
+const StyledParagraphHistory = styled(Paragraph)`
+  font-size: 15px;
+  text-align: justify;
+  margin: 0 10px;
+`;
+
+const StyledAlertMsg = styled(Paragraph)`
+  /* margin: 10px 0; */
+  font-size: 35px;
+  text-align: center;
+  background-color: black;
 `;
 
 const StyledText = styled(Text)`
@@ -25,18 +38,30 @@ const LabelDetails = ({
   openLabelDetails,
   onPress,
   clickedLabelName,
+  clickedLabelHistory,
   clickedLabelRequaierments,
   clickedLabelProfits,
-  setCurrentLabel,
+  labelFn,
+  stats,
 }) => {
+  const [alertMsg, setAlertMsg] = useState('');
   const buttonFn = () => {
-    setCurrentLabel(clickedLabelName);
-    onPress();
+    if (
+      stats.fans >= clickedLabelRequaierments.fans &&
+      stats.reputation >= clickedLabelRequaierments.reputation &&
+      stats.flow >= clickedLabelRequaierments.flow &&
+      stats.rhymes >= clickedLabelRequaierments.rhymes &&
+      stats.style >= clickedLabelRequaierments.style
+    ) {
+      labelFn(clickedLabelName);
+      onPress();
+    } else setAlertMsg('Nie spełniasz wymagań!');
   };
 
   return (
     <AddPanelTemplate open={openLabelDetails} onPress={onPress} top>
       <StyledTitle>{clickedLabelName}</StyledTitle>
+      <StyledParagraphHistory>{clickedLabelHistory}</StyledParagraphHistory>
       <StyledParagraph>Wymagania: </StyledParagraph>
       <StyledText>Fani: {clickedLabelRequaierments.fans}</StyledText>
       <StyledText>Reputacja: {clickedLabelRequaierments.reputation}</StyledText>
@@ -44,6 +69,8 @@ const LabelDetails = ({
         Flow: {clickedLabelRequaierments.flow} Styl: {clickedLabelRequaierments.style} Rymy:{' '}
         {clickedLabelRequaierments.rhymes}
       </StyledText>
+
+      <StyledAlertMsg>{alertMsg}</StyledAlertMsg>
 
       <StyledParagraph>Przywileje: </StyledParagraph>
       <StyledText>Przyrost Fanów: {clickedLabelProfits.fansIncrease}x</StyledText>
