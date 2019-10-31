@@ -167,7 +167,7 @@ const Label = () => {
   const [clickedLabelRequaierments, setClickedLabelRequaierments] = useState('');
   const [clickedLabelProfits, setClickedLabelProfits] = useState('');
 
-  // const [currentLabelName, setCurrentLabelName] = useState('');
+  // const [currentLabelName, setCurrentLabelName] = useState('')
 
   const buttonFn = label => {
     setLabelDetails(!openLabelDetails);

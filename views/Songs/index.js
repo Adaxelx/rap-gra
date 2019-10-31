@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, AsyncStorage } from 'react-native';
+import { ScrollView } from 'react-native';
 import styled from 'styled-components';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
@@ -11,6 +11,7 @@ import { Button } from 'rap-gra/components/Button';
 import { Link } from 'react-router-native';
 import { RowContainer } from 'rap-gra/components/RowContainer';
 import ListItem from 'rap-gra/views/Songs/ListItem';
+import AppContext from 'rap-gra/context/context';
 
 const StyledContainer = styled(ScrollView)`
   flex-grow: 1;
@@ -45,49 +46,12 @@ const StyledLink = styled(Link)`
   padding: 5px;
 `;
 
-// {
-//   type: 'song',
-//     title: 'Piosenka5',
-//       value: '120232',
-//         earnings: '12313123',
-//           place: '210',
-//             fans: '12344',
-//               rate: '9/10',
-//   },
-// {
-//   type: 'song',
-//     title: 'Piosenka4',
-//       value: '120232',
-//         earnings: '12313123',
-//           place: '210',
-//             fans: '12344',
-//               rate: '9/10',
-//   },
-// {
-//   type: 'song',
-//     title: 'Piosenka3',
-//       value: '120232',
-//         earnings: '12313123',
-//           place: '210',
-//             fans: '12344',
-//               rate: '9/10',
-//   },
-// {
-//   type: 'record',
-//     title: 'Piosenka2',
-//       value: '120232',
-//         earnings: '12313123',
-//           place: '210',
-//             fans: '12344',
-//               rate: '9/10',
-//   },
-
 const Songs = () => {
   const [openSong, setOpenSong] = useState(false);
   const [song, setSong] = useState({ full: false });
   const [fullSong, setFullSong] = useState({});
   const [openSubject, setOpenSubject] = useState(false);
-  const [data, setData] = useState([]);
+
   /* record state */
 
   const [openRec, setOpenRec] = useState(false);
@@ -97,91 +61,83 @@ const Songs = () => {
 
   /* */
 
-  const storeSong = async object => {
-    try {
-      await AsyncStorage.setItem('song', JSON.stringify(object), () => {
-        AsyncStorage.getItem('song', (err, result) => {
-          setData([...data, JSON.parse(result)]);
-        });
-      });
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
-
   const [id, setId] = useState([]);
-  const mapData = data.map(i => (
-    <ListItem
-      key={i.name}
-      title={i.name}
-      place={i.values.bit}
-      type={i.values.rhymes}
-      value={i.values.style}
-      earnings={i.values.video.active}
-      fans={i.values.video.value}
-      rate={i.subject}
-    />
-  ));
 
   return (
-    <StyledContainer id={id}>
-      <StyledTitle>Piosenki</StyledTitle>
-      <StyledContainer>
-        <>
-          <StyledRowContainer>
-            <StyledButton onPress={() => setOpenSong(!openSong)}>
-              <Paragraph>Dodaj piosenkę</Paragraph>
-            </StyledButton>
-            <StyledButton onPress={() => setOpenRec(!openRec)}>
-              <Paragraph>Stwórz płytę</Paragraph>
-            </StyledButton>
-          </StyledRowContainer>
-          <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
-          {mapData}
-        </>
-        <StyledRowContainer>
-          <StyledLink underlayColor="transparent" to="/allsongs">
-            <Paragraph>Wszystkie piosenki</Paragraph>
-          </StyledLink>
-          <StyledLink underlayColor="transparent" to="/allrecords">
-            <Paragraph>Wszystkie płyty</Paragraph>
-          </StyledLink>
-        </StyledRowContainer>
-      </StyledContainer>
+    <AppContext.Consumer>
+      {context => (
+        <StyledContainer id={id}>
+          <StyledTitle>Piosenki</StyledTitle>
+          <StyledContainer>
+            <>
+              <StyledRowContainer>
+                <StyledButton onPress={() => setOpenSong(!openSong)}>
+                  <Paragraph>Dodaj piosenkę</Paragraph>
+                </StyledButton>
+                <StyledButton onPress={() => setOpenRec(!openRec)}>
+                  <Paragraph>Stwórz płytę</Paragraph>
+                </StyledButton>
+              </StyledRowContainer>
+              <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
+              {context.state.songs.map(i => (
+                <ListItem
+                  key={i.name}
+                  title={i.name}
+                  place={i.values.bit}
+                  type={i.values.rhymes}
+                  value={i.values.style}
+                  earnings={i.values.video.active}
+                  fans={i.values.video.value}
+                  rate={i.subject}
+                />
+              ))}
+            </>
+            <StyledRowContainer>
+              <StyledLink underlayColor="transparent" to="/allsongs">
+                <Paragraph>Wszystkie piosenki</Paragraph>
+              </StyledLink>
+              <StyledLink underlayColor="transparent" to="/allrecords">
+                <Paragraph>Wszystkie płyty</Paragraph>
+              </StyledLink>
+            </StyledRowContainer>
+          </StyledContainer>
 
-      <AddSong
-        open={openSong}
-        setSong={setSong}
-        onPress={() => setOpenSong(!openSong)}
-        openSubject={() => setOpenSubject(!openSubject)}
-      />
-      <AddRecord
-        open={openRec}
-        song={song}
-        setRec={setRec}
-        onPress={() => setOpenRec(!openRec)}
-        openSubject={() => setOpenRecSub(!openRecSub)}
-      />
-      <AddSubject
-        open={openSubject}
-        song={song}
-        setFullSong={setFullSong}
-        fullSong={fullSong}
-        storeSong={storeSong}
-        onPress={() => setOpenSubject(!openSubject)}
-        openAddSong={() => setOpenSong(!openSong)}
-      />
-      <AddSongRec
-        onPress={() => setOpenRecSub(!openRecSub)}
-        open={openRecSub}
-        setFullRec={setFullRec}
-        rec={rec}
-        fullRec={fullRec}
-        openAddRec={() => setOpenRec(!openRec)}
-        setId={setId}
-      />
-    </StyledContainer>
+          <AddSong
+            open={openSong}
+            setSong={setSong}
+            onPress={() => setOpenSong(!openSong)}
+            openSubject={() => setOpenSubject(!openSubject)}
+          />
+          <AddRecord
+            open={openRec}
+            song={song}
+            setRec={setRec}
+            onPress={() => setOpenRec(!openRec)}
+            openSubject={() => setOpenRecSub(!openRecSub)}
+          />
+          <AddSubject
+            open={openSubject}
+            song={song}
+            setFullSong={setFullSong}
+            fullSong={fullSong}
+            onPress={() => setOpenSubject(!openSubject)}
+            openAddSong={() => setOpenSong(!openSong)}
+            setSong={context.setSong}
+            songsL={context.state.songsL}
+            setLength={context.setLength}
+          />
+          <AddSongRec
+            onPress={() => setOpenRecSub(!openRecSub)}
+            open={openRecSub}
+            setFullRec={setFullRec}
+            rec={rec}
+            fullRec={fullRec}
+            openAddRec={() => setOpenRec(!openRec)}
+            setId={setId}
+          />
+        </StyledContainer>
+      )}
+    </AppContext.Consumer>
   );
 };
-
 export default Songs;

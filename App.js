@@ -1,4 +1,5 @@
 import React from 'react';
+import { AsyncStorage } from 'react-native';
 import { NativeRouter, Route } from 'react-router-native';
 import { ThemeProvider } from 'styled-components';
 import AppContext from 'rap-gra/context/context';
@@ -27,10 +28,38 @@ class App extends React.Component {
     },
     // label
     currentLabel: '',
+    // songs
+    songs: [],
+    songsL: 1,
   };
+
+  componentDidMount() {
+    let n;
+
+    AsyncStorage.getItem('songsL', (err, result) => {
+      this.setLength(result);
+      n = result;
+      for (let i = 1; i <= n; i++) {
+        AsyncStorage.getItem(`song${i}`, (err, result) => {
+          this.setState({ songs: [...this.state.songs, JSON.parse(result)] });
+        });
+      }
+    });
+  }
 
   labelFn = value => {
     this.setState({ currentLabel: value });
+  };
+
+  setLength = result => {
+    this.setState({ songsL: result });
+  };
+
+  setSong = song => {
+    this.setState(prevState => ({
+      songsL: this.state.songsL + 1,
+      songs: [...this.state.songs, song],
+    }));
   };
 
   render() {
@@ -40,6 +69,8 @@ class App extends React.Component {
           value={{
             state: this.state,
             labelFn: this.labelFn,
+            setSong: this.setSong,
+            setLength: this.setLength,
           }}
         >
           <ThemeProvider theme={theme}>

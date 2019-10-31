@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import styled from 'styled-components';
@@ -41,13 +41,44 @@ const StyledButton = styled(Button)`
 
 const subjects = ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'];
 
-const AddSubject = ({ open, onPress, openAddSong, song, setFullSong, storeSong }) => {
+const AddSubject = ({
+  open,
+  onPress,
+  openAddSong,
+  song,
+  setFullSong,
+  setSong,
+  songsL,
+  setLength,
+}) => {
   const handleBack = () => {
     onPress();
     openAddSong();
   };
 
   const [subj, setSubj] = useState('');
+
+  const storeSong = async object => {
+    const number = songsL === null ? 0 : songsL;
+    try {
+      await AsyncStorage.setItem(`song${parseInt(number, 10) + 1}`, JSON.stringify(object), () => {
+        AsyncStorage.getItem(`song${parseInt(number, 10) + 1}`, (err, result) => {
+          setSong(JSON.parse(result));
+        });
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+    try {
+      await AsyncStorage.setItem(`songsL`, `${parseInt(number, 10) + 1}`, () => {
+        AsyncStorage.getItem('songsL', (err, result) => {
+          setLength(result);
+        });
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 
   const saveData = () => {
     setFullSong({
