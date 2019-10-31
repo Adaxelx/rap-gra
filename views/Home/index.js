@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import AppContext from 'rap-gra/context/context';
 import { View, Image, Text } from 'react-native';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import { Title } from '../../components/Title';
@@ -57,35 +58,24 @@ const StyledStatValue = styled(Text)`
   color: ${({ theme }) => theme.fontColor};
 `;
 
-class Home extends React.Component {
-  state = {
-    flow: 25,
-    style: 95,
-    rhymes: 12,
-    nick: 'Young Krawczyk',
-    cash: 1000000,
-    reputation: 900,
-    fans: 150000,
-  };
-
-  render() {
-    const { flow, style, rhymes, nick, cash, reputation, fans } = this.state;
-    return (
+const Home = () => (
+  <AppContext.Consumer>
+    {context => (
       <StyledWrapper>
         <StyledTitle>Statystyki</StyledTitle>
-        <StyledStatValue>reputacja: {reputation}</StyledStatValue>
-        <StyledStatValue>fani: {fans}</StyledStatValue>
-        <StyledStatValue>{cash} $</StyledStatValue>
+        <StyledStatValue>reputacja: {context.state.stats.reputation}</StyledStatValue>
+        <StyledStatValue>fani: {context.state.stats.fans}</StyledStatValue>
+        <StyledStatValue>{context.state.cash} $</StyledStatValue>
         <StyledStats>
-          <StyledNick>{nick}</StyledNick>
-          <ProgressBar name="flow" progress={flow} />
-          <ProgressBar name="styl" progress={style} />
-          <ProgressBar name="rymy" progress={rhymes} />
+          <StyledNick>{context.state.nick}</StyledNick>
+          <ProgressBar name="flow" progress={context.state.stats.flow} />
+          <ProgressBar name="styl" progress={context.state.stats.style} />
+          <ProgressBar name="rymy" progress={context.state.stats.rhymes} />
           <Avatar source={require('../../assets/avatar.png')} />
         </StyledStats>
       </StyledWrapper>
-    );
-  }
-}
+    )}
+  </AppContext.Consumer>
+);
 
 export default Home;

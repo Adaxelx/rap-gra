@@ -37,7 +37,9 @@ const StyledText = styled(Text)`
 const ProgressBar = ({ progress, name }) => (
   <StyledProgressBar>
     {/* <StyledText>{progress >= 15 ? name : null}</StyledText> */}
-    <StyledText>{name}</StyledText>
+    <StyledText>
+      {progress}% {name}
+    </StyledText>
 
     <StyledProgress progress={progress} />
   </StyledProgressBar>
