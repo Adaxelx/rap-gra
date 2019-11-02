@@ -36,9 +36,9 @@ const AddSong = ({ open, onPress, setSong, openSubject }) => {
           active: vid,
           value: valueVid,
         },
-        style: valueStyle,
-        rhymes: valueRhymes,
-        bit: valueBit,
+        style: Math.floor(valueStyle),
+        rhymes: Math.floor(valueRhymes),
+        bit: Math.floor(valueBit),
       },
     });
     onPress();

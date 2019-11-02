@@ -125,6 +125,7 @@ const Songs = () => {
             setSong={context.setSong}
             songsL={context.state.songsL}
             setLength={context.setLength}
+            subjects={context.state.subjects}
           />
           <AddSongRec
             onPress={() => setOpenRecSub(!openRecSub)}

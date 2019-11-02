@@ -29,19 +29,35 @@ class App extends React.Component {
     // label
     currentLabel: '',
     // songs
+
     songs: [],
     songsL: 1,
+    subjects: ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'],
   };
 
   componentDidMount() {
     let n;
-
+    let sL;
+    const { subjects, songs } = this.state;
+    AsyncStorage.getItem(`subjectsL`, (err, result) => {
+      if (result === null) {
+        sL = 4;
+      } else sL = result;
+      for (let i = 4; i < sL; i++) {
+        AsyncStorage.getItem(`subject${4}`, (err, result) => {
+          this.setState({ subjects: [...subjects, result] });
+        });
+      }
+    });
+    for (let i = 1; i <= sL; i++) {
+      AsyncStorage.setItem(`subject${i}`, subjects[i - 1]);
+    }
     AsyncStorage.getItem('songsL', (err, result) => {
       this.setLength(result);
       n = result;
       for (let i = 1; i <= n; i++) {
         AsyncStorage.getItem(`song${i}`, (err, result) => {
-          this.setState({ songs: [...this.state.songs, JSON.parse(result)] });
+          this.setState({ songs: [...songs, JSON.parse(result)] });
         });
       }
     });
@@ -79,7 +95,11 @@ class App extends React.Component {
               <Route exact path="/songs" component={Songs} />
               <Route exact path="/concerts" component={Concerts} />
               <Route exact path="/label" component={Label} />
-              <Route exact path="/allsongs" component={AllSongs} />
+              <Route
+                exact
+                path="/allsongs"
+                component={() => <AllSongs songs={this.state.songs} />}
+              />
               <Route exact path="/allrecords" component={AllRecords} />
             </MainTemplate>
           </ThemeProvider>

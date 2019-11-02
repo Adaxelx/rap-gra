@@ -5,6 +5,7 @@ import { Title } from 'rap-gra/components/Title';
 import styled from 'styled-components';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
 import { Button } from 'rap-gra/components/Button';
+import { checkSong } from 'rap-gra/views/Songs/Functions/checkSong';
 
 const StyledContainer = styled(View)`
   width: 95%;
@@ -39,8 +40,6 @@ const StyledButton = styled(Button)`
   height: 100%;
 `;
 
-const subjects = ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'];
-
 const AddSubject = ({
   open,
   onPress,
@@ -50,6 +49,7 @@ const AddSubject = ({
   setSong,
   songsL,
   setLength,
+  subjects,
 }) => {
   const handleBack = () => {
     onPress();
@@ -87,6 +87,11 @@ const AddSubject = ({
       subject: subj,
     });
     onPress();
+    checkSong({
+      ...song,
+      full: true,
+      subject: subj,
+    });
     storeSong({
       ...song,
       full: true,
