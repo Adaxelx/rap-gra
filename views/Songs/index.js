@@ -81,14 +81,14 @@ const Songs = () => {
               <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
               {context.state.songs.map(i => (
                 <ListItem
-                  key={i.name}
-                  title={i.name}
-                  place={i.values.bit}
-                  type={i.values.rhymes}
-                  value={i.values.style}
-                  earnings={i.values.video.active}
-                  fans={i.values.video.value}
-                  rate={i.subject}
+                  key={i.earnings}
+                  title={i.title}
+                  place={i.place}
+                  type={i.type}
+                  earnings={i.earned}
+                  fans={i.fans}
+                  rate={i.rating}
+                  value={i.views}
                 />
               ))}
             </>

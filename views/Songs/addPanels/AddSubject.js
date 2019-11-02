@@ -87,16 +87,13 @@ const AddSubject = ({
       subject: subj,
     });
     onPress();
-    checkSong({
-      ...song,
-      full: true,
-      subject: subj,
-    });
-    storeSong({
-      ...song,
-      full: true,
-      subject: subj,
-    });
+    storeSong(
+      checkSong({
+        ...song,
+        full: true,
+        subject: subj,
+      }),
+    );
   };
 
   const setData = subjects.map(sub => (

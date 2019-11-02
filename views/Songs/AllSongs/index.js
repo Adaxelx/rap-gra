@@ -14,27 +14,27 @@ const AllSongs = ({ songs }) => {
 
   const mapData = songs.map(i => (
     <ListItem
-      key={i.title}
+      key={i.earnings}
       title={i.title}
       place={i.place}
       type={i.type}
-      value={i.value}
-      earnings={i.earnings}
+      earnings={i.earned}
       fans={i.fans}
-      rate={i.rate}
+      rate={i.rating}
+      value={i.views}
     />
   ));
 
   const newMapData = newData.map(i => (
     <ListItem
-      key={i.title}
+      key={i.earnings}
       title={i.title}
       place={i.place}
       type={i.type}
-      value={i.value}
-      earnings={i.earnings}
+      earnings={i.earned}
       fans={i.fans}
-      rate={i.rate}
+      rate={i.rating}
+      value={i.views}
     />
   ));
   return (

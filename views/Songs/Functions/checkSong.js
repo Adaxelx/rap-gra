@@ -15,6 +15,8 @@ export const checkSong = song => {
     B: 50,
   };
   const checkedSong = {
+    title: song.name,
+    type: song.subject,
     rating: 1,
     views: 0,
     earned: 0,
@@ -54,9 +56,9 @@ export const checkSong = song => {
           calcRate(bestValues.R, rhymes))) /
         3,
     ) / 10;
-  // console.log(checkedSong.rating);
-  // checkedSong.fans = (checkedSong.fans + 1) * (1 + checkedSong.rating * 0.05);
-  // console.log(checkedSong.fans);
+  checkedSong.fans = Math.floor((checkedSong.fans * 0.1 + 1) * (1 + checkedSong.rating * 0.05));
+  checkedSong.views = Math.floor((checkedSong.fans + 10) * checkedSong.rating);
+  checkedSong.earned = Math.floor(checkedSong.views * 0.01);
   return checkedSong;
 };
 

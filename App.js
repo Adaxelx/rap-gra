@@ -38,26 +38,29 @@ class App extends React.Component {
   componentDidMount() {
     let n;
     let sL;
-    const { subjects, songs } = this.state;
+    const { subjects } = this.state;
+
     AsyncStorage.getItem(`subjectsL`, (err, result) => {
       if (result === null) {
         sL = 4;
       } else sL = result;
       for (let i = 4; i < sL; i++) {
         AsyncStorage.getItem(`subject${4}`, (err, result) => {
-          this.setState({ subjects: [...subjects, result] });
+          this.setState({ subjects: [...this.state.subjects, result] });
         });
       }
     });
     for (let i = 1; i <= sL; i++) {
       AsyncStorage.setItem(`subject${i}`, subjects[i - 1]);
     }
+
     AsyncStorage.getItem('songsL', (err, result) => {
       this.setLength(result);
+      console.log(result);
       n = result;
       for (let i = 1; i <= n; i++) {
         AsyncStorage.getItem(`song${i}`, (err, result) => {
-          this.setState({ songs: [...songs, JSON.parse(result)] });
+          this.setState({ songs: [...this.state.songs, JSON.parse(result)] });
         });
       }
     });
