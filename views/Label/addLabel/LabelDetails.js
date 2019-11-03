@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
 import { Title } from 'rap-gra/components/Title';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Button } from 'rap-gra/components/Button';
@@ -16,13 +16,6 @@ const StyledParagraphHistory = styled(Paragraph)`
   font-size: 15px;
   text-align: justify;
   margin: 0 10px;
-`;
-
-const StyledAlertMsg = styled(Paragraph)`
-  /* margin: 10px 0; */
-  font-size: 35px;
-  text-align: center;
-  background-color: black;
 `;
 
 const StyledText = styled(Text)`
@@ -44,7 +37,6 @@ const LabelDetails = ({
   labelFn,
   stats,
 }) => {
-  const [alertMsg, setAlertMsg] = useState('');
   const buttonFn = () => {
     if (
       stats.fans >= clickedLabelRequaierments.fans &&
@@ -55,7 +47,8 @@ const LabelDetails = ({
     ) {
       labelFn(clickedLabelName);
       onPress();
-    } else setAlertMsg('Nie spełniasz wymagań!');
+      Alert.alert(`Gratulacje dołączyłeś do ${clickedLabelName}!`);
+    } else Alert.alert('Nie spełniasz wymagań.');
   };
 
   return (
@@ -69,9 +62,6 @@ const LabelDetails = ({
         Flow: {clickedLabelRequaierments.flow} Styl: {clickedLabelRequaierments.style} Rymy:{' '}
         {clickedLabelRequaierments.rhymes}
       </StyledText>
-
-      <StyledAlertMsg>{alertMsg}</StyledAlertMsg>
-
       <StyledParagraph>Przywileje: </StyledParagraph>
       <StyledText>Przyrost Fanów: {clickedLabelProfits.fansIncrease}x</StyledText>
       <StyledText>Przyrost Reputacji: {clickedLabelProfits.reputationIncrease}x</StyledText>
