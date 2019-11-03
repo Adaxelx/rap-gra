@@ -15,11 +15,11 @@ const StyledWrapper = styled(View)`
   align-content: center;
 `;
 
-const CreateLabel = ({ setYourLabelName, setCurrentLabel, onPress }) => {
+const CreateLabel = ({ setYourLabelName, onPress, labelFn }) => {
   const [value, onChangeText] = React.useState('Nazwa wytwórni');
   const buttonFn = () => {
     setYourLabelName(value);
-    setCurrentLabel(value);
+    labelFn(value);
     onPress();
   };
   return (

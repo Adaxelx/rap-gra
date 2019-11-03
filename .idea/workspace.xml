@@ -9,6 +9,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/AddPanelTemplate.js" beforeDir="false" afterPath="$PROJECT_DIR$/templates/AddPanelTemplate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/Songs/AllSongs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/AllSongs/index.js" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Home/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Label/addLabel/LabelDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Label/addLabel/LabelDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Label/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Label/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,6 +73,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="7" y="60" width="1400" height="757" extended-state="1" />
+
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.3298969" />
