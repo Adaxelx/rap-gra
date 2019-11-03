@@ -88,10 +88,11 @@ const data = [
 let newData = [];
 const AllSongs = () => {
   const [input, setInput] = useState('');
-
+  const [changed, setChanged] = useState(false);
   const findItem = text => {
     setInput(text);
     newData = data.filter(item => item.title.toLowerCase().includes(text.toLowerCase()));
+    setChanged(true);
   };
 
   const mapData = data.map(i => (
@@ -121,7 +122,7 @@ const AllSongs = () => {
   ));
   return (
     <AllItems title="Wszystkie piosenki" onChangeText={text => findItem(text)} value={input}>
-      {newMapData.length !== 0 ? newMapData : mapData}
+      {changed ? newMapData : mapData}
     </AllItems>
   );
 };

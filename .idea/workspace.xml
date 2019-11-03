@@ -6,7 +6,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12af8f15-968c-4d50-aa51-561382fd01fa" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/views/Label/addLabel/AddLabel.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Label/addLabel/AddLabel.js" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/AddPanelTemplate.js" beforeDir="false" afterPath="$PROJECT_DIR$/templates/AddPanelTemplate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Songs/AllSongs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/AllSongs/index.js" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Home/index.js" afterDir="false" />
+>>>>>>> 257284a16fc196e49568fff9bc568f204ec602f2
       <change beforePath="$PROJECT_DIR$/views/Label/addLabel/LabelDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Label/addLabel/LabelDetails.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/Label/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Label/index.js" afterDir="false" />
     </list>
@@ -22,9 +31,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="429" />
-    <option name="y" value="135" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="7" />
+    <option name="y" value="60" />
     <option name="width" value="1400" />
     <option name="height" value="757" />
   </component>
@@ -67,7 +76,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="429" y="135" width="1400" height="757" extended-state="0" />
+    <frame x="7" y="60" width="1400" height="757" extended-state="1" />
+
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.3298969" />
@@ -79,7 +89,7 @@
       <window_info id="Resources Explorer" order="7" weight="0.3298969" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Version Control" order="0" />
-      <window_info anchor="bottom" id="Logcat" order="1" visible="true" weight="0.14903846" />
+      <window_info anchor="bottom" id="Logcat" order="1" visible="true" weight="0.14887218" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
