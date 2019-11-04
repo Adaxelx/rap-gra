@@ -38,9 +38,8 @@ const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs }) => {
       Alert.alert('Stworzyłeś już taką piosenkę');
       return -1;
     }
-    console.log(name.length);
+
     if (name.length <= 3 || name.length >= 30) {
-      console.log('xd');
       Alert.alert('Tytuł powinien zamierać od 3 do 30 znaków');
       return -1;
     }
