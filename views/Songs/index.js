@@ -116,6 +116,7 @@ const Songs = () => {
             setRec={setRec}
             onPress={() => setOpenRec(!openRec)}
             openSubject={() => setOpenRecSub(!openRecSub)}
+            songsL={context.state.songsL}
           />
           <AddSubject
             open={openSubject}
@@ -136,6 +137,7 @@ const Songs = () => {
             rec={rec}
             fullRec={fullRec}
             openAddRec={() => setOpenRec(!openRec)}
+            songs={context.state.songs}
             setId={setId}
           />
         </StyledContainer>

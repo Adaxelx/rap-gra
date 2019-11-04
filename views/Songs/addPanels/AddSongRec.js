@@ -28,9 +28,7 @@ const StyledButton = styled(Button)`
   height: 100%;
 `;
 
-const id = ['12', '16', '13', '14', '18', '32', '53'];
-
-const AddSongRec = ({ onPress, open, openAddRec, setId }) => {
+const AddSongRec = ({ onPress, open, openAddRec, setId, songs }) => {
   const [idActive, setIdActive] = useState([]);
 
   const handleBack = () => {
@@ -43,8 +41,18 @@ const AddSongRec = ({ onPress, open, openAddRec, setId }) => {
     setId(idActive);
   };
 
-  const items = id.map(item => (
-    <SongItem id={item} key={item} idActive={idActive} setIdActive={setIdActive} />
+  console.log(songs[0]);
+
+  const items = songs.map(item => (
+    <SongItem
+      id={item.id}
+      key={item.id}
+      title={item.title}
+      subject={item.type}
+      rate={item.rating}
+      idActive={idActive}
+      setIdActive={setIdActive}
+    />
   ));
   return (
     <AddPanel onPress={onPress} open={open}>

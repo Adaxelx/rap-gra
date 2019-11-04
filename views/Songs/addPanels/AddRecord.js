@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import Bar from 'rap-gra/components/Bar';
@@ -30,7 +30,7 @@ const StyledRowContainer = styled(View)`
   align-items: center;
 `;
 
-const AddRecord = ({ open, onPress, setRec, openSubject }) => {
+const AddRecord = ({ open, onPress, setRec, openSubject, songsL }) => {
   const [type, setType] = useState(false);
   const [name, setName] = useState('Płyta1');
   const [preorder, setPreorder] = useState(false);
@@ -39,16 +39,27 @@ const AddRecord = ({ open, onPress, setRec, openSubject }) => {
   const [ads, setAds] = useState(0);
 
   const saveData = () => {
+    const typeRec = type ? 'LP' : 'EP';
+
     setRec({
       full: false,
-      type: type ? 'LP' : 'EP',
+      type: typeRec,
       preorder,
       special,
       cover,
       ads,
     });
-    onPress();
-    openSubject();
+
+    if (songsL >= 6 && typeRec === 'EP') {
+      onPress();
+      openSubject();
+    } else if (songsL <= 6 && typeRec === 'EP')
+      Alert.alert('Aby stworzyć EPke musisz mieć conajmniej 6 piosenek');
+    if (songsL >= 10 && typeRec === 'LP') {
+      onPress();
+      openSubject();
+    } else if (songsL <= 10 && typeRec === 'LP')
+      Alert.alert('Aby stworzyć LP musisz mieć conajmniej 10 piosenek');
   };
   return (
     <AddPanel open={open} onPress={onPress}>

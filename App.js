@@ -39,7 +39,7 @@ class App extends React.Component {
     let n;
     let sL;
     const { subjects } = this.state;
-
+    // AsyncStorage.setItem('songsL', '0');
     AsyncStorage.getItem(`subjectsL`, (err, result) => {
       if (result === null) {
         sL = 4;
@@ -56,9 +56,8 @@ class App extends React.Component {
 
     AsyncStorage.getItem('songsL', (err, result) => {
       this.setLength(result);
-      console.log(result);
       n = result;
-      console.log(n);
+
       for (let i = 1; i <= n; i++) {
         AsyncStorage.getItem(`song${i}`, (err, result) => {
           this.setState({ songs: [...this.state.songs, JSON.parse(result)] });

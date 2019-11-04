@@ -7,6 +7,8 @@ import AddPanel from 'rap-gra/templates/AddPanelTemplate';
 import { Button } from 'rap-gra/components/Button';
 import { checkSong } from 'rap-gra/views/Songs/Functions/checkSong';
 
+/* eslint-disable no-underscore-dangle */
+
 const StyledContainer = styled(View)`
   width: 95%;
   flex-grow: 1;
@@ -86,6 +88,7 @@ const AddSubject = ({
         ...song,
         full: true,
         subject: subj,
+        id: songsL * 1 + 1,
       });
       onPress();
       storeSong(
