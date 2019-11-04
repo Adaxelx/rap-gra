@@ -7,10 +7,6 @@
   <component name="ChangeListManager">
     <list default="true" id="12af8f15-968c-4d50-aa51-561382fd01fa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Songs/AllSongs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/AllSongs/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Songs/addPanels/AddSong.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/addPanels/AddSong.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Songs/addPanels/AddSubject.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/addPanels/AddSubject.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="6" />
     <option name="y" value="58" />
     <option name="width" value="1400" />

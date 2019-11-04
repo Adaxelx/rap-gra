@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import styled from 'styled-components';
@@ -19,8 +19,8 @@ const StyledRowCon = styled(View)`
   justify-content: space-between;
 `;
 
-const AddSong = ({ open, onPress, setSong, openSubject }) => {
-  const [name, setName] = useState(`Piosenka 1`);
+const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs }) => {
+  const [name, setName] = useState(`Piosenka ${songsL * 1 + 1}`);
   const [valueVid, setValueVid] = useState(0);
   const [valueStyle, setValueStyle] = useState(0);
   const [valueRhymes, setValueRhymes] = useState(0);
@@ -28,6 +28,22 @@ const AddSong = ({ open, onPress, setSong, openSubject }) => {
   const [vid, setVid] = useState(false);
 
   const saveData = () => {
+    let copy = false;
+    songs.forEach(({ title }) => {
+      if (copy !== true) {
+        copy = title === name;
+      }
+    });
+    if (copy) {
+      Alert.alert('Stworzyłeś już taką piosenkę');
+      return -1;
+    }
+    console.log(name.length);
+    if (name.length <= 3 || name.length >= 30) {
+      console.log('xd');
+      Alert.alert('Tytuł powinien zamierać od 3 do 30 znaków');
+      return -1;
+    }
     setSong({
       full: false,
       name,
@@ -43,6 +59,7 @@ const AddSong = ({ open, onPress, setSong, openSubject }) => {
     });
     onPress();
     openSubject();
+    return 0;
   };
 
   return (

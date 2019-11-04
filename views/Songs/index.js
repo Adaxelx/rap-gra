@@ -81,7 +81,7 @@ const Songs = () => {
               <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
               {context.state.songs.map(i => (
                 <ListItem
-                  key={i.earnings}
+                  key={i.title}
                   title={i.title}
                   place={i.place}
                   type={i.type}
@@ -105,6 +105,8 @@ const Songs = () => {
           <AddSong
             open={openSong}
             setSong={setSong}
+            songsL={context.state.songsL}
+            songs={context.state.songs}
             onPress={() => setOpenSong(!openSong)}
             openSubject={() => setOpenSubject(!openSubject)}
           />

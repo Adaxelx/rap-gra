@@ -58,6 +58,7 @@ class App extends React.Component {
       this.setLength(result);
       console.log(result);
       n = result;
+      console.log(n);
       for (let i = 1; i <= n; i++) {
         AsyncStorage.getItem(`song${i}`, (err, result) => {
           this.setState({ songs: [...this.state.songs, JSON.parse(result)] });

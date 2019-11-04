@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, AsyncStorage } from 'react-native';
+import { View, TouchableOpacity, AsyncStorage, Alert } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import styled from 'styled-components';
@@ -81,19 +81,21 @@ const AddSubject = ({
   };
 
   const saveData = () => {
-    setFullSong({
-      ...song,
-      full: true,
-      subject: subj,
-    });
-    onPress();
-    storeSong(
-      checkSong({
+    if (subj) {
+      setFullSong({
         ...song,
         full: true,
         subject: subj,
-      }),
-    );
+      });
+      onPress();
+      storeSong(
+        checkSong({
+          ...song,
+          full: true,
+          subject: subj,
+        }),
+      );
+    } else Alert.alert('Nie wybrałeś tematu.');
   };
 
   const setData = subjects.map(sub => (
