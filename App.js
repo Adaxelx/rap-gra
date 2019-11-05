@@ -33,6 +33,8 @@ class App extends React.Component {
     songs: [],
     songsL: 1,
     subjects: ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'],
+    records: [],
+    recordsL: 0,
   };
 
   componentDidMount() {
@@ -61,6 +63,22 @@ class App extends React.Component {
       for (let i = 1; i <= n; i++) {
         AsyncStorage.getItem(`song${i}`, (err, result) => {
           this.setState({ songs: [...this.state.songs, JSON.parse(result)] });
+          console.log(result);
+        });
+      }
+    });
+
+    AsyncStorage.getItem('recordsL', (err, result) => {
+      if (!result) {
+        return;
+      }
+      this.setLength(result);
+      n = result;
+
+      for (let i = 1; i <= n; i++) {
+        AsyncStorage.getItem(`record${i}`, (err, result) => {
+          this.setState({ records: [...this.state.records, JSON.parse(result)] });
+          console.log(result);
         });
       }
     });
@@ -75,10 +93,21 @@ class App extends React.Component {
   };
 
   setSong = song => {
-    this.setState(prevState => ({
+    this.setState({
       songsL: this.state.songsL + 1,
       songs: [...this.state.songs, song],
-    }));
+    });
+  };
+
+  setLengthRec = result => {
+    this.setState({ recordsL: result });
+  };
+
+  setRecord = record => {
+    this.setState({
+      recordsL: this.state.recordsL + 1,
+      records: [...this.state.records, record],
+    });
   };
 
   render() {
@@ -103,7 +132,11 @@ class App extends React.Component {
                 path="/allsongs"
                 component={() => <AllSongs songs={this.state.songs} />}
               />
-              <Route exact path="/allrecords" component={AllRecords} />
+              <Route
+                exact
+                path="/allrecords"
+                component={() => <AllRecords records={this.state.records} />}
+              />
             </MainTemplate>
           </ThemeProvider>
         </AppContext.Provider>

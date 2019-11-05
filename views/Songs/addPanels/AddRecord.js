@@ -49,7 +49,6 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL }) => {
       cover,
       ads,
     });
-
     if (songsL >= 6 && typeRec === 'EP') {
       onPress();
       openSubject();

@@ -96,6 +96,7 @@ const AddSubject = ({
           ...song,
           full: true,
           subject: subj,
+          id: songsL * 1 + 1,
         }),
       );
     } else Alert.alert('Nie wybrałeś tematu.');

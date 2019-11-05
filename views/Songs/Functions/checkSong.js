@@ -22,6 +22,7 @@ export const checkSong = song => {
     earned: 0,
     place: 200,
     fans: 0,
+    id: song.id,
   };
 
   switch (song.subject) {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import SongItem from 'rap-gra/views/Songs/SongItem';
@@ -28,7 +28,7 @@ const StyledButton = styled(Button)`
   height: 100%;
 `;
 
-const AddSongRec = ({ onPress, open, openAddRec, setId, songs }) => {
+const AddSongRec = ({ onPress, open, openAddRec, setId, songs, rec }) => {
   const [idActive, setIdActive] = useState([]);
 
   const handleBack = () => {
@@ -37,11 +37,27 @@ const AddSongRec = ({ onPress, open, openAddRec, setId, songs }) => {
   };
 
   const saveData = () => {
-    onPress();
-    setId(idActive);
+    switch (rec.type) {
+      case 'EP':
+        if (idActive.length >= 6) {
+          onPress();
+          setId(idActive);
+        } else {
+          Alert.alert('Dodałeś za mało piosenek(Minimalna ilość to: 6');
+        }
+        break;
+      case 'LP':
+        if (idActive.length >= 10) {
+          onPress();
+          setId(idActive);
+        } else {
+          Alert.alert('Dodałeś za mało piosenek(Minimalna ilość to: 10');
+        }
+        break;
+      default:
+        Alert.alert('Zły typ');
+    }
   };
-
-  console.log(songs[0]);
 
   const items = songs.map(item => (
     <SongItem

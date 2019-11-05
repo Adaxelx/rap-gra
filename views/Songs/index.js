@@ -139,6 +139,9 @@ const Songs = () => {
             openAddRec={() => setOpenRec(!openRec)}
             songs={context.state.songs}
             setId={setId}
+            setRecord={context.setRecord}
+            recordsL={context.state.recordsL}
+            setLengthRec={context.setLengthRec}
           />
         </StyledContainer>
       )}
