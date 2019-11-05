@@ -1,4 +1,5 @@
 import React from 'react';
+import { AsyncStorage } from 'react-native';
 import { NativeRouter, Route } from 'react-router-native';
 import { ThemeProvider } from 'styled-components';
 import AppContext from 'rap-gra/context/context';
@@ -20,14 +21,30 @@ class App extends React.Component {
     cash: 1000000,
     stats: {
       fans: 150000,
-      reputation: 1500,
-      flow: 25,
+      reputation: 2000,
+      flow: 45,
       style: 95,
       rhymes: 92,
     },
     // label
     currentLabel: '',
   };
+
+  retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('label');
+      if (value !== null) {
+        this.setState({ currentLabel: value });
+        console.log(value);
+      }
+    } catch (error) {
+      console.log('error');
+    }
+  };
+
+  componentDidMount() {
+    this.retrieveData();
+  }
 
   labelFn = value => {
     this.setState({ currentLabel: value });

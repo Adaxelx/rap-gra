@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
-import { Text, Alert } from 'react-native';
+import { Text, Alert, AsyncStorage } from 'react-native';
 import { Title } from 'rap-gra/components/Title';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Button } from 'rap-gra/components/Button';
@@ -36,19 +36,34 @@ const LabelDetails = ({
   clickedLabelProfits,
   labelFn,
   stats,
+  currentLabel,
 }) => {
+  const storeData = async () => {
+    try {
+      await AsyncStorage.setItem('label', clickedLabelName);
+    } catch (error) {
+      console.log('error');
+    }
+  };
+
   const buttonFn = () => {
-    if (
-      stats.fans >= clickedLabelRequaierments.fans &&
-      stats.reputation >= clickedLabelRequaierments.reputation &&
-      stats.flow >= clickedLabelRequaierments.flow &&
-      stats.rhymes >= clickedLabelRequaierments.rhymes &&
-      stats.style >= clickedLabelRequaierments.style
-    ) {
-      labelFn(clickedLabelName);
+    if (currentLabel !== clickedLabelName) {
+      if (
+        stats.fans >= clickedLabelRequaierments.fans &&
+        stats.reputation >= clickedLabelRequaierments.reputation &&
+        stats.flow >= clickedLabelRequaierments.flow &&
+        stats.rhymes >= clickedLabelRequaierments.rhymes &&
+        stats.style >= clickedLabelRequaierments.style
+      ) {
+        labelFn(clickedLabelName);
+        storeData();
+        onPress();
+        Alert.alert(`Gratulacje dołączyłeś do ${clickedLabelName}!`);
+      } else Alert.alert('Nie spełniasz wymagań.');
+    } else {
+      Alert.alert('Już jesteś w tej wytwórnii ziomek XD');
       onPress();
-      Alert.alert(`Gratulacje dołączyłeś do ${clickedLabelName}!`);
-    } else Alert.alert('Nie spełniasz wymagań.');
+    }
   };
 
   return (
