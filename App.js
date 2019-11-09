@@ -30,52 +30,73 @@ class App extends React.Component {
     currentLabel: '',
     // songs
 
-    songs: [],
-    songsL: 1,
-    subjects: ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'],
-    records: [],
-    recordsL: 0,
+    songs: [], // Piosenki
+    songsL: 0, // Ilość piosenek
+    subjects: ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'], // Tematy piosenek
+    subL: 0, // Ilość tematów
+    records: [], // Płyty
+    recordsL: 0, // Ilość płyt
   };
 
   componentDidMount() {
-    let n;
-    let sL;
+    // AS -> AsyncStorage
+    let songL; // Ilość piosenek
+    let subL; // Ilość tematów piosenek
+    let recL; // Ilość płyt
     const { subjects } = this.state;
+
     // AsyncStorage.setItem('songsL', '0');
+
+    // Pobranie ilości tematów z AS
     AsyncStorage.getItem(`subjectsL`, (err, result) => {
+      // jeżeli nie ma ustalonej długości piosenek ustaw na 4 podstawowe
       if (result === null) {
-        sL = 4;
-      } else sL = result;
-      for (let i = 4; i < sL; i++) {
-        AsyncStorage.getItem(`subject${4}`, (err, result) => {
+        subL = 4;
+      } else subL = result;
+      this.setState({ subL });
+
+      // pętla po wszystkich tematach(minumum 4 podstawowe)
+      for (let i = 4; i < subL; i++) {
+        //Pobieranie tematów z AS
+        AsyncStorage.getItem(`subject${i}`, (err, result) => {
           this.setState({ subjects: [...this.state.subjects, result] });
         });
       }
     });
-    for (let i = 1; i <= sL; i++) {
+
+    //Wstawianie tematów do AS
+    for (let i = 1; i <= subL; i++) {
       AsyncStorage.setItem(`subject${i}`, subjects[i - 1]);
     }
 
+    //Pobranie ilości piosenek z AS
     AsyncStorage.getItem('songsL', (err, result) => {
-      this.setLength(result);
-      n = result;
+      //Sprawdzenie czy istnieją jakieś piosenki
+      if (result === null) {
+        songL = 0;
+      } else songL = result;
+      //Ustalenie stanu
+      this.setLength(songL);
 
-      for (let i = 1; i <= n; i++) {
+      //Pętla po wszystkich piosenkach
+      for (let i = 1; i <= songL; i++) {
+        //Pobranie piosenek z AS
         AsyncStorage.getItem(`song${i}`, (err, result) => {
           this.setState({ songs: [...this.state.songs, JSON.parse(result)] });
-          console.log(result);
         });
       }
     });
 
+    //Pobranie ilości płyt z AS
     AsyncStorage.getItem('recordsL', (err, result) => {
-      if (!result) {
-        return;
-      }
-      this.setLength(result);
-      n = result;
+      //Sprawdzenie czy istnieją jakieś płyty
+      if (result === null) {
+        recL = 0;
+      } else recL = result;
 
+      //Pętla po wszystkich płytach
       for (let i = 1; i <= n; i++) {
+        //Pobranie płyt z AS
         AsyncStorage.getItem(`record${i}`, (err, result) => {
           this.setState({ records: [...this.state.records, JSON.parse(result)] });
           console.log(result);
@@ -88,10 +109,12 @@ class App extends React.Component {
     this.setState({ currentLabel: value });
   };
 
+  //Ustalenie ilości piosenek
   setLength = result => {
     this.setState({ songsL: result });
   };
 
+  //Dodanie piosenki
   setSong = song => {
     this.setState({
       songsL: this.state.songsL + 1,
@@ -99,10 +122,12 @@ class App extends React.Component {
     });
   };
 
+  //Ustalenie ilości płyt
   setLengthRec = result => {
     this.setState({ recordsL: result });
   };
 
+  //Dodanie płyty
   setRecord = record => {
     this.setState({
       recordsL: this.state.recordsL + 1,
