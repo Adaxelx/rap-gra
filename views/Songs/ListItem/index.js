@@ -34,11 +34,11 @@ const ListItem = ({ type, title, rate, earnings, place, fans, value }) => {
     <StyledSong>
       <StyledSongTitle>{title}</StyledSongTitle>
       <StyledStatsCon>
-        <StyledP>Ocena: {rate}</StyledP>
+        <StyledP>Ocena: {rate}/10</StyledP>
         <StyledP>
           {type === 'record' ? `Kupionych egzemplarzy: ${value}` : `Przesłuchań: ${value}`}
         </StyledP>
-        <StyledP>Zarobiła: {earnings}</StyledP>
+        <StyledP>Zarobiła: {earnings}zł</StyledP>
         <StyledP>Miejsce na liście: {place}</StyledP>
         <StyledP>Zdobytych fanów: {fans}</StyledP>
       </StyledStatsCon>

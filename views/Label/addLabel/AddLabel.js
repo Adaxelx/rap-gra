@@ -13,19 +13,15 @@ const AddLabel = ({
   onPress,
   setYourLabelName,
   yourLabelName,
-  setCurrentLabel,
   setYourRapers,
+  labelFn,
 }) => {
   return (
-    <StyledAddPanel open={openAddLabel} onPress={onPress}>
+    <StyledAddPanel open={openAddLabel} onPress={onPress} top>
       {yourLabelName ? (
         <ManageLabel yourLabelName={yourLabelName} setYourRapers={setYourRapers} />
       ) : (
-        <CreateLabel
-          setYourLabelName={setYourLabelName}
-          setCurrentLabel={setCurrentLabel}
-          onPress={onPress}
-        />
+        <CreateLabel setYourLabelName={setYourLabelName} onPress={onPress} labelFn={labelFn} />
       )}
     </StyledAddPanel>
   );

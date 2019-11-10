@@ -23,7 +23,7 @@ const StyledTitle = styled(Paragraph)`
   text-align: center;
 `;
 
-const SongItem = ({ id, idActive, setIdActive }) => {
+const SongItem = ({ id, idActive, setIdActive, title, subject, rate }) => {
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
@@ -40,9 +40,9 @@ const SongItem = ({ id, idActive, setIdActive }) => {
 
   return (
     <StyledSong active={active} onPress={handleClick}>
-      <StyledTitle>Siema siema kurna witam</StyledTitle>
-      <Paragraph>Tematyka: Miłość</Paragraph>
-      <Paragraph>Ocena: 7/10</Paragraph>
+      <StyledTitle>{title}</StyledTitle>
+      <Paragraph>Temat: {subject}</Paragraph>
+      <Paragraph>Ocena: {rate}/10</Paragraph>
     </StyledSong>
   );
 };
