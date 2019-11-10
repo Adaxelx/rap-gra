@@ -31,16 +31,18 @@ const StyledRowContainer = styled(View)`
 `;
 
 const AddRecord = ({ open, onPress, setRec, openSubject, songsL }) => {
-  const [type, setType] = useState(false);
-  const [name, setName] = useState('Płyta1');
-  const [preorder, setPreorder] = useState(false);
-  const [cover, setCover] = useState(0);
-  const [special, setSpecial] = useState(0);
-  const [ads, setAds] = useState(0);
+  const [type, setType] = useState(false); // Wybór typu płyty (LP - true lub EP - false)
+  const [name, setName] = useState('Płyta1'); // Nazwa płyty
+  const [preorder, setPreorder] = useState(false); // Czy będzie preorder
+  const [cover, setCover] = useState(0); // Wydatki na okładkę płyty
+  const [special, setSpecial] = useState(0); // Wydatki na edycje specjalną
+  const [ads, setAds] = useState(0); // Wydatki na promocję
 
+  // Zapisanie danych do przejścia dalej
   const saveData = () => {
-    const typeRec = type ? 'LP' : 'EP';
+    const typeRec = type ? 'LP' : 'EP'; // Opisane przy stanie type
 
+    // Dodanie piosenki(nie skończonej) do stanu
     setRec({
       full: false,
       type: typeRec,
@@ -49,6 +51,8 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL }) => {
       cover,
       ads,
     });
+
+    // Sprawdzenie czy moesz zrobić piosenke(dla EP - minimum 6 piosenek stworzonych dla LP - 10)
     if (songsL >= 6 && typeRec === 'EP') {
       onPress();
       openSubject();
