@@ -95,7 +95,7 @@ class App extends React.Component {
       } else recL = result;
 
       //Pętla po wszystkich płytach
-      for (let i = 1; i <= n; i++) {
+      for (let i = 1; i <= recL; i++) {
         //Pobranie płyt z AS
         AsyncStorage.getItem(`record${i}`, (err, result) => {
           this.setState({ records: [...this.state.records, JSON.parse(result)] });
