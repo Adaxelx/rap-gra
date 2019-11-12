@@ -96,6 +96,7 @@ const AddSubject = ({ open, onPress, openAddSong, song, setSong, songsL, setLeng
       // Zamknij okno
       onPress();
     } else Alert.alert('Nie wybrałeś tematu.');
+    setSubj('');
   };
 
   // mapowanie tematów żeby je wyświetlić

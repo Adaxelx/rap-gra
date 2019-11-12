@@ -80,16 +80,16 @@ const Songs = () => {
               {[...context.state.songs]
                 .reverse()
                 .slice(0, 3)
-                .map(i => (
+                .map(songData => (
                   <ListItem
-                    key={i.title}
-                    title={i.title}
-                    place={i.place}
-                    type={i.type}
-                    earnings={i.earned}
-                    fans={i.fans}
-                    rate={i.rating}
-                    value={i.views}
+                    key={songData.id}
+                    title={songData.title}
+                    place={songData.place}
+                    type={songData.type}
+                    earnings={songData.earned}
+                    fans={songData.fans}
+                    rate={songData.rating}
+                    value={songData.views}
                   />
                 ))}
             </>

@@ -12,7 +12,7 @@ const calcRate = (best, choice) => {
 };
 
 export const checkSong = song => {
-  const { style, bit, rhymes } = song.values; // Destrukturyzacja danych o piosence
+  const { style, bit, rhymes, video } = song.values; // Destrukturyzacja danych o piosence
   // Deklaracja zmiennej bestValues
   const bestValues = {
     S: 50,
@@ -21,7 +21,7 @@ export const checkSong = song => {
   };
   // Deklaracja początkowych wartości dla sprawdzonej piosenki
   const checkedSong = {
-    title: song.name,
+    title: song.title,
     subject: song.subject,
     rating: 1,
     views: 0,
@@ -67,8 +67,10 @@ export const checkSong = song => {
     ) / 10;
   // Obliczenie przyrostu fanów(na podstawie poprzedniej ilości fanów i oceny piosenki)
   checkedSong.fans = Math.floor((checkedSong.fans * 0.1 + 1) * (1 + checkedSong.rating * 0.05));
+
   // Obliczenie wyświetleń(Na podstawie ilości fanów i oceny)
   checkedSong.views = Math.floor((checkedSong.fans + 10) * checkedSong.rating);
+  checkedSong.views = video.active ? video.valueVid * 0.1 * checkedSong.views : checkedSong.views;
   // Obliczenie zarobionych pieniędzy na podstawie wyświetleń
   checkedSong.earned = Math.floor(checkedSong.views * 0.01);
   return checkedSong;

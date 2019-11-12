@@ -28,6 +28,14 @@ const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs }) => {
   const [valueBit, setValueBit] = useState(0); // Jaki bit
   const [vid, setVid] = useState(false); // Teledysk: tak czy nie
 
+  const clearState = () => {
+    setValueVid(0);
+    setValueStyle(0);
+    setValueRhymes(0);
+    setValueBit(0);
+    setVid(false);
+  };
+
   const saveData = () => {
     let copy = false; // Czy jest taka piosoenka czy nie
     songs.forEach(({ titleS }) => {
@@ -60,6 +68,8 @@ const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs }) => {
         bit: Math.floor(valueBit),
       },
     });
+    // Czyszczenie stanu
+    clearState();
     // Zamknij okno
     onPress();
     // Otwórz kolejne okno
