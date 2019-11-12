@@ -76,18 +76,22 @@ const Songs = () => {
                 </StyledButton>
               </StyledRowContainer>
               <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
-              {context.state.songs.map(i => (
-                <ListItem
-                  key={i.title}
-                  title={i.title}
-                  place={i.place}
-                  type={i.type}
-                  earnings={i.earned}
-                  fans={i.fans}
-                  rate={i.rating}
-                  value={i.views}
-                />
-              ))}
+              {/* Wyświetlanie 3 ostatnich piosenek, od najnowszej do najstarszej, [...] ->  skopiowanie tablicy, aby reverse działało po odświerzeniu, slice do wyświetlenia 3 ostatnich */}
+              {[...context.state.songs]
+                .reverse()
+                .slice(0, 3)
+                .map(i => (
+                  <ListItem
+                    key={i.title}
+                    title={i.title}
+                    place={i.place}
+                    type={i.type}
+                    earnings={i.earned}
+                    fans={i.fans}
+                    rate={i.rating}
+                    value={i.views}
+                  />
+                ))}
             </>
             <StyledRowContainer>
               <StyledLink underlayColor="transparent" to="/allsongs">
