@@ -41,6 +41,8 @@ const AddLabel = ({
       </Modal>
     </>
 
+    // jeśli nie posiadasz swojej wytwórnii, możesz ją założyć, ale jeśli ją masz to pojawia się okno zarządzania
+
     // <StyledAddPanel open={openAddLabel} onPress={onPress} top>
 
     // </StyledAddPanel>

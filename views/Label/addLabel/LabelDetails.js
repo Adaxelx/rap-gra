@@ -47,6 +47,7 @@ const LabelDetails = ({
   };
 
   const buttonFn = () => {
+    // funkcja sprawdza czy nie jesteś juz w danej wytwórnii, jeśli nie to sprawdza czy spełniasz kryteria i dodaje cię do niej
     if (currentLabel !== clickedLabelName) {
       if (
         stats.fans >= clickedLabelRequaierments.fans &&

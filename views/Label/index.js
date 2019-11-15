@@ -159,19 +159,17 @@ const labels = [
 ];
 
 const Label = () => {
-  const [openAddLabel, setAddLabel] = useState(false);
-  const [openLabelDetails, setLabelDetails] = useState(false);
-  const [yourLabelName, setYourLabelName] = useState('');
+  const [openAddLabel, setAddLabel] = useState(false); // otwiera panel zakładania wytrównii
+  const [openLabelDetails, setLabelDetails] = useState(false); // otwiera panel szczegółów
+  const [yourLabelName, setYourLabelName] = useState(''); // nazwa twojej wytwórnii
   const [clickedLabelName, setClickedLabelName] = useState('');
   const [clickedLabelHistory, setClickedLabelHistory] = useState('');
   const [clickedLabelRequaierments, setClickedLabelRequaierments] = useState('');
   const [clickedLabelProfits, setClickedLabelProfits] = useState('');
 
-  // const [currentLabelName, setCurrentLabelName] = useState('');
-
   const buttonFn = label => {
-    setLabelDetails(!openLabelDetails);
-    setClickedLabelName(label.name);
+    setLabelDetails(!openLabelDetails); // otwiera
+    setClickedLabelName(label.name); // to i reszta ustala w co było kliknięte
     setClickedLabelHistory(label.history);
     setClickedLabelRequaierments(label.requaierments);
     setClickedLabelProfits(label.profits);

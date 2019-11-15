@@ -23,7 +23,7 @@ class App extends React.Component {
       fans: 150000,
       reputation: 2000,
       flow: 45,
-      style: 95,
+      style: 97,
       rhymes: 92,
     },
     // label
@@ -43,11 +43,57 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.retrieveData();
+    const { flow, style, rhymes } = this.state.stats;
+    this.retrieveData(); // wczytuje dane Label
+    if (flow >= 100) this.setState({ flow: 100 });
+    if (style <= 100) {
+      this.setState({ style: 100 });
+    }
+    if (rhymes >= 100) this.setState({ rhymes: 100 });
+    console.log(style);
   }
 
   labelFn = value => {
+    // dołączanie do wytwórnii => obsługiwane jest w Label i LabelDetails
     this.setState({ currentLabel: value });
+  };
+
+  testFn = () => {
+    const { flow, style, rhymes } = this.state.stats;
+
+    // this.setState(prevState => ({
+    //   stats: {
+    //     ...this.state.stats,
+    //     style: prevState.stats.style + 2
+    //   }
+    // }));
+
+    if (style < 100) {
+      this.setState(prevState => ({
+        stats: {
+          ...this.state.stats,
+          style: prevState.stats.style + 1,
+        },
+      }));
+      console.log(this.state.stats.style);
+    } else {
+      this.setState({
+        stats: {
+          ...this.state.stats,
+          style: 100,
+        },
+      });
+      console.log('supa');
+    }
+
+    // console.log(this.state.stats.style)
+
+    // this.setState({
+    //   stats: {
+    //     ...this.state.stats,
+    //     style: 105
+    //   }
+    // });
   };
 
   render() {
@@ -57,6 +103,7 @@ class App extends React.Component {
           value={{
             state: this.state,
             labelFn: this.labelFn,
+            testFn: this.testFn,
           }}
         >
           <ThemeProvider theme={theme}>
