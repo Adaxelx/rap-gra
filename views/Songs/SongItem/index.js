@@ -23,19 +23,22 @@ const StyledTitle = styled(Paragraph)`
   text-align: center;
 `;
 
+// Komponent do piosenek wybranych do płyty
 const SongItem = ({ id, idActive, setIdActive, title, subject, rate }) => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(false); // aktywny czy nie
 
   const handleClick = () => {
     setActive(!active);
 
     if (active === false) {
-      setIdActive([...idActive, id].sort());
+      // useState jest asynchroniczny więc wartośc będzie odwrotna do prawdziwej wartości dlatego false
+      setIdActive([...idActive, id].sort()); // dodanie i posortowanie tablicy id(potem potrzebne do wyszukiwania)
     } else {
-      const copy = idActive;
-      const index = copy.findIndex(idA => id === idA);
-      copy.splice(index, 1);
-      setIdActive(copy.sort());
+      // usuniecie elementu z tablicy
+      const copy = idActive; // aktywne id
+      const index = copy.findIndex(idA => id === idA); // znalezienie miejsca aktywnego id w tablicy
+      copy.splice(index, 1); // usuniecie z tablicy elementu
+      setIdActive(copy.sort()); // posortowanie tablicy
     }
   };
 

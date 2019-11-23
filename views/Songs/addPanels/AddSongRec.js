@@ -84,7 +84,7 @@ const AddSongRec = ({
 
   // Zapisanie płyty
   const saveData = () => {
-    // Sprawdzenie czy została dodana wystarczająca ilość piosenek w zależności od typu
+    // Sprawdzenie czy została dodana wystarczająca ilość piosenek w zależności od typu min 6 max 9 dla EP, min 10, max 15 dla LP
     switch (rec.type) {
       case 'EP':
         if (idActive.length > 10) {
@@ -111,6 +111,7 @@ const AddSongRec = ({
     }
     // Dodanie  tytułów aktywnych piosenek w zaleności od id.
     let i = 0;
+    // zapisanie tematów, tytułów i ocen do tablic
     const activeTitles = [];
     const activeSubjects = [];
     const activeRates = [];
@@ -125,6 +126,7 @@ const AddSongRec = ({
 
     // Dodanie płyty do AS
     storeRec(
+      // sprawdzenie piosenki
       checkRec(
         {
           ...rec,
@@ -135,6 +137,7 @@ const AddSongRec = ({
         recordsL,
       ),
     );
+    // zresetowanie tablicy
     setIdActive([]);
   };
 

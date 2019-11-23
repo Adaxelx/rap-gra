@@ -30,6 +30,7 @@ const StyledStatsCon = styled(View)`
 `;
 
 const ListItem = ({ type, title, rate, earnings, place, fans, value, subject }) => {
+  // Sprawdzenie czy mamy doczynienie z plyta czy z piosenka, w zaleznosci od tego beda wyswietlac sie rozne rzeczy
   const cond = type === 'EP' || type === 'LP';
   return (
     <StyledSong>

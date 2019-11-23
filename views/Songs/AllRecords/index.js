@@ -6,11 +6,14 @@ let newData = [];
 const AllRecords = ({ records }) => {
   const [input, setInput] = useState('');
   const [changed, setChanged] = useState(false);
+  // to samo co w AllSongs
   const findItem = text => {
     setInput(text);
     newData = records.filter(item => item.title.toLowerCase().includes(text.toLowerCase()));
     setChanged(true);
   };
+
+  // to samo co w AllSongs
   const data = [...records]
     .reverse()
     .map(({ rating, sold, subject, title, type, id }) => (
