@@ -5,6 +5,7 @@ import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import SongItem from 'rap-gra/views/Songs/SongItem';
 import styled from 'styled-components';
+import { checkRec } from 'rap-gra/views/Songs/Functions/checkRec';
 
 import { Button } from 'rap-gra/components/Button';
 
@@ -46,6 +47,7 @@ const AddSongRec = ({
   // Funkcja asynchroniczna zapisująca dane płyty
   const storeRec = async object => {
     const length = recordsL; // ilość płyt pobrana z AS
+
     try {
       // Dodanie płyty na odpowiednie miejsce w AS np. record3
       await AsyncStorage.setItem(
@@ -85,19 +87,23 @@ const AddSongRec = ({
     // Sprawdzenie czy została dodana wystarczająca ilość piosenek w zależności od typu
     switch (rec.type) {
       case 'EP':
-        if (idActive.length >= 6) {
+        if (idActive.length > 10) {
+          Alert.alert('(Maksymalna ilość to: 9)Dodałeś za dużo piosenek');
+        } else if (idActive.length >= 6) {
           onPress();
           setId(idActive);
         } else {
-          Alert.alert('Dodałeś za mało piosenek(Minimalna ilość to: 6');
+          Alert.alert('(Minimalna ilość to: 6)Dodałeś za mało piosenek');
         }
         break;
       case 'LP':
-        if (idActive.length >= 10) {
+        if (idActive.length >= 15) {
+          Alert.alert('(Maksymalna ilość to: 15)Dodałeś za dużo piosenek');
+        } else if (idActive.length >= 10) {
           onPress();
           setId(idActive);
         } else {
-          Alert.alert('Dodałeś za mało piosenek(Minimalna ilość to: 10');
+          Alert.alert('(Minimalna ilość to: 10)Dodałeś za mało piosenek');
         }
         break;
       default:
@@ -106,17 +112,26 @@ const AddSongRec = ({
     // Dodanie  tytułów aktywnych piosenek w zaleności od id.
     let i = 0;
     const activeTitles = [];
+    const activeSubjects = [];
     songs.forEach(song => {
       if (song.id === idActive[i]) {
         activeTitles.push(song.title);
+        activeSubjects.push(song.subject);
         i++;
       }
     });
+    checkRec({
+      ...rec,
+      activeTitles,
+      activeSubjects,
+    });
+
     // Dodanie płyty do AS
     storeRec({
       ...rec,
       activeTitles,
     });
+    setIdActive([]);
   };
 
   const items = [...songs]

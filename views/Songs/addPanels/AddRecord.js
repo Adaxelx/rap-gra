@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
@@ -30,13 +30,20 @@ const StyledRowContainer = styled(View)`
   align-items: center;
 `;
 
-const AddRecord = ({ open, onPress, setRec, openSubject, songsL }) => {
+const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL }) => {
   const [type, setType] = useState(false); // Wybór typu płyty (LP - true lub EP - false)
-  const [name, setName] = useState('Płyta1'); // Nazwa płyty
+  const [title, setTitle] = useState(`Płyta ${recordsL * 1 + 1}`); // Nazwa płyty
   const [preorder, setPreorder] = useState(false); // Czy będzie preorder
   const [cover, setCover] = useState(0); // Wydatki na okładkę płyty
   const [special, setSpecial] = useState(0); // Wydatki na edycje specjalną
   const [ads, setAds] = useState(0); // Wydatki na promocję
+
+  useEffect(() => {
+    // Zaktualizowanie tytułu gdy nazwy piosenek nie zgadzają się(Po dodaniu piosenki)
+    if (title !== `Płyta ${recordsL * 1 + 1}`) {
+      setTitle(`Płyta ${recordsL * 1 + 1}`);
+    }
+  });
 
   // Zapisanie danych do przejścia dalej
   const saveData = () => {
@@ -45,6 +52,7 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL }) => {
     // Dodanie piosenki(nie skończonej) do stanu
     setRec({
       full: false,
+      title,
       type: typeRec,
       preorder,
       special,
@@ -67,7 +75,7 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL }) => {
   return (
     <AddPanel open={open} onPress={onPress}>
       <Title>Stwórz płytę</Title>
-      <Input onChangeText={text => setName(text)} value={name} />
+      <Input onChangeText={text => setTitle(text)} value={title} />
       <StyledFormType two>
         <Paragraph>Rodzaj:</Paragraph>
         <StyledRowContainer>

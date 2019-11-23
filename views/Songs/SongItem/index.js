@@ -28,13 +28,14 @@ const SongItem = ({ id, idActive, setIdActive, title, subject, rate }) => {
 
   const handleClick = () => {
     setActive(!active);
-    if (!active) {
-      setIdActive([...idActive, id]);
+
+    if (active === false) {
+      setIdActive([...idActive, id].sort());
     } else {
       const copy = idActive;
       const index = copy.findIndex(idA => id === idA);
       copy.splice(index, 1);
-      setIdActive(copy);
+      setIdActive(copy.sort());
     }
   };
 
