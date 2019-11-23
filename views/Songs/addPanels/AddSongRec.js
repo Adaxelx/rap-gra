@@ -113,24 +113,25 @@ const AddSongRec = ({
     let i = 0;
     const activeTitles = [];
     const activeSubjects = [];
+    const activeRates = [];
     songs.forEach(song => {
       if (song.id === idActive[i]) {
         activeTitles.push(song.title);
         activeSubjects.push(song.subject);
+        activeRates.push(song.rating);
         i++;
       }
     });
-    checkRec({
-      ...rec,
-      activeTitles,
-      activeSubjects,
-    });
 
     // Dodanie płyty do AS
-    storeRec({
-      ...rec,
-      activeTitles,
-    });
+    storeRec(
+      checkRec({
+        ...rec,
+        activeTitles,
+        activeSubjects,
+        activeRates,
+      }),
+    );
     setIdActive([]);
   };
 

@@ -46,7 +46,7 @@ class App extends React.Component {
     const { subjects } = this.state;
 
     // AsyncStorage.setItem('songsL', '0');
-
+    // AsyncStorage.setItem('recordsL', '0');
     // Pobranie ilości tematów z AS
     AsyncStorage.getItem(`subjectsL`, (err, result) => {
       // jeżeli nie ma ustalonej długości piosenek ustaw na 4 podstawowe
@@ -99,8 +99,8 @@ class App extends React.Component {
       for (let i = 1; i <= recL; i++) {
         //Pobranie płyt z AS
         AsyncStorage.getItem(`record${i}`, (err, result) => {
-          this.setState({ records: [...this.state.records, JSON.parse(result)] });
           console.log(result);
+          this.setState({ records: [...this.state.records, JSON.parse(result)] });
         });
       }
     });

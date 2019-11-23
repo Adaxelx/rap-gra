@@ -35,7 +35,7 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL }) => 
   const [title, setTitle] = useState(`Płyta ${recordsL * 1 + 1}`); // Nazwa płyty
   const [preorder, setPreorder] = useState(false); // Czy będzie preorder
   const [cover, setCover] = useState(0); // Wydatki na okładkę płyty
-  const [special, setSpecial] = useState(0); // Wydatki na edycje specjalną
+  const [special, setSpecial] = useState(false); // Wydatki na edycje specjalną
   const [ads, setAds] = useState(0); // Wydatki na promocję
 
   useEffect(() => {
@@ -59,6 +59,11 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL }) => 
       cover,
       ads,
     });
+    setSpecial(false);
+    setCover(0);
+    setPreorder(false);
+    setAds(0);
+    setType(false);
 
     // Sprawdzenie czy moesz zrobić piosenke(dla EP - minimum 6 piosenek stworzonych dla LP - 10)
     if (songsL >= 6 && typeRec === 'EP') {

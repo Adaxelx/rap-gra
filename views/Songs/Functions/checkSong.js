@@ -33,22 +33,22 @@ export const checkSong = song => {
 
   // Wyznaczenie najlepszych wartości dla stylu(S), bitu(B) i rymów(R) dla odpowiadających tematów
   switch (song.subject) {
-    case 'Wolność':
+    case 'O wolności':
       bestValues.S = 55 + Math.floor(Math.random() * 10 - 5);
       bestValues.R = 85 + Math.floor(Math.random() * 10 - 5);
       bestValues.B = 5 + Math.floor(Math.random() * 10 - 5);
       break;
-    case 'Miłość':
+    case 'Miłosna':
       bestValues.S = 20 + Math.floor(Math.random() * 10 - 5);
       bestValues.R = 70 + Math.floor(Math.random() * 10 - 5);
       bestValues.B = 30 + Math.floor(Math.random() * 10 - 5);
       break;
-    case 'Przyjaźń':
+    case 'O przyjaźni':
       bestValues.S = 70 + Math.floor(Math.random() * 10 - 5);
       bestValues.R = 30 + Math.floor(Math.random() * 10 - 5);
       bestValues.B = 70 + Math.floor(Math.random() * 10 - 5);
       break;
-    case 'Ziomki':
+    case 'O ziomkach':
       bestValues.S = 80 + Math.floor(Math.random() * 20 - 10);
       bestValues.R = 60 + Math.floor(Math.random() * 20 - 10);
       bestValues.B = 80 + Math.floor(Math.random() * 20 - 10);
