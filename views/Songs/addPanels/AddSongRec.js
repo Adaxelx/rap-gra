@@ -125,12 +125,15 @@ const AddSongRec = ({
 
     // Dodanie płyty do AS
     storeRec(
-      checkRec({
-        ...rec,
-        activeTitles,
-        activeSubjects,
-        activeRates,
-      }),
+      checkRec(
+        {
+          ...rec,
+          activeTitles,
+          activeSubjects,
+          activeRates,
+        },
+        recordsL,
+      ),
     );
     setIdActive([]);
   };

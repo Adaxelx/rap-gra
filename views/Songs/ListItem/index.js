@@ -29,18 +29,17 @@ const StyledStatsCon = styled(View)`
   flex-direction: column;
 `;
 
-const ListItem = ({ type, title, rate, earnings, place, fans, value }) => {
+const ListItem = ({ type, title, rate, earnings, place, fans, value, subject }) => {
+  const cond = type === 'EP' || type === 'LP';
   return (
     <StyledSong>
       <StyledSongTitle>{title}</StyledSongTitle>
       <StyledStatsCon>
         <StyledP>Ocena: {rate}/10</StyledP>
-        <StyledP>
-          {type === 'record' ? `Kupionych egzemplarzy: ${value}` : `Przesłuchań: ${value}`}
-        </StyledP>
+        <StyledP>{cond ? `Kupionych egzemplarzy: ${value}` : `Przesłuchań: ${value}`}</StyledP>
         <StyledP>Zarobiła: {earnings}zł</StyledP>
-        <StyledP>Miejsce na liście: {place}</StyledP>
-        <StyledP>Zdobytych fanów: {fans}</StyledP>
+        <StyledP>{cond ? `Typ płyty: ${type}` : `Miejsce na liście: ${place}`}</StyledP>
+        <StyledP>{cond ? `Tematyka to: ${subject}` : `Zdobytych fanów: ${fans}`}</StyledP>
       </StyledStatsCon>
     </StyledSong>
   );

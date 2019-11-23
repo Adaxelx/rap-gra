@@ -7,7 +7,7 @@ const pickSubject = arr => {
   return 'Mieszany';
 };
 
-export const checkRec = rec => {
+export const checkRec = (rec, length) => {
   const { title, type, activeSubjects, preorder, special, ads, cover, activeRates } = rec;
   const fans = 10;
   let mult = type === 'EP' ? 0.01 : 0.015;
@@ -18,6 +18,7 @@ export const checkRec = rec => {
     subject: '',
     sold: 0,
     rating: 0,
+    id: length,
   };
   checkedRec.subject = pickSubject(activeSubjects);
   let sum = 0;

@@ -99,7 +99,6 @@ class App extends React.Component {
       for (let i = 1; i <= recL; i++) {
         //Pobranie płyt z AS
         AsyncStorage.getItem(`record${i}`, (err, result) => {
-          console.log(result);
           this.setState({ records: [...this.state.records, JSON.parse(result)] });
         });
       }
@@ -112,7 +111,6 @@ class App extends React.Component {
 
   //Ustalenie ilości piosenek
   setLength = result => {
-    console.log(result);
     this.setState({ songsL: result });
   };
 

@@ -33,22 +33,22 @@ export const checkSong = song => {
 
   // Wyznaczenie najlepszych wartości dla stylu(S), bitu(B) i rymów(R) dla odpowiadających tematów
   switch (song.subject) {
-    case 'O wolności':
+    case 'Wolność':
       bestValues.S = 55 + Math.floor(Math.random() * 10 - 5);
       bestValues.R = 85 + Math.floor(Math.random() * 10 - 5);
       bestValues.B = 5 + Math.floor(Math.random() * 10 - 5);
       break;
-    case 'Miłosna':
+    case 'Miłość':
       bestValues.S = 20 + Math.floor(Math.random() * 10 - 5);
       bestValues.R = 70 + Math.floor(Math.random() * 10 - 5);
       bestValues.B = 30 + Math.floor(Math.random() * 10 - 5);
       break;
-    case 'O przyjaźni':
+    case 'Przyjaźń':
       bestValues.S = 70 + Math.floor(Math.random() * 10 - 5);
       bestValues.R = 30 + Math.floor(Math.random() * 10 - 5);
       bestValues.B = 70 + Math.floor(Math.random() * 10 - 5);
       break;
-    case 'O ziomkach':
+    case 'Ziomki':
       bestValues.S = 80 + Math.floor(Math.random() * 20 - 10);
       bestValues.R = 60 + Math.floor(Math.random() * 20 - 10);
       bestValues.B = 80 + Math.floor(Math.random() * 20 - 10);
@@ -70,7 +70,10 @@ export const checkSong = song => {
 
   // Obliczenie wyświetleń(Na podstawie ilości fanów i oceny)
   checkedSong.views = Math.floor((checkedSong.fans + 10) * checkedSong.rating);
-  checkedSong.views = video.active ? video.valueVid * 0.1 * checkedSong.views : checkedSong.views;
+
+  checkedSong.views = video.active
+    ? Math.floor(video.value * 0.1 * checkedSong.views)
+    : checkedSong.views;
   // Obliczenie zarobionych pieniędzy na podstawie wyświetleń
   checkedSong.earned = Math.floor(checkedSong.views * 0.01);
   return checkedSong;
