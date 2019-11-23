@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
@@ -22,6 +22,7 @@ const StyledRowCon = styled(View)`
 const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs }) => {
   // Nazwa piosenki(Początkowa ustalona w zalezności od ilości piosenek). *1 przy songsL jest dlatego że songsL jest stringiem i pomnożenie przez 1 zamienia tą wartość na inta.
   const [title, setTitle] = useState(`Piosenka ${songsL * 1 + 1}`);
+
   const [valueVid, setValueVid] = useState(0); // Pieniądze wydane na teledysk
   const [valueStyle, setValueStyle] = useState(0); // Jaki styl
   const [valueRhymes, setValueRhymes] = useState(0); // Ilość rymów
@@ -36,12 +37,20 @@ const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs }) => {
     setVid(false);
   };
 
+  useEffect(() => {
+    // Zaktualizowanie tytułu gdy nazwy piosenek nie zgadzają się(Po dodaniu piosenki)
+    if (title !== `Piosenka ${songsL * 1 + 1}`) {
+      setTitle(`Piosenka ${songsL * 1 + 1}`);
+    }
+  });
+
   const saveData = () => {
     let copy = false; // Czy jest taka piosoenka czy nie
-    songs.forEach(({ titleS }) => {
+
+    songs.forEach(song => {
       // Jeżeli nie było kopii sprawdz czy teraz jest to kopia
       if (copy !== true) {
-        copy = title === titleS;
+        copy = title === song.title;
       }
     });
     // Jeżeli jest to kopia wyświetl komunikat i nie zapisuj danych

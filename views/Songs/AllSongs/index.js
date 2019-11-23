@@ -12,31 +12,35 @@ const AllSongs = ({ songs }) => {
     setChanged(true);
   };
 
-  const mapData = songs.map(i => (
-    <ListItem
-      key={i.earnings}
-      title={i.title}
-      place={i.place}
-      type={i.type}
-      earnings={i.earned}
-      fans={i.fans}
-      rate={i.rating}
-      value={i.views}
-    />
-  ));
+  const mapData = [...songs]
+    .reverse()
+    .map(i => (
+      <ListItem
+        key={i.id}
+        title={i.title}
+        place={i.place}
+        type={i.type}
+        earnings={i.earned}
+        fans={i.fans}
+        rate={i.rating}
+        value={i.views}
+      />
+    ));
 
-  const newMapData = newData.map(i => (
-    <ListItem
-      key={i.earnings}
-      title={i.title}
-      place={i.place}
-      type={i.type}
-      earnings={i.earned}
-      fans={i.fans}
-      rate={i.rating}
-      value={i.views}
-    />
-  ));
+  const newMapData = [...newData]
+    .reverse()
+    .map(i => (
+      <ListItem
+        key={i.id}
+        title={i.title}
+        place={i.place}
+        type={i.type}
+        earnings={i.earned}
+        fans={i.fans}
+        rate={i.rating}
+        value={i.views}
+      />
+    ));
   return (
     <AllItems title="Wszystkie piosenki" onChangeText={text => findItem(text)} value={input}>
       {changed ? newMapData : mapData}

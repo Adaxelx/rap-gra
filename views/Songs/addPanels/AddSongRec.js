@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
-import { View, Alert, AsyncStorage } from 'react-native';
+import { ScrollView, View, Alert, AsyncStorage } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import SongItem from 'rap-gra/views/Songs/SongItem';
@@ -10,7 +10,7 @@ import { Button } from 'rap-gra/components/Button';
 
 /* eslint-disable no-plusplus */
 
-const StyledCon = styled(View)`
+const StyledCon = styled(ScrollView)`
   flex-grow: 1;
   width: 100%;
   padding: 0 10px;
@@ -117,20 +117,21 @@ const AddSongRec = ({
       ...rec,
       activeTitles,
     });
-    console.log(activeTitles);
   };
 
-  const items = songs.map(item => (
-    <SongItem
-      id={item.id}
-      key={item.id}
-      title={item.title}
-      subject={item.type}
-      rate={item.rating}
-      idActive={idActive}
-      setIdActive={setIdActive}
-    />
-  ));
+  const items = [...songs]
+    .reverse()
+    .map(item => (
+      <SongItem
+        id={item.id}
+        key={item.id}
+        title={item.title}
+        subject={item.subject}
+        rate={item.rating}
+        idActive={idActive}
+        setIdActive={setIdActive}
+      />
+    ));
   return (
     <AddPanel onPress={onPress} open={open}>
       <Title>Wybierz piosenki:</Title>
@@ -140,7 +141,7 @@ const AddSongRec = ({
           <Paragraph>Wstecz</Paragraph>
         </StyledButton>
         <StyledButton onPress={saveData}>
-          <Paragraph>Dodaj piosenkę</Paragraph>
+          <Paragraph>Dodaj płytę</Paragraph>
         </StyledButton>
       </StyledRowContainer>
     </AddPanel>
