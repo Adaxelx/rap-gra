@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
 import { Text, Alert, AsyncStorage } from 'react-native';
@@ -36,6 +36,7 @@ const LabelDetails = ({
   clickedLabelProfits,
   labelFn,
   stats,
+
   currentLabel,
 }) => {
   const storeData = async () => {
@@ -78,6 +79,7 @@ const LabelDetails = ({
         Flow: {clickedLabelRequaierments.flow} Styl: {clickedLabelRequaierments.style} Rymy:{' '}
         {clickedLabelRequaierments.rhymes}
       </StyledText>
+
       <StyledParagraph>Przywileje: </StyledParagraph>
       <StyledText>Przyrost Fanów: {clickedLabelProfits.fansIncrease}x</StyledText>
       <StyledText>Przyrost Reputacji: {clickedLabelProfits.reputationIncrease}x</StyledText>

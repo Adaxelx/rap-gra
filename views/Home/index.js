@@ -51,6 +51,7 @@ const StyledStatValue = styled(Text)`
   color: ${({ theme }) => theme.fontColor};
 `;
 
+
 const Home = () => {
   return (
     <AppContext.Consumer>
