@@ -11,6 +11,7 @@ import { Button } from 'rap-gra/components/Button';
 import { Link } from 'react-router-native';
 import { RowContainer } from 'rap-gra/components/RowContainer';
 import ListItem from 'rap-gra/views/Songs/ListItem';
+import AppContext from 'rap-gra/context/context';
 
 const StyledContainer = styled(ScrollView)`
   flex-grow: 1;
@@ -20,7 +21,7 @@ const StyledContainer = styled(ScrollView)`
 
 const StyledRowContainer = styled(RowContainer)`
   width: 100%;
-  height: 100px;
+  height: 70px;
   padding: 15px;
 `;
 
@@ -31,6 +32,7 @@ const StyledButton = styled(Button)`
 const StyledTitle = styled(Title)`
   width: 100%;
   text-align: center;
+  margin-bottom: 0;
 `;
 
 const StyledSubtitle = styled(Title)`
@@ -44,133 +46,103 @@ const StyledLink = styled(Link)`
   padding: 5px;
 `;
 
-const data = [
-  {
-    type: 'song',
-    title: 'Piosenka5',
-    value: '120232',
-    earnings: '12313123',
-    place: '210',
-    fans: '12344',
-    rate: '9/10',
-  },
-  {
-    type: 'song',
-    title: 'Piosenka4',
-    value: '120232',
-    earnings: '12313123',
-    place: '210',
-    fans: '12344',
-    rate: '9/10',
-  },
-  {
-    type: 'song',
-    title: 'Piosenka3',
-    value: '120232',
-    earnings: '12313123',
-    place: '210',
-    fans: '12344',
-    rate: '9/10',
-  },
-  {
-    type: 'record',
-    title: 'Piosenka2',
-    value: '120232',
-    earnings: '12313123',
-    place: '210',
-    fans: '12344',
-    rate: '9/10',
-  },
-];
-
 const Songs = () => {
-  const [openSong, setOpenSong] = useState(false);
-  const [song, setSong] = useState({ full: false });
-  const [fullSong, setFullSong] = useState({});
-  const [openSubject, setOpenSubject] = useState(false);
+  /* songs state */
+
+  const [openSong, setOpenSong] = useState(false); // Otwarcie lub zamknięcie okna piosenek
+  const [song, setSong] = useState({ full: false }); // Zapisanie danych z AddSong(nie cała piosenka)
+  const [openSubject, setOpenSubject] = useState(false); // Otwarcie lub zamknięcie wyboru tematów
+  const [id, setId] = useState([]); // Zapisywanie id piosenek
 
   /* record state */
 
-  const [openRec, setOpenRec] = useState(false);
-  const [rec, setRec] = useState({ full: false });
-  const [fullRec, setFullRec] = useState({});
-  const [openRecSub, setOpenRecSub] = useState(false);
-
-  /* */
-
-  const [id, setId] = useState([]);
-
-  const mapData = data.map(i => (
-    <ListItem
-      key={i.title}
-      title={i.title}
-      place={i.place}
-      type={i.type}
-      value={i.value}
-      earnings={i.earnings}
-      fans={i.fans}
-      rate={i.rate}
-    />
-  ));
+  const [openRec, setOpenRec] = useState(false); // Otwarcie lub zamknięcie tworzenia płyty(bez piosenek)
+  const [rec, setRec] = useState({ full: false }); // Zapisanie parametrów płyty(bez piosenek)
+  const [openRecSub, setOpenRecSub] = useState(false); // Otwracie lub zamknięcie wyboru piosenek do płyty
 
   return (
-    <StyledContainer id={id}>
-      <StyledTitle>Piosenki</StyledTitle>
-      <StyledContainer>
-        <>
-          <RowContainer>
-            <StyledLink underlayColor="transparent" to="/allsongs">
-              <Paragraph>Wszystkie piosenki</Paragraph>
-            </StyledLink>
-            <StyledLink underlayColor="transparent" to="/allrecords">
-              <Paragraph>Wszystkie płyty</Paragraph>
-            </StyledLink>
-          </RowContainer>
-          <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
-          {mapData}
-        </>
-        <StyledRowContainer>
-          <StyledButton onPress={() => setOpenSong(!openSong)}>
-            <Paragraph>Dodaj piosenkę</Paragraph>
-          </StyledButton>
-          <StyledButton onPress={() => setOpenRec(!openRec)}>
-            <Paragraph>Stwórz płytę</Paragraph>
-          </StyledButton>
-        </StyledRowContainer>
-      </StyledContainer>
+    <AppContext.Consumer>
+      {context => (
+        <StyledContainer id={id}>
+          <StyledTitle>Piosenki</StyledTitle>
+          <StyledContainer>
+            <>
+              <StyledRowContainer>
+                <StyledButton onPress={() => setOpenSong(!openSong)}>
+                  <Paragraph>Dodaj piosenkę</Paragraph>
+                </StyledButton>
+                <StyledButton onPress={() => setOpenRec(!openRec)}>
+                  <Paragraph>Stwórz płytę</Paragraph>
+                </StyledButton>
+              </StyledRowContainer>
+              <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
+              {/* Wyświetlanie 3 ostatnich piosenek, od najnowszej do najstarszej, [...] ->  skopiowanie tablicy, aby reverse działało po odświerzeniu, slice do wyświetlenia 3 ostatnich */}
+              {[...context.state.songs]
+                .reverse()
+                .slice(0, 3)
+                .map(songData => (
+                  <ListItem
+                    key={songData.id}
+                    title={songData.title}
+                    place={songData.place}
+                    type={songData.type}
+                    earnings={songData.earned}
+                    fans={songData.fans}
+                    rate={songData.rating}
+                    value={songData.views}
+                  />
+                ))}
+            </>
+            <StyledRowContainer>
+              <StyledLink underlayColor="transparent" to="/allsongs">
+                <Paragraph>Wszystkie piosenki</Paragraph>
+              </StyledLink>
+              <StyledLink underlayColor="transparent" to="/allrecords">
+                <Paragraph>Wszystkie płyty</Paragraph>
+              </StyledLink>
+            </StyledRowContainer>
+          </StyledContainer>
 
-      <AddSong
-        open={openSong}
-        setSong={setSong}
-        onPress={() => setOpenSong(!openSong)}
-        openSubject={() => setOpenSubject(!openSubject)}
-      />
-      <AddRecord
-        open={openRec}
-        song={song}
-        setRec={setRec}
-        onPress={() => setOpenRec(!openRec)}
-        openSubject={() => setOpenRecSub(!openRecSub)}
-      />
-      <AddSubject
-        open={openSubject}
-        song={song}
-        setFullSong={setFullSong}
-        fullSong={fullSong}
-        onPress={() => setOpenSubject(!openSubject)}
-        openAddSong={() => setOpenSong(!openSong)}
-      />
-      <AddSongRec
-        onPress={() => setOpenRecSub(!openRecSub)}
-        open={openRecSub}
-        setFullRec={setFullRec}
-        rec={rec}
-        fullRec={fullRec}
-        openAddRec={() => setOpenRec(!openRec)}
-        setId={setId}
-      />
-    </StyledContainer>
+          <AddSong
+            open={openSong} // Otwarta czy zamknięta piosenka
+            setSong={setSong} // Zapisanie danych piosenki
+            songsL={context.state.songsL} // Pobrana z AS ilość piosenek
+            songs={context.state.songs} // Pobrane piosenki z AS
+            onPress={() => setOpenSong(!openSong)} // Obsługa otwarcia/zamknięcia okna
+            openSubject={() => setOpenSubject(!openSubject)} // Otworzenie kolejnego okna z wyborem tematu
+          />
+          <AddSubject
+            open={openSubject} // Otwarty czy zamknięty wybór tematu piosenki
+            song={song} // Zapisana część danych piosenki
+            onPress={() => setOpenSubject(!openSubject)} // Zamknięcie okna wybrania tematu
+            openAddSong={() => setOpenSong(!openSong)} // Przy ewentualnym powrocie otworzenie okna wyboru statystyk piosenki
+            setSong={context.setSong} // Zapisanie piosenki do tablicy w App
+            songsL={context.state.songsL} // Ilość piosenek
+            setLength={context.setLength} // Ustalenie ilości piosenek
+            subjects={context.state.subjects} // Pobranie tematów z App context
+          />
+          <AddRecord
+            open={openRec} // Otwarta czy zamknięta płyta
+            setRec={setRec} // Zapisanie danych płyty
+            onPress={() => setOpenRec(!openRec)} // Obsługa otwarcia/zamknięcia okna
+            openSubject={() => setOpenRecSub(!openRecSub)} // Otworzenie kolejnego okna z wyborem piosenek
+            songsL={context.state.songsL} // Ilość piosenek
+            recordsL={context.state.recordsL} // Ilośc płyt
+          />
+          <AddSongRec
+            onPress={() => setOpenRecSub(!openRecSub)} // Obsługa otwarcia/zamknięcia okna
+            open={openRecSub} // Otwarty czy zamknięty wybór piosenek do płyty
+            rec={rec} // Wartości płyty z poprzedniego okna
+            openAddRec={() => setOpenRec(!openRec)} // Ewentualny powrót do wyboru statystyk płyty
+            songs={context.state.songs} // Pobranie piosenek
+            setId={setId} // Ustalenie aktywnych ID
+            setRecord={context.setRecord} // Dodanie płyty do tablicy płyt
+            recordsL={context.state.recordsL} // Ilość płyt
+            setLengthRec={context.setLengthRec} // Ustalenie ilości płyt
+          />
+        </StyledContainer>
+      )}
+    </AppContext.Consumer>
   );
 };
-
 export default Songs;

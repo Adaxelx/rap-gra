@@ -33,16 +33,15 @@ const StyledText = styled(Text)`
   transform: translateY(-11px);
 `;
 
-const ProgressBar = ({ progress, name }) => {
-  return (
-    <StyledProgressBar>
-      <StyledText>
-        {progress}% {name}
-      </StyledText>
+const ProgressBar = ({ progress, name }) => (
+  <StyledProgressBar>
+    {/* <StyledText>{progress >= 15 ? name : null}</StyledText> */}
+    <StyledText>
+      {progress}% {name}
+    </StyledText>
 
-      <StyledProgress progress={progress} />
-    </StyledProgressBar>
-  );
-};
+    <StyledProgress progress={progress} />
+  </StyledProgressBar>
+);
 
 export default ProgressBar;
