@@ -221,7 +221,7 @@ class App extends React.Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/songs" component={Songs} />
               <Route exact path="/concerts" component={Concerts} />
-              <Route exact path="/concerts" component={Label} />
+              <Route exact path="/label" component={Label} />
 
               <Route
                 exact
