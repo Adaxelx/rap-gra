@@ -42,7 +42,7 @@ const LabelDetails = ({
     try {
       await AsyncStorage.setItem('label', clickedLabelName);
     } catch (error) {
-      console.log('error');
+      // console.log('error');
     }
   };
 
