@@ -22,7 +22,7 @@ class App extends React.Component {
     stats: {
       fans: 150000,
       reputation: 2000,
-      flow: 45,
+      flow: 15,
       style: 97,
       rhymes: 92,
     },
@@ -60,6 +60,7 @@ class App extends React.Component {
 
   testFn = () => {
     const { flow, style, rhymes } = this.state.stats;
+    //ogranicznik tych śmierdzących progressbarów
 
     // this.setState(prevState => ({
     //   stats: {

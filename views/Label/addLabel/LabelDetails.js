@@ -60,9 +60,12 @@ const LabelDetails = ({
         storeData();
         onPress();
         Alert.alert(`Gratulacje dołączyłeś do ${clickedLabelName}!`);
-      } else Alert.alert('Nie spełniasz wymagań.');
+      } else {
+        Alert.alert('Nie spełniasz wymagań.');
+        onPress();
+      }
     } else {
-      Alert.alert('Już jesteś w tej wytwórnii ziomek XD');
+      Alert.alert('Już jesteś w tej wytwórni ziomek XD');
       onPress();
     }
   };
