@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Text, Modal, Alert, TouchableOpacity, View } from 'react-native';
+import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
+import { View } from 'react-native';
 import CreateLabel from './templates/CreateLabel';
 import ManageLabel from './templates/ManageLabel';
 
@@ -11,7 +12,6 @@ const StyledAddPanel = styled(View)`
 
 const AddLabel = ({
   openAddLabel,
-  setAddLabel,
   onPress,
   setYourLabelName,
   yourLabelName,
@@ -20,32 +20,18 @@ const AddLabel = ({
 }) => {
   return (
     <>
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={openAddLabel}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}
-      >
+      <AddPanelTemplate open={openAddLabel} onPress={onPress} top>
         <StyledAddPanel>
-          <TouchableOpacity onPress={() => setAddLabel(!openAddLabel)}>
-            <Text>close</Text>
-          </TouchableOpacity>
           {yourLabelName ? (
             <ManageLabel yourLabelName={yourLabelName} setYourRapers={setYourRapers} />
           ) : (
             <CreateLabel setYourLabelName={setYourLabelName} onPress={onPress} labelFn={labelFn} />
           )}
         </StyledAddPanel>
-      </Modal>
+      </AddPanelTemplate>
     </>
 
     // jeśli nie posiadasz swojej wytwórnii, możesz ją założyć, ale jeśli ją masz to pojawia się okno zarządzania
-
-    // <StyledAddPanel open={openAddLabel} onPress={onPress} top>
-
-    // </StyledAddPanel>
   );
 };
 

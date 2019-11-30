@@ -207,7 +207,6 @@ const Label = () => {
 
           <AddLabel
             openAddLabel={openAddLabel}
-            setAddLabel={setAddLabel}
             onPress={() => setAddLabel(!openAddLabel)}
             setYourLabelName={setYourLabelName}
             yourLabelName={yourLabelName}
