@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
-import { Text } from 'react-native';
+import { Text, Alert, AsyncStorage } from 'react-native';
 import { Title } from 'rap-gra/components/Title';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Button } from 'rap-gra/components/Button';
@@ -16,13 +16,6 @@ const StyledParagraphHistory = styled(Paragraph)`
   font-size: 15px;
   text-align: justify;
   margin: 0 10px;
-`;
-
-const StyledAlertMsg = styled(Paragraph)`
-  /* margin: 10px 0; */
-  font-size: 35px;
-  text-align: center;
-  background-color: black;
 `;
 
 const StyledText = styled(Text)`
@@ -43,19 +36,36 @@ const LabelDetails = ({
   clickedLabelProfits,
   labelFn,
   stats,
+
+  currentLabel,
 }) => {
-  const [alertMsg, setAlertMsg] = useState('');
+  const storeData = async () => {
+    try {
+      await AsyncStorage.setItem('label', clickedLabelName);
+    } catch (error) {
+      console.log('error');
+    }
+  };
+
   const buttonFn = () => {
-    if (
-      stats.fans >= clickedLabelRequaierments.fans &&
-      stats.reputation >= clickedLabelRequaierments.reputation &&
-      stats.flow >= clickedLabelRequaierments.flow &&
-      stats.rhymes >= clickedLabelRequaierments.rhymes &&
-      stats.style >= clickedLabelRequaierments.style
-    ) {
-      labelFn(clickedLabelName);
+    // funkcja sprawdza czy nie jesteś juz w danej wytwórnii, jeśli nie to sprawdza czy spełniasz kryteria i dodaje cię do niej
+    if (currentLabel !== clickedLabelName) {
+      if (
+        stats.fans >= clickedLabelRequaierments.fans &&
+        stats.reputation >= clickedLabelRequaierments.reputation &&
+        stats.flow >= clickedLabelRequaierments.flow &&
+        stats.rhymes >= clickedLabelRequaierments.rhymes &&
+        stats.style >= clickedLabelRequaierments.style
+      ) {
+        labelFn(clickedLabelName);
+        storeData();
+        onPress();
+        Alert.alert(`Gratulacje dołączyłeś do ${clickedLabelName}!`);
+      } else Alert.alert('Nie spełniasz wymagań.');
+    } else {
+      Alert.alert('Już jesteś w tej wytwórnii ziomek XD');
       onPress();
-    } else setAlertMsg('Nie spełniasz wymagań!');
+    }
   };
 
   return (
@@ -69,8 +79,6 @@ const LabelDetails = ({
         Flow: {clickedLabelRequaierments.flow} Styl: {clickedLabelRequaierments.style} Rymy:{' '}
         {clickedLabelRequaierments.rhymes}
       </StyledText>
-
-      <StyledAlertMsg>{alertMsg}</StyledAlertMsg>
 
       <StyledParagraph>Przywileje: </StyledParagraph>
       <StyledText>Przyrost Fanów: {clickedLabelProfits.fansIncrease}x</StyledText>

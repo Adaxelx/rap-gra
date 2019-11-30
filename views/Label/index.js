@@ -90,11 +90,11 @@ const labels = [
     history:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     requaierments: {
-      fans: 20000,
+      fans: 40000,
       reputation: 2000,
-      flow: 30,
-      style: 35,
-      rhymes: 35,
+      flow: 40,
+      style: 45,
+      rhymes: 45,
     },
     profits: {
       fansIncrease: 3,
@@ -159,19 +159,17 @@ const labels = [
 ];
 
 const Label = () => {
-  const [openAddLabel, setAddLabel] = useState(false);
-  const [openLabelDetails, setLabelDetails] = useState(false);
-  const [yourLabelName, setYourLabelName] = useState('');
+  const [openAddLabel, setAddLabel] = useState(false); // otwiera panel zakładania wytrównii
+  const [openLabelDetails, setLabelDetails] = useState(false); // otwiera panel szczegółów
+  const [yourLabelName, setYourLabelName] = useState(''); // nazwa twojej wytwórnii
   const [clickedLabelName, setClickedLabelName] = useState('');
   const [clickedLabelHistory, setClickedLabelHistory] = useState('');
   const [clickedLabelRequaierments, setClickedLabelRequaierments] = useState('');
   const [clickedLabelProfits, setClickedLabelProfits] = useState('');
 
-  // const [currentLabelName, setCurrentLabelName] = useState('')
-
   const buttonFn = label => {
-    setLabelDetails(!openLabelDetails);
-    setClickedLabelName(label.name);
+    setLabelDetails(!openLabelDetails); // otwiera
+    setClickedLabelName(label.name); // to i reszta ustala w co było kliknięte
     setClickedLabelHistory(label.history);
     setClickedLabelRequaierments(label.requaierments);
     setClickedLabelProfits(label.profits);
@@ -223,6 +221,7 @@ const Label = () => {
             clickedLabelProfits={clickedLabelProfits}
             labelFn={context.labelFn}
             stats={context.state.stats}
+            currentLabel={context.state.currentLabel}
           />
         </StyledWrapper>
       )}

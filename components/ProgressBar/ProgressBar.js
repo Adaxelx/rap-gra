@@ -11,8 +11,7 @@ const StyledProgressBar = styled(View)`
   padding: 3px;
   border: 2px solid black;
   position: relative;
-
-  /* $::nth-child() */
+  overflow: hidden;
 `;
 
 const StyledProgress = styled(View)`
@@ -41,8 +40,10 @@ const ProgressBar = ({ progress, name }) => (
       {progress}% {name}
     </StyledText>
 
-    <StyledProgress progress={progress} />
-  </StyledProgressBar>
-);
+
+      <StyledProgress progress={progress} />
+    </StyledProgressBar>
+  );
+};
 
 export default ProgressBar;

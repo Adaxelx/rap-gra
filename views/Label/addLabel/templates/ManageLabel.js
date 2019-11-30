@@ -1,18 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { View, FlatList } from 'react-native';
+import { ScrollView, View, FlatList } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 
-const StyledWrapper = styled(View)`
+const StyledWrapper = styled(ScrollView)`
   height: 100%;
   width: 100%;
   /* background-color: red; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  flex: 1;
+`;
+
+const StyledTest = styled(View)`
+  background-color: red;
+  width: 100%;
+  height: 500px;
 `;
 
 const rapers = [
@@ -86,6 +87,7 @@ const ManageLabel = ({ yourLabelName }) => {
   return (
     <StyledWrapper>
       <Title> {yourLabelName} </Title>
+      <StyledTest />
       <FlatList
         data={rapers}
         renderItem={({ item }) => <Paragraph title={item.name}>{item.name}</Paragraph>}

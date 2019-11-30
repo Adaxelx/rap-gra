@@ -26,6 +26,7 @@ const CreateLabel = ({ setYourLabelName, onPress, labelFn }) => {
     <StyledWrapper>
       <Input onChangeText={text => onChangeText(text)} value={value} />
       <Paragraph>Koszt założenia własnej wytwórni to:</Paragraph>
+      <Paragraph>10000$</Paragraph>
       <Button title="potwierdź" onPress={buttonFn}>
         <Text>Potwierdź</Text>
       </Button>

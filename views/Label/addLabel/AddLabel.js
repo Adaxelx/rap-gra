@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import AddPanel from 'rap-gra/templates/AddPanelTemplate';
+import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
+import { View } from 'react-native';
 import CreateLabel from './templates/CreateLabel';
 import ManageLabel from './templates/ManageLabel';
 
-const StyledAddPanel = styled(AddPanel)`
+const StyledAddPanel = styled(View)`
+  background-color: ${({ theme }) => theme.greenD};
   padding: 40px;
 `;
 
@@ -17,13 +19,19 @@ const AddLabel = ({
   labelFn,
 }) => {
   return (
-    <StyledAddPanel open={openAddLabel} onPress={onPress} top>
-      {yourLabelName ? (
-        <ManageLabel yourLabelName={yourLabelName} setYourRapers={setYourRapers} />
-      ) : (
-        <CreateLabel setYourLabelName={setYourLabelName} onPress={onPress} labelFn={labelFn} />
-      )}
-    </StyledAddPanel>
+    <>
+      <AddPanelTemplate open={openAddLabel} onPress={onPress} top>
+        <StyledAddPanel>
+          {yourLabelName ? (
+            <ManageLabel yourLabelName={yourLabelName} setYourRapers={setYourRapers} />
+          ) : (
+            <CreateLabel setYourLabelName={setYourLabelName} onPress={onPress} labelFn={labelFn} />
+          )}
+        </StyledAddPanel>
+      </AddPanelTemplate>
+    </>
+
+    // jeśli nie posiadasz swojej wytwórnii, możesz ją założyć, ale jeśli ją masz to pojawia się okno zarządzania
   );
 };
 
