@@ -136,11 +136,40 @@ class App extends React.Component {
   };
 
   retrieveData = async () => {
+    // pobiera dane z AS
     try {
-      const value = await AsyncStorage.getItem('label');
-      if (value !== null) {
-        this.setState({ currentLabel: value });
-        console.log(value);
+      const label = await AsyncStorage.getItem('label');
+      const nick = await AsyncStorage.getItem('nick');
+      const cash = await AsyncStorage.getItem('cash');
+      const rep = await AsyncStorage.getItem('rep');
+      const fans = await AsyncStorage.getItem('fans');
+      const flow = await AsyncStorage.getItem('flow');
+      const style = await AsyncStorage.getItem('style');
+      const rhymes = await AsyncStorage.getItem('rhymes');
+
+      if (
+        label !== null &&
+        nick !== null &&
+        cash !== null &&
+        fans !== null &&
+        flow !== null &&
+        style !== null &&
+        rhymes !== null &&
+        rep !== null
+      ) {
+        this.setState({
+          nick: nick,
+          cash: JSON.parse(cash),
+          stats: {
+            // ...this.state.stats,
+            fans: JSON.parse(fans),
+            reputation: JSON.parse(rep),
+            flow: JSON.parse(flow),
+            style: JSON.parse(style),
+            rhymes: JSON.parse(rhymes),
+          },
+          currentLabel: label,
+        });
       }
     } catch (error) {
       console.log('error');
@@ -148,14 +177,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    const { flow, style, rhymes } = this.state.stats;
-    this.retrieveData(); // wczytuje dane Label
-    if (flow >= 100) this.setState({ flow: 100 });
-    if (style <= 100) {
-      this.setState({ style: 100 });
-    }
-    if (rhymes >= 100) this.setState({ rhymes: 100 });
-    console.log(style);
+    this.retrieveData(); // wczytuje dane
   }
 
   labelFn = value => {
@@ -165,14 +187,23 @@ class App extends React.Component {
 
   testFn = () => {
     const { flow, style, rhymes } = this.state.stats;
-    //ogranicznik tych śmierdzących progressbarów
+    //ogranicznik tych śmierdzących progressbarów nie jest to jakieś super to można poprawić jak jest pomysł dlatego się tak nazywa xD
 
-    // this.setState(prevState => ({
-    //   stats: {
-    //     ...this.state.stats,
-    //     style: prevState.stats.style + 2
-    //   }
-    // }));
+    if (flow < 100) {
+      this.setState(prevState => ({
+        flow: {
+          ...this.state.stats,
+          flow: prevState.stats.flow + 1,
+        },
+      }));
+    } else {
+      this.setState({
+        stats: {
+          ...this.state.stats,
+          flow: 100,
+        },
+      });
+    }
 
     if (style < 100) {
       this.setState(prevState => ({
@@ -181,7 +212,6 @@ class App extends React.Component {
           style: prevState.stats.style + 1,
         },
       }));
-      console.log(this.state.stats.style);
     } else {
       this.setState({
         stats: {
@@ -189,17 +219,23 @@ class App extends React.Component {
           style: 100,
         },
       });
-      console.log('supa');
     }
 
-    // console.log(this.state.stats.style)
-
-    // this.setState({
-    //   stats: {
-    //     ...this.state.stats,
-    //     style: 105
-    //   }
-    // });
+    if (rhymes < 100) {
+      this.setState(prevState => ({
+        stats: {
+          ...this.state.stats,
+          rhymes: prevState.stats.rhymes + 1,
+        },
+      }));
+    } else {
+      this.setState({
+        stats: {
+          ...this.state.stats,
+          rhymes: 100,
+        },
+      });
+    }
   };
 
   render() {
