@@ -7,7 +7,7 @@ import { theme } from 'rap-gra/theme/mainTheme';
 import Home from 'rap-gra/views/Home';
 import Songs from 'rap-gra/views/Songs';
 import Concerts from 'rap-gra/views/Concerts';
-import Label from 'rap-gra/views/Label';
+// import Label from 'rap-gra/views/Label';
 import AllSongs from 'rap-gra/views/Songs/AllSongs';
 import AllRecords from 'rap-gra/views/Songs/AllRecords';
 import MainTemplate from 'rap-gra/templates/MainTemplate';
@@ -18,13 +18,13 @@ class App extends React.Component {
   state = {
     // stats
     nick: 'Young Krawczyk',
-    cash: 1000000,
+    cash: 0,
     stats: {
-      fans: 150000,
-      reputation: 1500,
-      flow: 25,
-      style: 95,
-      rhymes: 92,
+      fans: 0,
+      reputation: 0,
+      flow: 0,
+      style: 0,
+      rhymes: 0,
     },
     // label
     currentLabel: '',
@@ -103,6 +103,15 @@ class App extends React.Component {
         });
       }
     });
+
+    const { flow, style, rhymes } = this.state.stats;
+    this.retrieveData(); // wczytuje dane Label
+    if (flow >= 100) this.setState({ flow: 100 });
+    if (style <= 100) {
+      this.setState({ style: 100 });
+    }
+    if (rhymes >= 100) this.setState({ rhymes: 100 });
+    // console.log(style);
   }
 
   labelFn = value => {
@@ -133,12 +142,12 @@ class App extends React.Component {
       recordsL: this.state.recordsL + 1,
       records: [...this.state.records, record],
     });
-
   };
 
   retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem('label');
+      // console.log(value);
       if (value !== null) {
         this.setState({ currentLabel: value });
         console.log(value);
@@ -147,17 +156,6 @@ class App extends React.Component {
       console.log('error');
     }
   };
-
-  componentDidMount() {
-    const { flow, style, rhymes } = this.state.stats;
-    this.retrieveData(); // wczytuje dane Label
-    if (flow >= 100) this.setState({ flow: 100 });
-    if (style <= 100) {
-      this.setState({ style: 100 });
-    }
-    if (rhymes >= 100) this.setState({ rhymes: 100 });
-    console.log(style);
-  }
 
   labelFn = value => {
     // dołączanie do wytwórnii => obsługiwane jest w Label i LabelDetails
@@ -189,7 +187,7 @@ class App extends React.Component {
           style: 100,
         },
       });
-      console.log('supa');
+      // console.log('supa');
     }
 
     // console.log(this.state.stats.style)
@@ -221,7 +219,7 @@ class App extends React.Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/songs" component={Songs} />
               <Route exact path="/concerts" component={Concerts} />
-      
+
               <Route
                 exact
                 path="/allsongs"
