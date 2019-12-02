@@ -110,6 +110,7 @@ const Songs = () => {
             songs={context.state.songs} // Pobrane piosenki z AS
             onPress={() => setOpenSong(!openSong)} // Obsługa otwarcia/zamknięcia okna
             openSubject={() => setOpenSubject(!openSubject)} // Otworzenie kolejnego okna z wyborem tematu
+            state={context.state} // pobieranie stanu, ale potrzebne było do statystyk
           />
           <AddSubject
             open={openSubject} // Otwarty czy zamknięty wybór tematu piosenki
