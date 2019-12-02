@@ -38,12 +38,58 @@ class App extends React.Component {
     recordsL: 0, // Ilość płyt
   };
 
+  // pobiera dane z AS
+  retrieveData = async () => {
+    try {
+      // pobiera poszeczególne dane z AS
+      const label = await AsyncStorage.getItem('label');
+      const nick = await AsyncStorage.getItem('nick');
+      const cash = await AsyncStorage.getItem('cash');
+      const rep = await AsyncStorage.getItem('rep');
+      const fans = await AsyncStorage.getItem('fans');
+      const flow = await AsyncStorage.getItem('flow');
+      const style = await AsyncStorage.getItem('style');
+      const rhymes = await AsyncStorage.getItem('rhymes');
+
+      //sprawdza warunek czy coś pobrał czy nie
+      if (
+        label !== null &&
+        nick !== null &&
+        cash !== null &&
+        fans !== null &&
+        flow !== null &&
+        style !== null &&
+        rhymes !== null &&
+        rep !== null
+      ) {
+        // jeśli pobrał to przypisuje pobrane wartości do stanu
+        this.setState({
+          nick: nick,
+          cash: JSON.parse(cash),
+          stats: {
+            // ...this.state.stats,
+            fans: JSON.parse(fans),
+            reputation: JSON.parse(rep),
+            flow: JSON.parse(flow),
+            style: JSON.parse(style),
+            rhymes: JSON.parse(rhymes),
+          },
+          currentLabel: label,
+        });
+      }
+    } catch (error) {
+      console.log('error');
+    }
+  };
+
   componentDidMount() {
     // AS -> AsyncStorage
     let songL; // Ilość piosenek
     let subL; // Ilość tematów piosenek
     let recL; // Ilość płyt
     const { subjects } = this.state;
+
+    this.retrieveData(); // wczytuje statystki i label
 
     // AsyncStorage.setItem('songsL', '0');
     // AsyncStorage.setItem('recordsL', '0');
@@ -134,51 +180,6 @@ class App extends React.Component {
       records: [...this.state.records, record],
     });
   };
-
-  retrieveData = async () => {
-    // pobiera dane z AS
-    try {
-      const label = await AsyncStorage.getItem('label');
-      const nick = await AsyncStorage.getItem('nick');
-      const cash = await AsyncStorage.getItem('cash');
-      const rep = await AsyncStorage.getItem('rep');
-      const fans = await AsyncStorage.getItem('fans');
-      const flow = await AsyncStorage.getItem('flow');
-      const style = await AsyncStorage.getItem('style');
-      const rhymes = await AsyncStorage.getItem('rhymes');
-
-      if (
-        label !== null &&
-        nick !== null &&
-        cash !== null &&
-        fans !== null &&
-        flow !== null &&
-        style !== null &&
-        rhymes !== null &&
-        rep !== null
-      ) {
-        this.setState({
-          nick: nick,
-          cash: JSON.parse(cash),
-          stats: {
-            // ...this.state.stats,
-            fans: JSON.parse(fans),
-            reputation: JSON.parse(rep),
-            flow: JSON.parse(flow),
-            style: JSON.parse(style),
-            rhymes: JSON.parse(rhymes),
-          },
-          currentLabel: label,
-        });
-      }
-    } catch (error) {
-      console.log('error');
-    }
-  };
-
-  componentDidMount() {
-    this.retrieveData(); // wczytuje dane
-  }
 
   labelFn = value => {
     // dołączanie do wytwórnii => obsługiwane jest w Label i LabelDetails
