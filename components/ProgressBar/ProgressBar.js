@@ -40,10 +40,8 @@ const ProgressBar = ({ progress, name }) => (
       {progress}% {name}
     </StyledText>
 
-
-      <StyledProgress progress={progress} />
-    </StyledProgressBar>
-  );
-};
+    <StyledProgress progress={progress} />
+  </StyledProgressBar>
+);
 
 export default ProgressBar;

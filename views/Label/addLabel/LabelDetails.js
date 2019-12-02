@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
 import { Text, Alert, AsyncStorage } from 'react-native';
@@ -43,7 +43,7 @@ const LabelDetails = ({
     try {
       await AsyncStorage.setItem('label', clickedLabelName);
     } catch (error) {
-      console.log('error');
+      // console.log('error');
     }
   };
 
@@ -61,9 +61,12 @@ const LabelDetails = ({
         storeData();
         onPress();
         Alert.alert(`Gratulacje dołączyłeś do ${clickedLabelName}!`);
-      } else Alert.alert('Nie spełniasz wymagań.');
+      } else {
+        Alert.alert('Nie spełniasz wymagań.');
+        onPress();
+      }
     } else {
-      Alert.alert('Już jesteś w tej wytwórnii ziomek XD');
+      Alert.alert('Już jesteś w tej wytwórni ziomek XD');
       onPress();
     }
   };
