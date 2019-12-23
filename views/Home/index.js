@@ -68,6 +68,9 @@ const Home = () => {
             <TouchableNativeFeedback onPress={context.testFn}>
               <Text>XD</Text>
             </TouchableNativeFeedback>
+            <TouchableNativeFeedback onPress={context.testFn2}>
+              <Text>usu</Text>
+            </TouchableNativeFeedback>
             <Avatar source={require('../../assets/avatar.png')} />
           </StyledStats>
         </StyledWrapper>

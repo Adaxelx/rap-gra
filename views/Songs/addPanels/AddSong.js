@@ -47,6 +47,7 @@ const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs, state }) 
       await AsyncStorage.setItem('flow', JSON.stringify(state.stats.flow));
       await AsyncStorage.setItem('style', JSON.stringify(state.stats.style));
       await AsyncStorage.setItem('rhymes', JSON.stringify(state.stats.rhymes));
+      console.log('zapisano');
     } catch (error) {
       console.log(`error`);
     }
@@ -54,7 +55,7 @@ const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs, state }) 
 
   useEffect(() => {
     // Zaktualizowanie tytułu gdy nazwy piosenek nie zgadzają się(Po dodaniu piosenki)
-    saveStats(); // wywołanie zapisywania piosenek
+    saveStats(); // wywołanie zapisywania statystyk
     if (title !== `Piosenka ${songsL * 1 + 1}`) {
       setTitle(`Piosenka ${songsL * 1 + 1}`);
     }

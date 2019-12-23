@@ -22,9 +22,9 @@ class App extends React.Component {
     stats: {
       fans: 150000,
       reputation: 1500,
-      flow: 25,
-      style: 95,
-      rhymes: 92,
+      flow: 0,
+      style: 0,
+      rhymes: 0,
     },
     // label
     currentLabel: '',
@@ -190,43 +190,32 @@ class App extends React.Component {
     const { flow, style, rhymes } = this.state.stats;
     //ogranicznik tych śmierdzących progressbarów nie jest to jakieś super to można poprawić jak jest pomysł dlatego się tak nazywa xD
 
-    if (flow < 100) {
-      this.setState(prevState => ({
-        flow: {
-          ...this.state.stats,
-          flow: prevState.stats.flow + 1,
-        },
-      }));
-    } else {
-      this.setState({
-        stats: {
-          ...this.state.stats,
-          flow: 100,
-        },
-      });
-    }
-
-    if (style < 100) {
-      this.setState(prevState => ({
-        stats: {
-          ...this.state.stats,
-          style: prevState.stats.style + 1,
-        },
-      }));
-    } else {
-      this.setState({
-        stats: {
-          ...this.state.stats,
-          style: 100,
-        },
-      });
-    }
-
     if (rhymes < 100) {
       this.setState(prevState => ({
         stats: {
           ...this.state.stats,
           rhymes: prevState.stats.rhymes + 1,
+        },
+      }));
+    } else {
+      this.setState({
+        stats: {
+          ...this.state.stats,
+          rhymes: 100,
+        },
+      });
+    }
+  };
+
+  testFn2 = () => {
+    const { flow, style, rhymes } = this.state.stats;
+    //usuwanie pkt ze stat testowe
+
+    if (rhymes < 100) {
+      this.setState(prevState => ({
+        stats: {
+          ...this.state.stats,
+          rhymes: prevState.stats.rhymes - 1,
         },
       }));
     } else {
@@ -251,6 +240,7 @@ class App extends React.Component {
             setRecord: this.setRecord,
             setLengthRec: this.setLengthRec,
             testFn: this.testFn,
+            testFn2: this.testFn2,
           }}
         >
           <ThemeProvider theme={theme}>

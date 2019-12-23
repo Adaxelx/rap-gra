@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Text, View } from 'react-native';
+import { Text, View, AsyncStorage } from 'react-native';
 import { Input } from 'rap-gra/components/Input';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Button } from 'rap-gra/components/Button';
@@ -17,8 +17,19 @@ const StyledWrapper = styled(View)`
 
 const CreateLabel = ({ setYourLabelName, onPress, labelFn }) => {
   const [value, onChangeText] = React.useState('Nazwa wytwórni');
+
+  const storeData = async () => {
+    try {
+      await AsyncStorage.setItem('label', value);
+      console.log('gitówka');
+    } catch (error) {
+      console.log('error', typeof value);
+    }
+  };
+
   const buttonFn = () => {
     setYourLabelName(value);
+    storeData();
     labelFn(value);
     onPress();
   };
