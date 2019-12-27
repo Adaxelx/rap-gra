@@ -6,8 +6,8 @@ import AppContext from 'rap-gra/context/context';
 import { theme } from 'rap-gra/theme/mainTheme';
 import Home from 'rap-gra/views/Home';
 import Songs from 'rap-gra/views/Songs';
+import Label from 'rap-gra/views/Label';
 import Concerts from 'rap-gra/views/Concerts';
-// import Label from 'rap-gra/views/Label';
 import AllSongs from 'rap-gra/views/Songs/AllSongs';
 import AllRecords from 'rap-gra/views/Songs/AllRecords';
 import MainTemplate from 'rap-gra/templates/MainTemplate';
@@ -18,10 +18,10 @@ class App extends React.Component {
   state = {
     // stats
     nick: 'Young Krawczyk',
-    cash: 0,
+    cash: 1000000,
     stats: {
-      fans: 0,
-      reputation: 0,
+      fans: 150000,
+      reputation: 1500,
       flow: 0,
       style: 0,
       rhymes: 0,
@@ -50,18 +50,10 @@ class App extends React.Component {
       const flow = await AsyncStorage.getItem('flow');
       const style = await AsyncStorage.getItem('style');
       const rhymes = await AsyncStorage.getItem('rhymes');
-
+      console.log('siema2');
       //sprawdza warunek czy coś pobrał czy nie
-      if (
-        label !== null &&
-        nick !== null &&
-        cash !== null &&
-        fans !== null &&
-        flow !== null &&
-        style !== null &&
-        rhymes !== null &&
-        rep !== null
-      ) {
+      if (rhymes !== null) {
+        console.log('siema');
         // jeśli pobrał to przypisuje pobrane wartości do stanu
         this.setState({
           nick: nick,
@@ -149,15 +141,6 @@ class App extends React.Component {
         });
       }
     });
-
-    const { flow, style, rhymes } = this.state.stats;
-    this.retrieveData(); // wczytuje dane Label
-    if (flow >= 100) this.setState({ flow: 100 });
-    if (style <= 100) {
-      this.setState({ style: 100 });
-    }
-    if (rhymes >= 100) this.setState({ rhymes: 100 });
-    // console.log(style);
   }
 
   labelFn = value => {
@@ -190,19 +173,6 @@ class App extends React.Component {
     });
   };
 
-  retrieveData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('label');
-      // console.log(value);
-      if (value !== null) {
-        this.setState({ currentLabel: value });
-        console.log(value);
-      }
-    } catch (error) {
-      console.log('error');
-    }
-  };
-
   labelFn = value => {
     // dołączanie do wytwórnii => obsługiwane jest w Label i LabelDetails
     this.setState({ currentLabel: value });
@@ -212,44 +182,32 @@ class App extends React.Component {
     const { flow, style, rhymes } = this.state.stats;
     //ogranicznik tych śmierdzących progressbarów nie jest to jakieś super to można poprawić jak jest pomysł dlatego się tak nazywa xD
 
-    if (flow < 100) {
-      this.setState(prevState => ({
-        flow: {
-          ...this.state.stats,
-          flow: prevState.stats.flow + 1,
-        },
-      }));
-    } else {
-      this.setState({
-        stats: {
-          ...this.state.stats,
-          flow: 100,
-        },
-      });
-    }
-
-    if (style < 100) {
-      this.setState(prevState => ({
-        stats: {
-          ...this.state.stats,
-          style: prevState.stats.style + 1,
-        },
-      }));
-    } else {
-      this.setState({
-        stats: {
-          ...this.state.stats,
-          style: 100,
-        },
-      });
-      // console.log('supa');
-    }
-
     if (rhymes < 100) {
       this.setState(prevState => ({
         stats: {
           ...this.state.stats,
           rhymes: prevState.stats.rhymes + 1,
+        },
+      }));
+    } else {
+      this.setState({
+        stats: {
+          ...this.state.stats,
+          rhymes: 100,
+        },
+      });
+    }
+  };
+
+  testFn2 = () => {
+    const { flow, style, rhymes } = this.state.stats;
+    //usuwanie pkt ze stat testowe
+
+    if (rhymes < 100) {
+      this.setState(prevState => ({
+        stats: {
+          ...this.state.stats,
+          rhymes: prevState.stats.rhymes - 1,
         },
       }));
     } else {
@@ -274,6 +232,7 @@ class App extends React.Component {
             setRecord: this.setRecord,
             setLengthRec: this.setLengthRec,
             testFn: this.testFn,
+            testFn2: this.testFn2,
           }}
         >
           <ThemeProvider theme={theme}>
@@ -281,6 +240,7 @@ class App extends React.Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/songs" component={Songs} />
               <Route exact path="/concerts" component={Concerts} />
+              <Route exact path="/label" component={Label} />
 
               <Route
                 exact
