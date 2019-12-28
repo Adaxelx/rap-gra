@@ -18,10 +18,10 @@ class App extends React.Component {
   state = {
     // stats
     nick: 'Young Krawczyk',
-    cash: 1000000,
+    cash: 0,
     stats: {
-      fans: 150000,
-      reputation: 1500,
+      fans: 0,
+      reputation: 0,
       flow: 0,
       style: 0,
       rhymes: 0,
@@ -36,6 +36,20 @@ class App extends React.Component {
     subL: 0, // Ilość tematów
     records: [], // Płyty
     recordsL: 0, // Ilość płyt
+  };
+
+  setStats = object => {
+    const { fans, flow, style, rhymes, reputation } = object.stats;
+    this.setState(prevState => ({
+      cash: prevState.cash + object.cash,
+      stats: {
+        fans: prevState.stats.fans + fans,
+        flow,
+        style,
+        rhymes,
+        reputation,
+      },
+    }));
   };
 
   // pobiera dane z AS
@@ -233,6 +247,7 @@ class App extends React.Component {
             setLengthRec: this.setLengthRec,
             testFn: this.testFn,
             testFn2: this.testFn2,
+            setStats: this.setStats,
           }}
         >
           <ThemeProvider theme={theme}>

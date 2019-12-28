@@ -121,6 +121,8 @@ const Songs = () => {
             songsL={context.state.songsL} // Ilość piosenek
             setLength={context.setLength} // Ustalenie ilości piosenek
             subjects={context.state.subjects} // Pobranie tematów z App context
+            stats={context.state.stats} // statystki ze stanu
+            setStats={context.setStats} // zapisanie statystyk przy dodawaniu piosenki
           />
           <AddRecord
             open={openRec} // Otwarta czy zamknięta płyta

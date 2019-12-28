@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native';
+
 // Obliczenie oceny(funkcja użyta do obliczenia oceny piosenki)
 const calcRate = (best, choice) => {
   const bestRate = 10;
@@ -11,7 +13,21 @@ const calcRate = (best, choice) => {
   return bestRate - delta * 0.1;
 };
 
-export const checkSong = song => {
+const setPersonalStats = async object => {
+  const { fans } = object;
+  try {
+    // Dodanie płyty na odpowiednie miejsce w AS np. record3
+    await AsyncStorage.getItem(`fans`, (err, result) => {
+      // Pobranie tej płyty z AS i dodanie do tablicy w App.
+
+      AsyncStorage.setItem(`fans`, `${fans * 1 + result * 1}`);
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const checkSong = (song, stats, setStats) => {
   const { style, bit, rhymes, video } = song.values; // Destrukturyzacja danych o piosence
   // Deklaracja zmiennej bestValues
   const bestValues = {
@@ -25,7 +41,7 @@ export const checkSong = song => {
     subject: song.subject,
     rating: 1,
     views: 0,
-    earned: 0,
+    cash: 0,
     place: 200,
     fans: 0,
     id: song.id,
@@ -60,13 +76,13 @@ export const checkSong = song => {
   checkedSong.rating =
     Math.round(
       (10 *
-        (calcRate(bestValues.S, style) +
-          calcRate(bestValues.B, bit) +
-          calcRate(bestValues.R, rhymes))) /
+        (calcRate(bestValues.S, style + 0.1 * stats.style) +
+          calcRate(bestValues.B, bit + 0.1 * stats.flow) +
+          calcRate(bestValues.R, rhymes + 0.1 * stats.rhymes))) /
         3,
     ) / 10;
   // Obliczenie przyrostu fanów(na podstawie poprzedniej ilości fanów i oceny piosenki)
-  checkedSong.fans = Math.floor((checkedSong.fans * 0.1 + 1) * (1 + checkedSong.rating * 0.05));
+  checkedSong.fans = Math.floor(checkedSong.fans * 0.1 + (1 + checkedSong.rating * 0.05));
 
   // Obliczenie wyświetleń(Na podstawie ilości fanów i oceny)
   checkedSong.views = Math.floor((checkedSong.fans + 10) * checkedSong.rating);
@@ -75,6 +91,17 @@ export const checkSong = song => {
     ? Math.floor(video.value * 0.1 * checkedSong.views)
     : checkedSong.views;
   // Obliczenie zarobionych pieniędzy na podstawie wyświetleń
-  checkedSong.earned = Math.floor(checkedSong.views * 0.01);
+  checkedSong.cash = Math.floor(checkedSong.views * 0.01);
+  setStats({
+    cash: checkedSong.cash,
+    stats: {
+      fans: checkedSong.fans,
+      flow: 0,
+      style: 0,
+      rhymes: 0,
+      reputation: 0,
+    },
+  });
+  setPersonalStats({ fans: checkedSong.fans });
   return checkedSong;
 };

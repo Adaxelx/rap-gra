@@ -42,7 +42,18 @@ const StyledButton = styled(Button)`
   height: 100%;
 `;
 
-const AddSubject = ({ open, onPress, openAddSong, song, setSong, songsL, setLength, subjects }) => {
+const AddSubject = ({
+  open,
+  onPress,
+  openAddSong,
+  song,
+  setSong,
+  songsL,
+  setLength,
+  subjects,
+  stats,
+  setStats,
+}) => {
   // Przejście wstecz
   const handleBack = () => {
     onPress();
@@ -86,12 +97,16 @@ const AddSubject = ({ open, onPress, openAddSong, song, setSong, songsL, setLeng
       // Dodaj przekalkulowaną piosenke do AS
       storeSong(
         // Funkcja przeliczająca dane piosenki na jej statystyki(wyświetlenia itp.)
-        checkSong({
-          ...song,
-          full: true,
-          subject: subj,
-          id: songsL * 1 + 1,
-        }),
+        checkSong(
+          {
+            ...song,
+            full: true,
+            subject: subj,
+            id: songsL * 1 + 1,
+          },
+          stats,
+          setStats,
+        ),
       );
       // Zamknij okno
       onPress();

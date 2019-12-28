@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert, AsyncStorage } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Paragraph } from 'rap-gra/components/Paragraph';
 import { Title } from 'rap-gra/components/Title';
 import styled from 'styled-components';
@@ -19,7 +19,7 @@ const StyledRowCon = styled(View)`
   justify-content: space-between;
 `;
 
-const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs, state }) => {
+const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs }) => {
   // Nazwa piosenki(Początkowa ustalona w zalezności od ilości piosenek). *1 przy songsL jest dlatego że songsL jest stringiem i pomnożenie przez 1 zamienia tą wartość na inta.
   const [title, setTitle] = useState(`Piosenka ${songsL * 1 + 1}`);
 
@@ -38,24 +38,31 @@ const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs, state }) 
   };
 
   // zapisywanie statystyk ale nie działa jeszcze
-  const saveStats = async () => {
-    try {
-      await AsyncStorage.setItem('nick', state.nick);
-      await AsyncStorage.setItem('cash', JSON.stringify(state.cash));
-      await AsyncStorage.setItem('fans', JSON.stringify(state.stats.fans));
-      await AsyncStorage.setItem('rep', JSON.stringify(state.stats.reputation));
-      await AsyncStorage.setItem('flow', JSON.stringify(state.stats.flow));
-      await AsyncStorage.setItem('style', JSON.stringify(state.stats.style));
-      await AsyncStorage.setItem('rhymes', JSON.stringify(state.stats.rhymes));
-      console.log('zapisano');
-    } catch (error) {
-      console.log(`error`);
-    }
-  };
+  // const saveStats = async () => {
+  //   try {
+  //     // await AsyncStorage.setItem('nick', state.nick);
+  //     // await AsyncStorage.setItem('cash', JSON.stringify(state.cash));
+  //     // await AsyncStorage.setItem('fans', JSON.stringify(state.stats.fans));
+  //     // await AsyncStorage.setItem('rep', JSON.stringify(state.stats.reputation));
+  //     // await AsyncStorage.setItem('flow', JSON.stringify(state.stats.flow));
+  //     // await AsyncStorage.setItem('style', JSON.stringify(state.stats.style));
+  //     // await AsyncStorage.setItem('rhymes', JSON.stringify(state.stats.rhymes));
+  //     // await AsyncStorage.setItem('nick', 'Adaxelx');
+  //     // await AsyncStorage.setItem('cash', '0');
+  //     // await AsyncStorage.setItem('fans', '0');
+  //     // await AsyncStorage.setItem('rep', '0');
+  //     // await AsyncStorage.setItem('flow', '0');
+  //     // await AsyncStorage.setItem('style', '0');
+  //     // await AsyncStorage.setItem('rhymes', '0');
+  //     console.log('zapisano');
+  //   } catch (error) {
+  //     console.log(`error`);
+  //   }
+  // };
 
   useEffect(() => {
     // Zaktualizowanie tytułu gdy nazwy piosenek nie zgadzają się(Po dodaniu piosenki)
-    saveStats(); // wywołanie zapisywania statystyk
+    // saveStats(); // wywołanie zapisywania statystyk
     if (title !== `Piosenka ${songsL * 1 + 1}`) {
       setTitle(`Piosenka ${songsL * 1 + 1}`);
     }
