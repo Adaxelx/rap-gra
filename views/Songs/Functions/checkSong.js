@@ -1,5 +1,27 @@
 import { AsyncStorage } from 'react-native';
 
+const calcRep = rate => {
+  if (rate < 1) {
+    return -3;
+  }
+  if (rate < 3) {
+    return -2;
+  }
+  if (rate < 5) {
+    return -1;
+  }
+  if (rate < 7) {
+    return 0;
+  }
+  if (rate < 8) {
+    return 1;
+  }
+  if (rate < 9) {
+    return 2;
+  }
+  return 3;
+};
+
 // Obliczenie oceny(funkcja użyta do obliczenia oceny piosenki)
 const calcRate = (best, choice) => {
   const bestRate = 10;
@@ -14,13 +36,16 @@ const calcRate = (best, choice) => {
 };
 
 const setPersonalStats = async object => {
-  const { fans } = object;
+  const { fans, cash, reputation } = object;
   try {
-    // Dodanie płyty na odpowiednie miejsce w AS np. record3
     await AsyncStorage.getItem(`fans`, (err, result) => {
-      // Pobranie tej płyty z AS i dodanie do tablicy w App.
-
       AsyncStorage.setItem(`fans`, `${fans * 1 + result * 1}`);
+    });
+    await AsyncStorage.getItem(`cash`, (err, result) => {
+      AsyncStorage.setItem(`cash`, `${cash * 1 + result * 1}`);
+    });
+    await AsyncStorage.getItem(`rep`, (err, result) => {
+      AsyncStorage.setItem(`rep`, `${reputation * 1 + result * 1}`);
     });
   } catch (error) {
     throw new Error(error);
@@ -92,6 +117,7 @@ export const checkSong = (song, stats, setStats) => {
     : checkedSong.views;
   // Obliczenie zarobionych pieniędzy na podstawie wyświetleń
   checkedSong.cash = Math.floor(checkedSong.views * 0.01);
+  const reputation = calcRep(checkedSong.rating);
   setStats({
     cash: checkedSong.cash,
     stats: {
@@ -99,9 +125,10 @@ export const checkSong = (song, stats, setStats) => {
       flow: 0,
       style: 0,
       rhymes: 0,
-      reputation: 0,
+      reputation,
     },
   });
-  setPersonalStats({ fans: checkedSong.fans });
+
+  setPersonalStats({ fans: checkedSong.fans, cash: checkedSong.cash, reputation });
   return checkedSong;
 };
