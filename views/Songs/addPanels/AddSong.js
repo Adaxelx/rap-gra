@@ -37,7 +37,7 @@ const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs, state }) 
     setVid(false);
   };
 
-  // zapisywanie statystyk ale nie działa jeszcze
+  // zapisywanie statystyk
   const saveStats = async () => {
     try {
       await AsyncStorage.setItem('nick', state.nick);

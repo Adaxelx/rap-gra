@@ -7,6 +7,7 @@ import ManageLabel from './templates/ManageLabel';
 
 const StyledAddPanel = styled(View)`
   background-color: ${({ theme }) => theme.greenD};
+  width: 100%;
   padding: 40px;
 `;
 
@@ -22,10 +23,16 @@ const AddLabel = ({
     <>
       <AddPanelTemplate open={openAddLabel} onPress={onPress} top>
         <StyledAddPanel>
-          {yourLabelName ? (
+          {/* {yourLabelName ? (
             <ManageLabel yourLabelName={yourLabelName} setYourRapers={setYourRapers} />
           ) : (
             <CreateLabel setYourLabelName={setYourLabelName} onPress={onPress} labelFn={labelFn} />
+          )} */}
+
+          {yourLabelName ? (
+            <CreateLabel setYourLabelName={setYourLabelName} onPress={onPress} labelFn={labelFn} />
+          ) : (
+            <ManageLabel yourLabelName={yourLabelName} setYourRapers={setYourRapers} />
           )}
         </StyledAddPanel>
       </AddPanelTemplate>
