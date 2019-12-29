@@ -47,7 +47,7 @@ class App extends React.Component {
         flow,
         style,
         rhymes,
-        reputation,
+        reputation: prevState.stats.reputation + reputation,
       },
     }));
   };

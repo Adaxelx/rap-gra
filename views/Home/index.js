@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import AppContext from 'rap-gra/context/context';
-import { View, Image, Text, TouchableNativeFeedback } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import { Title } from '../../components/Title';
 
@@ -65,9 +65,6 @@ const Home = () => {
             <ProgressBar name="flow" progress={context.state.stats.flow} />
             <ProgressBar name="styl" progress={context.state.stats.style} />
             <ProgressBar name="rymy" progress={context.state.stats.rhymes} />
-            <TouchableNativeFeedback onPress={context.testFn}>
-              <Text>XD</Text>
-            </TouchableNativeFeedback>
             <Avatar source={require('../../assets/avatar.png')} />
           </StyledStats>
         </StyledWrapper>
