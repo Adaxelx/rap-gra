@@ -23,17 +23,17 @@ const AddLabel = ({
     <>
       <AddPanelTemplate open={openAddLabel} onPress={onPress} top>
         <StyledAddPanel>
-          {/* {yourLabelName ? (
-            <ManageLabel yourLabelName={yourLabelName} setYourRapers={setYourRapers} />
-          ) : (
-            <CreateLabel setYourLabelName={setYourLabelName} onPress={onPress} labelFn={labelFn} />
-          )} */}
-
           {yourLabelName ? (
+            <ManageLabel yourLabelName={yourLabelName} setYourRapers={setYourRapers} />
+          ) : (
+            <CreateLabel setYourLabelName={setYourLabelName} onPress={onPress} labelFn={labelFn} />
+          )}
+
+          {/* {yourLabelName ? (
             <CreateLabel setYourLabelName={setYourLabelName} onPress={onPress} labelFn={labelFn} />
           ) : (
             <ManageLabel yourLabelName={yourLabelName} setYourRapers={setYourRapers} />
-          )}
+          )}  DO develpmnetu */}
         </StyledAddPanel>
       </AddPanelTemplate>
     </>

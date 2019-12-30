@@ -6,9 +6,8 @@ import { Title } from 'rap-gra/components/Title';
 
 const StyledWrapper = styled(View)`
   width: 100%;
+  padding-bottom: 50px;
 `;
-
-// const StyledRaperList = styled(ScrollView)``;
 
 const StyledRaperTile = styled(View)`
   width: 100%;
@@ -27,9 +26,9 @@ const StyledRaperStats = styled(View)`
 `;
 
 const StyledAddButton = styled(Text)`
-  height: 100%;
-  width: 30px;
-  font-size: 20px;
+  height: 40px;
+  width: 50px;
+  font-size: 25px;
   background-color: cadetblue;
   padding: 0;
   text-align: center;
@@ -116,12 +115,28 @@ const rapers = [
       cashIncrease: 1.5,
     },
   },
+  {
+    key: '4',
+    name: 'Chudson',
+    requaierments: {
+      fans: 10000,
+      reputation: 1000,
+      flow: 25,
+      style: 25,
+      rhymes: 35,
+    },
+    profits: {
+      fansIncrease: 2.5,
+      reputationIncrease: 1.5,
+      cashIncrease: 2.5,
+    },
+  },
 ];
 
 const ManageLabel = ({ yourLabelName }) => {
   return (
     <StyledWrapper>
-      <Title> {yourLabelName}TEST </Title>
+      <Title> {yourLabelName} </Title>
       <ScrollView>
         {rapers.map(raper => (
           <StyledRaperTile key={raper.key}>
