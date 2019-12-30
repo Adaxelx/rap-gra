@@ -6,6 +6,7 @@ import { Button } from 'rap-gra/components/Button';
 import ConcertPanel from './templates/ConcertPanel';
 
 const StyledWrapper = styled(View)`
+  min-height: 100%;
   width: 100%;
   background-color: ${({ theme }) => theme.greenL};
   display: flex;
@@ -25,6 +26,7 @@ const Concerts = () => {
       <Button onPress={buttonFn}>
         <Text>Zagraj koncert</Text>
       </Button>
+      <Text>Rozegrane koncery: </Text>
 
       <ConcertPanel
         openConcertPanel={openConcertPanel}
