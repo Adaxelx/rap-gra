@@ -36,6 +36,9 @@ class App extends React.Component {
     subL: 0, // Ilość tematów
     records: [], // Płyty
     recordsL: 0, // Ilość płyt
+
+    // concerts
+    concerts: [],
   };
 
   // pobiera dane z AS
@@ -50,6 +53,7 @@ class App extends React.Component {
       const flow = await AsyncStorage.getItem('flow');
       const style = await AsyncStorage.getItem('style');
       const rhymes = await AsyncStorage.getItem('rhymes');
+      const concerts = await AsyncStorage.getItem('concerts_array');
 
       //sprawdza warunek czy coś pobrał czy nie
       if (
@@ -75,10 +79,12 @@ class App extends React.Component {
             rhymes: JSON.parse(rhymes),
           },
           currentLabel: label,
+          concerts: JSON.parse(concerts),
         });
+        console.log(concerts);
       }
     } catch (error) {
-      console.log('error');
+      console.log('error odczyt');
     }
   };
 
