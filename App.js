@@ -1,9 +1,10 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
-import { NativeRouter, Route } from 'react-router-native';
+import { NativeRouter, Route, Switch } from 'react-router-native';
 import { ThemeProvider } from 'styled-components';
 import AppContext from 'rap-gra/context/context';
 import { theme } from 'rap-gra/theme/mainTheme';
+import StartScreen from 'rap-gra/views/StartScreen';
 import Home from 'rap-gra/views/Home';
 import Songs from 'rap-gra/views/Songs';
 import Label from 'rap-gra/views/Label';
@@ -11,6 +12,7 @@ import Concerts from 'rap-gra/views/Concerts';
 import AllSongs from 'rap-gra/views/Songs/AllSongs';
 import AllRecords from 'rap-gra/views/Songs/AllRecords';
 import MainTemplate from 'rap-gra/templates/MainTemplate';
+import { path } from 'rap-gra/constants/routes';
 
 /* eslint-disable */
 
@@ -235,6 +237,7 @@ class App extends React.Component {
   };
 
   render() {
+    const { HOME, LABEL, SONGS, ALLSONGS, ALLRECORDS, CONCERTS, STARTSCREEN } = path;
     return (
       <NativeRouter>
         <AppContext.Provider
@@ -251,23 +254,26 @@ class App extends React.Component {
           }}
         >
           <ThemeProvider theme={theme}>
-            <MainTemplate>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/songs" component={Songs} />
-              <Route exact path="/concerts" component={Concerts} />
-              <Route exact path="/label" component={Label} />
+            <Switch>
+              <Route exact path={STARTSCREEN} component={StartScreen} />
+              <MainTemplate>
+                <Route exact path={HOME} component={Home} />
+                <Route exact path={SONGS} component={Songs} />
+                <Route exact path={CONCERTS} component={Concerts} />
+                <Route exact path={LABEL} component={Label} />
 
-              <Route
-                exact
-                path="/allsongs"
-                component={() => <AllSongs songs={this.state.songs} />}
-              />
-              <Route
-                exact
-                path="/allrecords"
-                component={() => <AllRecords records={this.state.records} />}
-              />
-            </MainTemplate>
+                <Route
+                  exact
+                  path={ALLSONGS}
+                  component={() => <AllSongs songs={this.state.songs} />}
+                />
+                <Route
+                  exact
+                  path={ALLRECORDS}
+                  component={() => <AllRecords records={this.state.records} />}
+                />
+              </MainTemplate>
+            </Switch>
           </ThemeProvider>
         </AppContext.Provider>
       </NativeRouter>
