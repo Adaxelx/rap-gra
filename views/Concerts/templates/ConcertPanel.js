@@ -18,15 +18,11 @@ const ConcertPanel = ({ openConcertPanel, onPress }) => {
   const saveAsync = async array => {
     try {
       await AsyncStorage.setItem('concerts_array', JSON.stringify(array));
-      console.log('zapisane kocnert');
     } catch (error) {
       console.log('error zapis');
     }
   };
 
-  // useEffect(() => {
-  //   saveAsync();
-  // });
   const buttonFn = array => {
     onPress();
     array.push({

@@ -81,7 +81,6 @@ class App extends React.Component {
           currentLabel: label,
           concerts: JSON.parse(concerts),
         });
-        console.log(concerts);
       }
     } catch (error) {
       console.log('error odczyt');
