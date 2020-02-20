@@ -55,7 +55,7 @@ const StyledImgBg = styled(View)`
   ${({ value }) => `transform: translateX(${value - 100}px)`}
 `;
 
-const Form = () => {
+const Form = ({ component }) => {
   const [name, setName] = useState('');
   const [activePic, setActivePic] = useState('');
   const [val1, setVal1] = useState(0);
@@ -71,7 +71,7 @@ const Form = () => {
       Alert.alert('Wybierz obrazek!');
       return -1;
     }
-    resetGame(name, activePic);
+    resetGame(name, activePic, component);
     return setRedirect(true);
   };
 
@@ -88,7 +88,7 @@ const Form = () => {
         <StyledRC>
           <StyledImgBtn
             onPress={() => {
-              setActivePic(activePic === '' ? Pic : '');
+              setActivePic(activePic === '' ? '1' : '');
               setVal2(0);
               setVal1(val1 === 0 ? 100 : 0);
             }}
@@ -98,7 +98,7 @@ const Form = () => {
           </StyledImgBtn>
           <StyledImgBtn
             onPress={() => {
-              setActivePic(activePic === '' ? Pic2 : '');
+              setActivePic(activePic === '' ? '2' : '');
               setVal2(val2 === 0 ? 100 : 0);
               setVal1(0);
             }}

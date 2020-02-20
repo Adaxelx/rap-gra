@@ -34,7 +34,7 @@ const StyledMenuItem = styled(Paragraph)`
   text-transform: uppercase;
 `;
 
-const StartScreen = () => {
+const StartScreen = ({ component }) => {
   const { HOME } = path;
   const [open, setOpen] = useState(false);
   return (
@@ -54,7 +54,7 @@ const StartScreen = () => {
           </TouchableOpacity>
         </ColumnContainer>
       </StyledMenu>
-      <PopUp open={open} onPress={() => setOpen(!open)} />
+      <PopUp open={open} onPress={() => setOpen(!open)} component={component} />
     </StyledCon>
   );
 };

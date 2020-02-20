@@ -5,6 +5,7 @@ import CloseButton from 'rap-gra/components/CloseButton';
 import { Title } from 'rap-gra/components/Title';
 import Form from 'rap-gra/views/StartScreen/Form';
 import { Paragraph } from 'rap-gra/components/Paragraph';
+import AppContext from 'rap-gra/context/context';
 
 const StyledContainer = styled(View)`
   background-color: ${({ theme }) => theme.greenL};
@@ -20,16 +21,21 @@ const StyledWarning = styled(Paragraph)`
 
 const PopUp = ({ open, onPress }) => {
   return (
-    <Modal animationType="slide" visible={open}>
-      <StyledContainer>
-        <CloseButton onPress={onPress} />
-        <Title>Stwórz swoją niepowtarzalną postać!</Title>
-        <StyledWarning>
-          Uwaga! Jeżeli masz już postać zostatnie ona nadpisana przez postać, którą teraz utworzysz!
-        </StyledWarning>
-        <Form />
-      </StyledContainer>
-    </Modal>
+    <AppContext.Consumer>
+      {context => (
+        <Modal animationType="slide" visible={open}>
+          <StyledContainer>
+            <CloseButton onPress={onPress} />
+            <Title>Stwórz swoją niepowtarzalną postać!</Title>
+            <StyledWarning>
+              Uwaga! Jeżeli masz już postać zostatnie ona nadpisana przez postać, którą teraz
+              utworzysz!
+            </StyledWarning>
+            <Form component={context.state.component} />
+          </StyledContainer>
+        </Modal>
+      )}
+    </AppContext.Consumer>
   );
 };
 
