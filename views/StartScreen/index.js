@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from 'rap-gra/assets/logo.png';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import { Link } from 'react-router-native';
 import { path } from 'rap-gra/constants/routes';
 import styled from 'styled-components';
 import { ColumnContainer } from 'rap-gra/components/ColumnContainer';
-
 import { Title } from 'rap-gra/components/Title';
 import { Paragraph } from 'rap-gra/components/Paragraph';
+import PopUp from 'rap-gra/views/StartScreen/PopUp';
 
 const StyledCon = styled(ColumnContainer)`
   width: 100%;
@@ -36,25 +36,25 @@ const StyledMenuItem = styled(Paragraph)`
 
 const StartScreen = () => {
   const { HOME } = path;
+  const [open, setOpen] = useState(false);
   return (
     <StyledCon>
       <ColumnContainer>
         <StyledTitle>Rap-gra</StyledTitle>
         <Paragraph>Zostań najpopularniejszym raperem!</Paragraph>
       </ColumnContainer>
-
       <StyledImage style={{ resizeMode: 'contain' }} source={logo} />
-
       <StyledMenu>
         <ColumnContainer>
           <Link underlayColor="transparent" to={HOME}>
             <StyledMenuItem>Kontynuuj</StyledMenuItem>
           </Link>
-          <Link underlayColor="transparent" to={HOME}>
+          <TouchableOpacity onPress={() => setOpen(!open)}>
             <StyledMenuItem>Nowa gra</StyledMenuItem>
-          </Link>
+          </TouchableOpacity>
         </ColumnContainer>
       </StyledMenu>
+      <PopUp open={open} onPress={() => setOpen(!open)} />
     </StyledCon>
   );
 };

@@ -20,6 +20,7 @@ class App extends React.Component {
   state = {
     // stats
     nick: 'Young Krawczyk',
+    pic: '',
     cash: 0,
     stats: {
       fans: 0,
@@ -116,6 +117,10 @@ class App extends React.Component {
           this.setState({ subjects: [...this.state.subjects, result] });
         });
       }
+    });
+
+    AsyncStorage.getItem('pic', (err, result) => {
+      this.setState({ pic: result });
     });
 
     //Wstawianie tematów do AS

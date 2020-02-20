@@ -65,7 +65,7 @@ const Home = () => {
             <ProgressBar name="flow" progress={context.state.stats.flow} />
             <ProgressBar name="styl" progress={context.state.stats.style} />
             <ProgressBar name="rymy" progress={context.state.stats.rhymes} />
-            <Avatar source={require('../../assets/avatar.png')} />
+            <Avatar source={context.state.pic} />
           </StyledStats>
         </StyledWrapper>
       )}
