@@ -5,7 +5,7 @@ export const resetGame = async (name, pic, component) => {
   const style = Math.floor(Math.random() * 3 + 1).toString();
   const rhymes = Math.floor(Math.random() * 3 + 1).toString();
   try {
-    await AsyncStorage.setItem(`subjectL`, '0');
+    await AsyncStorage.setItem(`subjectL`, '4');
     await AsyncStorage.setItem(`songsL`, '0');
     await AsyncStorage.setItem(`recordsL`, '0');
     await AsyncStorage.setItem('nick', name);

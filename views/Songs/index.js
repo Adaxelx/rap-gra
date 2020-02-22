@@ -144,6 +144,8 @@ const Songs = () => {
             setRecord={context.setRecord} // Dodanie płyty do tablicy płyt
             recordsL={context.state.recordsL} // Ilość płyt
             setLengthRec={context.setLengthRec} // Ustalenie ilości płyt
+            deleteAndAddSong={context.deleteAndAddSong} // dodaj i usuń
+            retrieveData={context.retrieveData}
           />
         </StyledContainer>
       )}

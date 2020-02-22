@@ -86,65 +86,50 @@ class App extends React.Component {
           currentLabel: label,
         });
       }
-      await AsyncStorage.getItem(`subjectsL`, (err, result) => {
-        // jeżeli nie ma ustalonej długości piosenek ustaw na 4 podstawowe
-        if (result === null) {
-          subL = 4;
-        } else subL = result;
-        this.setState({ subL });
+      const subL = AsyncStorage.getItem(`subjectsL`);
+      this.setState({ subL });
 
-        // pętla po wszystkich tematach(minumum 4 podstawowe)
-        for (let i = 4; i < subL; i++) {
-          //Pobieranie tematów z AS
-          AsyncStorage.getItem(`subject${i}`, (err, result) => {
-            this.setState({ subjects: [...this.state.subjects, result] });
-          });
-        }
-      });
+      let sub;
+      // pętla po wszystkich tematach(minumum 4 podstawowe)
+      for (let i = 4; i < subL; i++) {
+        //Pobieranie tematów z AS
+        sub = await AsyncStorage.getItem(`subject${i}`);
+        this.setState({ subjects: [...this.state.subjects, sub] });
+      }
 
       await AsyncStorage.getItem('picture', (err, result) => {
         this.setState({ pic: result });
       });
 
-      //Wstawianie tematów do AS
-      for (let i = 1; i <= subL; i++) {
-        AsyncStorage.setItem(`subject${i}`, subjects[i - 1]);
-      }
+      // //Wstawianie tematów do AS
+      // for (let i = 1; i <= subL; i++) {
+      //   AsyncStorage.setItem(`subject${i}`, subjects[i - 1]);
+      // }
 
       //Pobranie ilości piosenek z AS
-      await AsyncStorage.getItem('songsL', (err, result) => {
-        //Sprawdzenie czy istnieją jakieś piosenki
-        if (result === null) {
-          songL = 0;
-        } else songL = result;
-        //Ustalenie stanu
-        this.setLength(songL);
-
-        //Pętla po wszystkich piosenkach
-        for (let i = 1; i <= songL; i++) {
-          //Pobranie piosenek z AS
-          AsyncStorage.getItem(`song${i}`, (err, result) => {
-            this.setState({ songs: [...this.state.songs, JSON.parse(result)] });
-          });
-        }
-      });
-
+      const songsL = await AsyncStorage.getItem('songsL');
+      //Ustalenie stanu
+      this.setLength(songsL);
+      let song;
+      this.setState({ songs: [], records: [] });
+      //Pętla po wszystkich piosenkach
+      for (let i = 1; i <= songsL; i++) {
+        //Pobranie piosenek z AS
+        song = await AsyncStorage.getItem(`song${i}`);
+        this.setState({ songs: [...this.state.songs, JSON.parse(song)] });
+      }
       //Pobranie ilości płyt z AS
-      await AsyncStorage.getItem('recordsL', (err, result) => {
-        //Sprawdzenie czy istnieją jakieś płyty
-        if (result === null) {
-          recL = 0;
-        } else recL = result;
-        this.setLengthRec(recL);
+      const recL = await AsyncStorage.getItem('recordsL');
 
-        //Pętla po wszystkich płytach
-        for (let i = 1; i <= recL; i++) {
-          //Pobranie płyt z AS
-          AsyncStorage.getItem(`record${i}`, (err, result) => {
-            this.setState({ records: [...this.state.records, JSON.parse(result)] });
-          });
-        }
-      });
+      this.setLengthRec(recL);
+
+      let rec;
+      //Pętla po wszystkich płytach
+      for (let i = 1; i <= recL; i++) {
+        //Pobranie płyt z AS
+        rec = await AsyncStorage.getItem(`record${i}`);
+        this.setState({ records: [...this.state.records, JSON.parse(rec)] });
+      }
     } catch (error) {}
     // AsyncStorage.setItem('songsL', '0');
     // AsyncStorage.setItem('recordsL', '0');
@@ -160,6 +145,14 @@ class App extends React.Component {
 
     this.retrieveData(); // wczytuje statystki i label
   }
+
+  deleteAndAddSong = (id, song) => {
+    const songs = this.state.songs;
+    songs.splice(id, 1, song);
+    this.setState({
+      songs,
+    });
+  };
 
   labelFn = value => {
     this.setState({ currentLabel: value });
@@ -253,6 +246,7 @@ class App extends React.Component {
             testFn: this.testFn,
             testFn2: this.testFn2,
             setStats: this.setStats,
+            deleteAndAddSong: this.deleteAndAddSong,
           }}
         >
           <ThemeProvider theme={theme}>

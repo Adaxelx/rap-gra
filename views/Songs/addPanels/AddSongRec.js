@@ -9,7 +9,7 @@ import { checkRec } from 'rap-gra/views/Songs/Functions/checkRec';
 
 import { Button } from 'rap-gra/components/Button';
 
-/* eslint-disable no-plusplus */
+/* eslint-disable no-plusplus, array-callback-return, consistent-return */
 
 const StyledCon = styled(ScrollView)`
   flex-grow: 1;
@@ -41,6 +41,7 @@ const AddSongRec = ({
   setRecord,
   recordsL,
   setLengthRec,
+  deleteAndAddSong,
 }) => {
   const [idActive, setIdActive] = useState([]); // ID aktywnych piosenek
 
@@ -123,6 +124,15 @@ const AddSongRec = ({
         i++;
       }
     });
+    for (let j = 0; j < idActive.length; j++) {
+      AsyncStorage.getItem(`song${idActive[j]}`)
+        .then(data => {
+          const newData = { ...JSON.parse(data), used: true };
+          deleteAndAddSong(j, newData);
+          AsyncStorage.setItem(`song${parseInt(idActive[j], 10)}`, JSON.stringify(newData));
+        })
+        .done();
+    }
 
     // Dodanie płyty do AS
     storeRec(
@@ -137,23 +147,26 @@ const AddSongRec = ({
         recordsL,
       ),
     );
+
     // zresetowanie tablicy
     setIdActive([]);
   };
 
-  const items = [...songs]
-    .reverse()
-    .map(item => (
-      <SongItem
-        id={item.id}
-        key={item.id}
-        title={item.title}
-        subject={item.subject}
-        rate={item.rating}
-        idActive={idActive}
-        setIdActive={setIdActive}
-      />
-    ));
+  const items = [...songs].reverse().map(item => {
+    if (!item.used) {
+      return (
+        <SongItem
+          id={item.id}
+          key={item.id}
+          title={item.title}
+          subject={item.subject}
+          rate={item.rating}
+          idActive={idActive}
+          setIdActive={setIdActive}
+        />
+      );
+    }
+  });
   return (
     <AddPanel onPress={onPress} open={open}>
       <Title>Wybierz piosenki:</Title>
