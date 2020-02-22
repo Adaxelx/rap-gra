@@ -6,6 +6,7 @@ import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
 import Bar from 'rap-gra/components/Bar';
 import Switch from 'rap-gra/components/Switch';
 import { Button } from 'rap-gra/components/Button';
+import { checkConcert } from 'rap-gra/views/Concerts/Functions/checkConcert';
 
 const ConcertPanel = ({ openConcertPanel, onPress }) => {
   const [valueSound, setValueSound] = useState(0); // Jaki styl
@@ -23,12 +24,14 @@ const ConcertPanel = ({ openConcertPanel, onPress }) => {
     }
   };
 
-  const buttonFn = array => {
+  const buttonFn = (array, stats) => {
     onPress();
     array.push({
       key: keyCounter,
       name: keyCounter,
     });
+    // ocenianie koncertu i rozwoj statystyk
+    checkConcert(stats, valueSound, valueTicketsPrice, valueAlcohol, valueClubSize, free);
 
     // zapis
     saveAsync(array);
@@ -81,7 +84,7 @@ const ConcertPanel = ({ openConcertPanel, onPress }) => {
 
           <Button
             onPress={() => {
-              buttonFn(context.state.concerts);
+              buttonFn(context.state.concerts, context.state.stats);
             }}
           >
             <Text>Zagraj koncert!</Text>

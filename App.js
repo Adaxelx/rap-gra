@@ -22,7 +22,7 @@ class App extends React.Component {
     stats: {
       fans: 150000,
       reputation: 1500,
-      flow: 0,
+      flow: 20,
       style: 0,
       rhymes: 0,
     },
@@ -64,7 +64,8 @@ class App extends React.Component {
         flow !== null &&
         style !== null &&
         rhymes !== null &&
-        rep !== null
+        rep !== null &&
+        concerts !== null
       ) {
         // jeśli pobrał to przypisuje pobrane wartości do stanu
         this.setState({
@@ -79,6 +80,7 @@ class App extends React.Component {
             rhymes: JSON.parse(rhymes),
           },
           currentLabel: label,
+          ...this.state,
           concerts: JSON.parse(concerts),
         });
       }

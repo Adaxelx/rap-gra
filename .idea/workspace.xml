@@ -8,7 +8,7 @@
     <list default="true" id="12af8f15-968c-4d50-aa51-561382fd01fa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Concerts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Concerts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Concerts/Functions/checkConcert.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Concerts/Functions/checkConcert.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/Concerts/templates/ConcertPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Concerts/templates/ConcertPanel.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
