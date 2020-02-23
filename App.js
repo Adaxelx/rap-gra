@@ -39,9 +39,10 @@ class App extends React.Component {
     subL: 0, // Ilość tematów
     records: [], // Płyty
     recordsL: 0, // Ilość płyt
+    // concerts
+    concerts: [],
     component: this,
   };
-
   setStats = object => {
     const { fans, flow, style, rhymes, reputation } = object.stats;
     this.setState(prevState => ({
@@ -68,9 +69,20 @@ class App extends React.Component {
       const flow = await AsyncStorage.getItem('flow');
       const style = await AsyncStorage.getItem('style');
       const rhymes = await AsyncStorage.getItem('rhymes');
+      const concerts = await AsyncStorage.getItem('concerts_array');
 
       //sprawdza warunek czy coś pobrał czy nie
-      if (rhymes !== null) {
+      if (
+        label !== null &&
+        nick !== null &&
+        cash !== null &&
+        fans !== null &&
+        flow !== null &&
+        style !== null &&
+        rhymes !== null &&
+        rep !== null &&
+        concerts !== null
+      ) {
         // jeśli pobrał to przypisuje pobrane wartości do stanu
         this.setState({
           nick: nick,
@@ -84,9 +96,12 @@ class App extends React.Component {
             rhymes: JSON.parse(rhymes),
           },
           currentLabel: label,
+          ...this.state,
+          concerts: JSON.parse(concerts),
         });
       }
-      const subL = AsyncStorage.getItem(`subjectsL`);
+
+      const subL =  AsyncStorage.getItem(`subjectsL`);
       this.setState({ subL });
 
       let sub;
