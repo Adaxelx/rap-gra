@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import AppContext from 'rap-gra/context/context';
-import { View, Image, Text, TouchableNativeFeedback } from 'react-native';
+import { View, Image, Text } from 'react-native';
+import Pic from 'rap-gra/assets/avatar.jpg';
+import Pic2 from 'rap-gra/assets/avatar.png';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import { Title } from '../../components/Title';
 
@@ -19,6 +21,8 @@ const StyledWrapper = styled(View)`
 
 const Avatar = styled(Image)`
   margin: 20px 10px;
+  max-width: 70%;
+  max-height: 300px;
 `;
 
 const StyledStats = styled(View)`
@@ -65,13 +69,10 @@ const Home = () => {
             <ProgressBar name="flow" progress={context.state.stats.flow} />
             <ProgressBar name="styl" progress={context.state.stats.style} />
             <ProgressBar name="rymy" progress={context.state.stats.rhymes} />
-            <TouchableNativeFeedback onPress={context.testFn}>
-              <Text>XD</Text>
-            </TouchableNativeFeedback>
-            <TouchableNativeFeedback onPress={context.testFn2}>
-              <Text>usu</Text>
-            </TouchableNativeFeedback>
-            <Avatar source={require('../../assets/avatar.png')} />
+            <Avatar
+              source={context.state.pic === '1' ? Pic : Pic2}
+              style={{ resizeMode: 'contain' }}
+            />
           </StyledStats>
         </StyledWrapper>
       )}

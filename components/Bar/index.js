@@ -8,7 +8,7 @@ const StyledContainer = styled(View)`
   flex-direction: column;
   flex-direction: column;
   align-items: center;
-  height: 15%;
+  height: 20%;
   overflow: hidden;
 `;
 

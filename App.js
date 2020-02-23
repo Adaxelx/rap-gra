@@ -1,9 +1,10 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
-import { NativeRouter, Route } from 'react-router-native';
+import { NativeRouter, Route, Switch } from 'react-router-native';
 import { ThemeProvider } from 'styled-components';
 import AppContext from 'rap-gra/context/context';
 import { theme } from 'rap-gra/theme/mainTheme';
+import StartScreen from 'rap-gra/views/StartScreen';
 import Home from 'rap-gra/views/Home';
 import Songs from 'rap-gra/views/Songs';
 import Label from 'rap-gra/views/Label';
@@ -11,6 +12,7 @@ import Concerts from 'rap-gra/views/Concerts';
 import AllSongs from 'rap-gra/views/Songs/AllSongs';
 import AllRecords from 'rap-gra/views/Songs/AllRecords';
 import MainTemplate from 'rap-gra/templates/MainTemplate';
+import { path } from 'rap-gra/constants/routes';
 
 /* eslint-disable */
 
@@ -18,11 +20,12 @@ class App extends React.Component {
   state = {
     // stats
     nick: 'Young Krawczyk',
-    cash: 1000000,
+    pic: '',
+    cash: 0,
     stats: {
-      fans: 150000,
-      reputation: 1500,
-      flow: 20,
+      fans: 0,
+      reputation: 0,
+      flow: 0,
       style: 0,
       rhymes: 0,
     },
@@ -36,9 +39,22 @@ class App extends React.Component {
     subL: 0, // Ilość tematów
     records: [], // Płyty
     recordsL: 0, // Ilość płyt
-
     // concerts
     concerts: [],
+    component: this,
+  };
+  setStats = object => {
+    const { fans, flow, style, rhymes, reputation } = object.stats;
+    this.setState(prevState => ({
+      cash: prevState.cash + object.cash,
+      stats: {
+        fans: prevState.stats.fans + fans,
+        flow,
+        style,
+        rhymes,
+        reputation: prevState.stats.reputation + reputation,
+      },
+    }));
   };
 
   // pobiera dane z AS
@@ -84,9 +100,55 @@ class App extends React.Component {
           concerts: JSON.parse(concerts),
         });
       }
-    } catch (error) {
-      console.log('error odczyt');
-    }
+
+      const subL =  AsyncStorage.getItem(`subjectsL`);
+      this.setState({ subL });
+
+      let sub;
+      // pętla po wszystkich tematach(minumum 4 podstawowe)
+      for (let i = 4; i < subL; i++) {
+        //Pobieranie tematów z AS
+        sub = await AsyncStorage.getItem(`subject${i}`);
+        this.setState({ subjects: [...this.state.subjects, sub] });
+      }
+
+      await AsyncStorage.getItem('picture', (err, result) => {
+        this.setState({ pic: result });
+      });
+
+      // //Wstawianie tematów do AS
+      // for (let i = 1; i <= subL; i++) {
+      //   AsyncStorage.setItem(`subject${i}`, subjects[i - 1]);
+      // }
+
+      //Pobranie ilości piosenek z AS
+      const songsL = await AsyncStorage.getItem('songsL');
+      //Ustalenie stanu
+      this.setLength(songsL);
+      let song;
+      this.setState({ songs: [], records: [] });
+      //Pętla po wszystkich piosenkach
+      for (let i = 1; i <= songsL; i++) {
+        //Pobranie piosenek z AS
+        song = await AsyncStorage.getItem(`song${i}`);
+        this.setState({ songs: [...this.state.songs, JSON.parse(song)] });
+      }
+      //Pobranie ilości płyt z AS
+      const recL = await AsyncStorage.getItem('recordsL');
+
+      this.setLengthRec(recL);
+
+      let rec;
+      //Pętla po wszystkich płytach
+      for (let i = 1; i <= recL; i++) {
+        //Pobranie płyt z AS
+        rec = await AsyncStorage.getItem(`record${i}`);
+        this.setState({ records: [...this.state.records, JSON.parse(rec)] });
+      }
+    } catch (error) {}
+    // AsyncStorage.setItem('songsL', '0');
+    // AsyncStorage.setItem('recordsL', '0');
+    // Pobranie ilości tematów z AS
   };
 
   componentDidMount() {
@@ -97,66 +159,15 @@ class App extends React.Component {
     const { subjects } = this.state;
 
     this.retrieveData(); // wczytuje statystki i label
-
-    // AsyncStorage.setItem('songsL', '0');
-    // AsyncStorage.setItem('recordsL', '0');
-    // Pobranie ilości tematów z AS
-    AsyncStorage.getItem(`subjectsL`, (err, result) => {
-      // jeżeli nie ma ustalonej długości piosenek ustaw na 4 podstawowe
-      if (result === null) {
-        subL = 4;
-      } else subL = result;
-      this.setState({ subL });
-
-      // pętla po wszystkich tematach(minumum 4 podstawowe)
-      for (let i = 4; i < subL; i++) {
-        //Pobieranie tematów z AS
-        AsyncStorage.getItem(`subject${i}`, (err, result) => {
-          this.setState({ subjects: [...this.state.subjects, result] });
-        });
-      }
-    });
-
-    //Wstawianie tematów do AS
-    for (let i = 1; i <= subL; i++) {
-      AsyncStorage.setItem(`subject${i}`, subjects[i - 1]);
-    }
-
-    //Pobranie ilości piosenek z AS
-    AsyncStorage.getItem('songsL', (err, result) => {
-      //Sprawdzenie czy istnieją jakieś piosenki
-      if (result === null) {
-        songL = 0;
-      } else songL = result;
-      //Ustalenie stanu
-      this.setLength(songL);
-
-      //Pętla po wszystkich piosenkach
-      for (let i = 1; i <= songL; i++) {
-        //Pobranie piosenek z AS
-        AsyncStorage.getItem(`song${i}`, (err, result) => {
-          this.setState({ songs: [...this.state.songs, JSON.parse(result)] });
-        });
-      }
-    });
-
-    //Pobranie ilości płyt z AS
-    AsyncStorage.getItem('recordsL', (err, result) => {
-      //Sprawdzenie czy istnieją jakieś płyty
-      if (result === null) {
-        recL = 0;
-      } else recL = result;
-      this.setLengthRec(recL);
-
-      //Pętla po wszystkich płytach
-      for (let i = 1; i <= recL; i++) {
-        //Pobranie płyt z AS
-        AsyncStorage.getItem(`record${i}`, (err, result) => {
-          this.setState({ records: [...this.state.records, JSON.parse(result)] });
-        });
-      }
-    });
   }
+
+  deleteAndAddSong = (id, song) => {
+    const songs = this.state.songs;
+    songs.splice(id, 1, song);
+    this.setState({
+      songs,
+    });
+  };
 
   labelFn = value => {
     this.setState({ currentLabel: value });
@@ -236,6 +247,7 @@ class App extends React.Component {
   };
 
   render() {
+    const { HOME, LABEL, SONGS, ALLSONGS, ALLRECORDS, CONCERTS, STARTSCREEN } = path;
     return (
       <NativeRouter>
         <AppContext.Provider
@@ -248,26 +260,31 @@ class App extends React.Component {
             setLengthRec: this.setLengthRec,
             testFn: this.testFn,
             testFn2: this.testFn2,
+            setStats: this.setStats,
+            deleteAndAddSong: this.deleteAndAddSong,
           }}
         >
           <ThemeProvider theme={theme}>
-            <MainTemplate>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/songs" component={Songs} />
-              <Route exact path="/concerts" component={Concerts} />
-              <Route exact path="/label" component={Label} />
+            <Switch>
+              <Route exact path={STARTSCREEN} component={StartScreen} />
+              <MainTemplate>
+                <Route exact path={HOME} component={Home} />
+                <Route exact path={SONGS} component={Songs} />
+                <Route exact path={CONCERTS} component={Concerts} />
+                <Route exact path={LABEL} component={Label} />
 
-              <Route
-                exact
-                path="/allsongs"
-                component={() => <AllSongs songs={this.state.songs} />}
-              />
-              <Route
-                exact
-                path="/allrecords"
-                component={() => <AllRecords records={this.state.records} />}
-              />
-            </MainTemplate>
+                <Route
+                  exact
+                  path={ALLSONGS}
+                  component={() => <AllSongs songs={this.state.songs} />}
+                />
+                <Route
+                  exact
+                  path={ALLRECORDS}
+                  component={() => <AllRecords records={this.state.records} />}
+                />
+              </MainTemplate>
+            </Switch>
           </ThemeProvider>
         </AppContext.Provider>
       </NativeRouter>

@@ -23,7 +23,7 @@ const StyledText = styled(Paragraph)`
 `;
 const Logo = () => (
   <StyledView>
-    <StyledImage source={require('../../assets/logo.png')} />
+    <StyledImage source={require('rap-gra/assets/logo.png')} />
     <StyledText>Rap-gra</StyledText>
   </StyledView>
 );

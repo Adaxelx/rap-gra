@@ -7,9 +7,11 @@
   <component name="ChangeListManager">
     <list default="true" id="12af8f15-968c-4d50-aa51-561382fd01fa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/Concerts/Functions/checkConcert.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Concerts/Functions/checkConcert.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/Concerts/templates/ConcertPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Concerts/templates/ConcertPanel.js" afterDir="false" />
+
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +27,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="397" />
-    <option name="y" value="161" />
+
+    <option name="x" value="40" />
+    <option name="y" value="61" />
+
     <option name="width" value="1400" />
     <option name="height" value="757" />
   </component>
@@ -129,7 +133,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="397" y="161" width="1400" height="757" extended-state="0" />
+
+    <frame x="40" y="61" width="1400" height="757" extended-state="0" />
+
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.3298969" />
@@ -141,7 +147,9 @@
       <window_info id="Resources Explorer" order="7" weight="0.3298969" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Version Control" order="0" />
-      <window_info anchor="bottom" id="Logcat" order="1" weight="0.14903846" />
+
+      <window_info anchor="bottom" id="Logcat" order="1" visible="true" weight="0.14887218" />
+
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.32852563" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />

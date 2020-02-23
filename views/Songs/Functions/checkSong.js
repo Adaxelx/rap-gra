@@ -1,3 +1,27 @@
+import { AsyncStorage } from 'react-native';
+
+const calcRep = rate => {
+  if (rate < 1) {
+    return -3;
+  }
+  if (rate < 3) {
+    return -2;
+  }
+  if (rate < 5) {
+    return -1;
+  }
+  if (rate < 7) {
+    return 0;
+  }
+  if (rate < 8) {
+    return 1;
+  }
+  if (rate < 9) {
+    return 2;
+  }
+  return 3;
+};
+
 // Obliczenie oceny(funkcja użyta do obliczenia oceny piosenki)
 const calcRate = (best, choice) => {
   const bestRate = 10;
@@ -11,7 +35,25 @@ const calcRate = (best, choice) => {
   return bestRate - delta * 0.1;
 };
 
-export const checkSong = song => {
+const setPersonalStats = async object => {
+  const { fans, cash, reputation } = object;
+  try {
+    await AsyncStorage.getItem(`fans`, (err, result) => {
+      AsyncStorage.setItem(`fans`, `${fans * 1 + result * 1}`);
+    });
+    await AsyncStorage.getItem(`cash`, (err, result) => {
+      AsyncStorage.setItem(`cash`, `${cash * 1 + result * 1}`);
+    });
+    await AsyncStorage.getItem(`rep`, (err, result) => {
+      AsyncStorage.setItem(`rep`, `${reputation * 1 + result * 1}`);
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const checkSong = (song, stats, setStats) => {
+  console.log(stats);
   const { style, bit, rhymes, video } = song.values; // Destrukturyzacja danych o piosence
   // Deklaracja zmiennej bestValues
   const bestValues = {
@@ -25,10 +67,11 @@ export const checkSong = song => {
     subject: song.subject,
     rating: 1,
     views: 0,
-    earned: 0,
+    cash: 0,
     place: 200,
     fans: 0,
     id: song.id,
+    used: false,
   };
 
   // Wyznaczenie najlepszych wartości dla stylu(S), bitu(B) i rymów(R) dla odpowiadających tematów
@@ -60,21 +103,37 @@ export const checkSong = song => {
   checkedSong.rating =
     Math.round(
       (10 *
-        (calcRate(bestValues.S, style) +
-          calcRate(bestValues.B, bit) +
-          calcRate(bestValues.R, rhymes))) /
+        (calcRate(bestValues.S, style + 0.1 * stats.style) +
+          calcRate(bestValues.B, bit + 0.1 * stats.flow) +
+          calcRate(bestValues.R, rhymes + 0.1 * stats.rhymes))) /
         3,
     ) / 10;
   // Obliczenie przyrostu fanów(na podstawie poprzedniej ilości fanów i oceny piosenki)
-  checkedSong.fans = Math.floor((checkedSong.fans * 0.1 + 1) * (1 + checkedSong.rating * 0.05));
 
   // Obliczenie wyświetleń(Na podstawie ilości fanów i oceny)
-  checkedSong.views = Math.floor((checkedSong.fans + 10) * checkedSong.rating);
+  checkedSong.views = Math.floor((stats.fans + 10) * checkedSong.rating);
 
   checkedSong.views = video.active
-    ? Math.floor(video.value * 0.1 * checkedSong.views)
+    ? Math.floor(video.value * stats.fans * 0.001 * checkedSong.views)
     : checkedSong.views;
+
+  checkedSong.fans = Math.floor(stats.fans * 0.3 + (1 + checkedSong.rating * 0.5));
+
   // Obliczenie zarobionych pieniędzy na podstawie wyświetleń
-  checkedSong.earned = Math.floor(checkedSong.views * 0.01);
+  console.log(video.value);
+  checkedSong.cash = Math.floor(checkedSong.views * 0.01 - video.value / 2);
+  const reputation = calcRep(checkedSong.rating);
+  setStats({
+    cash: checkedSong.cash,
+    stats: {
+      fans: checkedSong.fans,
+      flow: stats.flow,
+      style: stats.style,
+      rhymes: stats.rhymes,
+      reputation,
+    },
+  });
+
+  setPersonalStats({ fans: checkedSong.fans, cash: checkedSong.cash, reputation });
   return checkedSong;
 };

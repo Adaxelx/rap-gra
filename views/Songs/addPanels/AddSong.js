@@ -8,6 +8,7 @@ import Switch from 'rap-gra/components/Switch';
 import Bar from 'rap-gra/components/Bar';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
 import { Button } from 'rap-gra/components/Button';
+import { checkSong } from 'rap-gra/views/Songs/Functions/checkSong';
 
 const StyledRowCon = styled(View)`
   margin-top: 10px;
@@ -19,7 +20,42 @@ const StyledRowCon = styled(View)`
   justify-content: space-between;
 `;
 
-const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs, state }) => {
+const StyledButtonCon = styled(View)`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  padding-bottom: 10px;
+`;
+
+const StyledButton = styled(Button)`
+  height: 100%;
+`;
+
+const StyledFlex = styled(View)`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
+const AddSong = ({
+  open,
+  onPress,
+  setSong,
+  openSubject,
+  songsL,
+  songs,
+  setLength,
+  subj,
+  stats,
+  setStats,
+  setSubj,
+}) => {
   // Nazwa piosenki(Początkowa ustalona w zalezności od ilości piosenek). *1 przy songsL jest dlatego że songsL jest stringiem i pomnożenie przez 1 zamienia tą wartość na inta.
   const [title, setTitle] = useState(`Piosenka ${songsL * 1 + 1}`);
 
@@ -37,25 +73,42 @@ const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs, state }) 
     setVid(false);
   };
 
-  // zapisywanie statystyk
-  const saveStats = async () => {
+  const handleBack = () => {
+    onPress();
+    openSubject();
+  };
+
+  // Funkcja zapisująca do AS - funkcja asynchroniczna
+  const storeSong = async object => {
+    const length = songsL === null ? 0 : songsL; // Jeżeli nie udało się pobrać ilości piosenek ustaw domyślnie na 0
+    // Asynchroniczne pobranie z AS
     try {
-      await AsyncStorage.setItem('nick', state.nick);
-      await AsyncStorage.setItem('cash', JSON.stringify(state.cash));
-      await AsyncStorage.setItem('fans', JSON.stringify(state.stats.fans));
-      await AsyncStorage.setItem('rep', JSON.stringify(state.stats.reputation));
-      await AsyncStorage.setItem('flow', JSON.stringify(state.stats.flow));
-      await AsyncStorage.setItem('style', JSON.stringify(state.stats.style));
-      await AsyncStorage.setItem('rhymes', JSON.stringify(state.stats.rhymes));
-      console.log('zapisano');
+      // Ustawienie otrzymanego obiektu na dany klucz w AS np song3
+      await AsyncStorage.setItem(`song${parseInt(length, 10) + 1}`, JSON.stringify(object), () => {
+        // Pobranie tego elementu i dodanie go do  stanu w App
+        AsyncStorage.getItem(`song${parseInt(length, 10) + 1}`, (err, result) => {
+          setSong(JSON.parse(result)); // Parse zeby zamienić JSON na obiekt
+        });
+      });
     } catch (error) {
-      console.log(`error`);
+      throw new Error(error);
+    }
+    try {
+      // Ustalenie nowej ilości piosenek
+      await AsyncStorage.setItem(`songsL`, `${parseInt(length, 10) + 1}`, () => {
+        // Pobranie tej długości i dodanie jej do stanu
+        AsyncStorage.getItem('songsL', (err, result) => {
+          setLength(result);
+        });
+      });
+    } catch (error) {
+      throw new Error(error);
     }
   };
 
   useEffect(() => {
     // Zaktualizowanie tytułu gdy nazwy piosenek nie zgadzają się(Po dodaniu piosenki)
-    saveStats(); // wywołanie zapisywania statystyk
+    // saveStats(); // wywołanie zapisywania statystyk
     if (title !== `Piosenka ${songsL * 1 + 1}`) {
       setTitle(`Piosenka ${songsL * 1 + 1}`);
     }
@@ -81,53 +134,74 @@ const AddSong = ({ open, onPress, setSong, openSubject, songsL, songs, state }) 
       return -1;
     }
     // Jeżeli wszystko jest okej zapisz dane do stanu
-    setSong({
-      full: false,
-      title,
-      values: {
-        video: {
-          active: vid,
-          value: valueVid,
+
+    // Dodaj przekalkulowaną piosenke do AS
+    storeSong(
+      // Funkcja przeliczająca dane piosenki na jej statystyki(wyświetlenia itp.)
+      checkSong(
+        {
+          title,
+          values: {
+            video: {
+              active: vid,
+              value: valueVid,
+            },
+            style: Math.floor(valueStyle),
+            rhymes: Math.floor(valueRhymes),
+            bit: Math.floor(valueBit),
+          },
+          subject: subj,
+          id: songsL * 1 + 1,
         },
-        style: Math.floor(valueStyle),
-        rhymes: Math.floor(valueRhymes),
-        bit: Math.floor(valueBit),
-      },
-    });
-    // Czyszczenie stanu
-    clearState();
+        stats,
+        setStats,
+      ),
+    );
     // Zamknij okno
     onPress();
-    // Otwórz kolejne okno
-    openSubject();
+    // Czyszczenie stanu
+    clearState();
+    setSubj('');
     return 0;
   };
 
   return (
-    <AddPanel open={open} onPress={onPress}>
+    <AddPanel
+      open={open}
+      onPress={() => {
+        setSubj('');
+        onPress();
+      }}
+    >
       <Title>Dodaj piosenkę</Title>
-      <Input onChangeText={text => setTitle(text)} value={title} />
-      <StyledRowCon>
-        <Paragraph>Teledysk</Paragraph>
-        <Switch onPress={() => setVid(!vid)} active={vid} />
-      </StyledRowCon>
-      {vid ? (
-        <>
-          <Bar
-            title="Wydatki"
-            val1={`${Math.floor((valueVid / 200) * 1000 * 0.1)}zł`}
-            value={valueVid}
-            setValue={setValueVid}
-          />
-        </>
-      ) : null}
-      <Bar title="Styl" val1="wolny" val2="szybki" value={valueStyle} setValue={setValueStyle} />
-      <Bar title="Rymy" val1="mało" val2="dużo" value={valueRhymes} setValue={setValueRhymes} />
-      <Bar title="Bit" val1="poważny" val2="imprezowy" value={valueBit} setValue={setValueBit} />
-      {/* Przy kliknięciu dalej zapisz dane */}
-      <Button onPress={saveData}>
-        <Paragraph>Dalej</Paragraph>
-      </Button>
+      <StyledFlex>
+        <Input onChangeText={text => setTitle(text)} value={title} />
+        <StyledRowCon>
+          <Paragraph>Teledysk</Paragraph>
+          <Switch onPress={() => setVid(!vid)} active={vid} />
+        </StyledRowCon>
+        {vid ? (
+          <>
+            <Bar
+              title="Wydatki"
+              val1={`${Math.floor((valueVid / 200) * 1000 * 0.1)}zł`}
+              value={valueVid}
+              setValue={setValueVid}
+            />
+          </>
+        ) : null}
+        <Bar title="Styl" val1="wolny" val2="szybki" value={valueStyle} setValue={setValueStyle} />
+        <Bar title="Rymy" val1="mało" val2="dużo" value={valueRhymes} setValue={setValueRhymes} />
+        <Bar title="Bit" val1="poważny" val2="imprezowy" value={valueBit} setValue={setValueBit} />
+      </StyledFlex>
+      <StyledButtonCon>
+        <StyledButton onPress={handleBack}>
+          <Paragraph>Wstecz</Paragraph>
+        </StyledButton>
+        <StyledButton onPress={saveData}>
+          <Paragraph>Dodaj piosenke</Paragraph>
+        </StyledButton>
+      </StyledButtonCon>
     </AddPanel>
   );
 };

@@ -50,9 +50,9 @@ const Songs = () => {
   /* songs state */
 
   const [openSong, setOpenSong] = useState(false); // Otwarcie lub zamknięcie okna piosenek
-  const [song, setSong] = useState({ full: false }); // Zapisanie danych z AddSong(nie cała piosenka)
   const [openSubject, setOpenSubject] = useState(false); // Otwarcie lub zamknięcie wyboru tematów
   const [id, setId] = useState([]); // Zapisywanie id piosenek
+  const [subj, setSubj] = useState('');
 
   /* record state */
 
@@ -68,7 +68,7 @@ const Songs = () => {
           <StyledContainer>
             <>
               <StyledRowContainer>
-                <StyledButton onPress={() => setOpenSong(!openSong)}>
+                <StyledButton onPress={() => setOpenSubject(!openSubject)}>
                   <Paragraph>Dodaj piosenkę</Paragraph>
                 </StyledButton>
                 <StyledButton onPress={() => setOpenRec(!openRec)}>
@@ -86,7 +86,7 @@ const Songs = () => {
                     title={songData.title}
                     place={songData.place}
                     type={songData.type}
-                    earnings={songData.earned}
+                    earnings={songData.cash}
                     fans={songData.fans}
                     rate={songData.rating}
                     value={songData.views}
@@ -105,22 +105,26 @@ const Songs = () => {
 
           <AddSong
             open={openSong} // Otwarta czy zamknięta piosenka
-            setSong={setSong} // Zapisanie danych piosenki
             songsL={context.state.songsL} // Pobrana z AS ilość piosenek
             songs={context.state.songs} // Pobrane piosenki z AS
             onPress={() => setOpenSong(!openSong)} // Obsługa otwarcia/zamknięcia okna
             openSubject={() => setOpenSubject(!openSubject)} // Otworzenie kolejnego okna z wyborem tematu
             state={context.state} // pobieranie stanu, ale potrzebne było do statystyk
+            setLength={context.setLength} // Ustalenie ilości piosenek
+            setSong={context.setSong} // Zapisanie piosenki do tablicy w App
+            subj={subj}
+            setSubj={setSubj}
+            stats={context.state.stats} // statystki ze stanu
+            setStats={context.setStats} // zapisanie statystyk przy dodawaniu piosenki
           />
           <AddSubject
             open={openSubject} // Otwarty czy zamknięty wybór tematu piosenki
-            song={song} // Zapisana część danych piosenki
             onPress={() => setOpenSubject(!openSubject)} // Zamknięcie okna wybrania tematu
             openAddSong={() => setOpenSong(!openSong)} // Przy ewentualnym powrocie otworzenie okna wyboru statystyk piosenki
-            setSong={context.setSong} // Zapisanie piosenki do tablicy w App
             songsL={context.state.songsL} // Ilość piosenek
-            setLength={context.setLength} // Ustalenie ilości piosenek
             subjects={context.state.subjects} // Pobranie tematów z App context
+            subj={subj}
+            setSubj={setSubj}
           />
           <AddRecord
             open={openRec} // Otwarta czy zamknięta płyta
@@ -140,6 +144,8 @@ const Songs = () => {
             setRecord={context.setRecord} // Dodanie płyty do tablicy płyt
             recordsL={context.state.recordsL} // Ilość płyt
             setLengthRec={context.setLengthRec} // Ustalenie ilości płyt
+            deleteAndAddSong={context.deleteAndAddSong} // dodaj i usuń
+            retrieveData={context.retrieveData}
           />
         </StyledContainer>
       )}

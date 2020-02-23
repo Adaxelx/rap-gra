@@ -23,7 +23,7 @@ const AllSongs = ({ songs }) => {
         title={i.title}
         place={i.place}
         type={i.type}
-        earnings={i.earned}
+        earnings={i.cash}
         fans={i.fans}
         rate={i.rating}
         value={i.views}
@@ -38,7 +38,7 @@ const AllSongs = ({ songs }) => {
         title={i.title}
         place={i.place}
         type={i.type}
-        earnings={i.earned}
+        earnings={i.cash}
         fans={i.fans}
         rate={i.rating}
         value={i.views}
