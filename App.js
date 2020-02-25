@@ -73,7 +73,6 @@ class App extends React.Component {
 
       //sprawdza warunek czy coś pobrał czy nie
       if (
-        label !== null &&
         nick !== null &&
         cash !== null &&
         fans !== null &&
@@ -96,12 +95,11 @@ class App extends React.Component {
             rhymes: JSON.parse(rhymes),
           },
           currentLabel: label,
-          ...this.state,
           concerts: JSON.parse(concerts),
         });
       }
 
-      const subL =  AsyncStorage.getItem(`subjectsL`);
+      const subL = AsyncStorage.getItem(`subjectsL`);
       this.setState({ subL });
 
       let sub;
