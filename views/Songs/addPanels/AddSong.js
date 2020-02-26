@@ -104,9 +104,9 @@ const AddSong = ({
   useEffect(() => {
     // Zaktualizowanie tytułu gdy nazwy piosenek nie zgadzają się(Po dodaniu piosenki)
     // saveStats(); // wywołanie zapisywania statystyk
-    if (title !== `Piosenka ${songsL * 1 + 1}`) {
-      setTitle(`Piosenka ${songsL * 1 + 1}`);
-    }
+    // if (title !== `Piosenka ${songsL * 1 + 1}`) {
+    //   setTitle(`Piosenka ${songsL * 1 + 1}`);
+    // }
   });
 
   const saveData = () => {
