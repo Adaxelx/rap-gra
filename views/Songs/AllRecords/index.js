@@ -1,34 +1,19 @@
 import React, { useState } from 'react';
 import ListItem from 'rap-gra/views/Songs/ListItem';
 import AllItems from 'rap-gra/templates/AllItemsTemplate';
+import { Paragraph } from 'rap-gra/components/Paragraph';
 
-let newData = [];
-const AllRecords = ({ records }) => {
+const AllRecords = ({ records, isLoading }) => {
   const [input, setInput] = useState('');
-  const [changed, setChanged] = useState(false);
+  const [dataArr, setDataArr] = useState([...records]);
   // to samo co w AllSongs
   const findItem = text => {
     setInput(text);
-    newData = records.filter(item => item.title.toLowerCase().includes(text.toLowerCase()));
-    setChanged(true);
+    setDataArr(records.filter(item => item.title.toLowerCase().includes(text.toLowerCase())));
   };
 
   // to samo co w AllSongs
-  const data = [...records]
-    .reverse()
-    .map(({ rating, sold, subject, title, type, id }) => (
-      <ListItem
-        key={id}
-        earnings={sold * 20}
-        value={sold}
-        rate={rating}
-        title={title}
-        type={type}
-        subject={subject}
-      />
-    ));
-
-  const newMapData = [...newData]
+  const data = [...dataArr]
     .reverse()
     .map(({ rating, sold, subject, title, type, id }) => (
       <ListItem
@@ -44,7 +29,7 @@ const AllRecords = ({ records }) => {
 
   return (
     <AllItems title="Wszystkie płyty" onChangeText={text => findItem(text)} value={input}>
-      {changed ? newMapData : data}
+      {isLoading ? <Paragraph>Ładowanie...</Paragraph> : data}
     </AllItems>
   );
 };

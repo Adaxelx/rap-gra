@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, TouchableOpacity, Alert } from 'react-native';
-import { Paragraph } from 'rap-gra/components/Paragraph';
-import { Title } from 'rap-gra/components/Title';
+import { Title, Button, Paragraph } from 'rap-gra/components';
 import styled from 'styled-components';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
-import { Button } from 'rap-gra/components/Button';
 
 /* eslint-disable no-underscore-dangle */
 

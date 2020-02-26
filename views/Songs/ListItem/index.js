@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { RowContainer } from 'rap-gra/components/RowContainer';
-import { Paragraph } from 'rap-gra/components/Paragraph';
+import { RowContainer, Paragraph } from 'rap-gra/components';
 import { View } from 'react-native';
 
 const StyledSong = styled(RowContainer)`

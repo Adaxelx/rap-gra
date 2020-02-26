@@ -4,8 +4,7 @@ import AppContext from 'rap-gra/context/context';
 import { View, Image, Text } from 'react-native';
 import Pic from 'rap-gra/assets/avatar.jpg';
 import Pic2 from 'rap-gra/assets/avatar.png';
-import ProgressBar from '../../components/ProgressBar/ProgressBar';
-import { Title } from '../../components/Title';
+import { Title, ProgressBar } from 'rap-gra/components';
 
 const StyledWrapper = styled(View)`
   display: flex;
@@ -61,11 +60,17 @@ const Home = () => {
       {context => (
         <StyledWrapper>
           <StyledTitle>Statystyki</StyledTitle>
-          <StyledStatValue>reputacja: {context.state.stats.reputation}</StyledStatValue>
-          <StyledStatValue>fani: {context.state.stats.fans}</StyledStatValue>
-          <StyledStatValue>{context.state.cash} $</StyledStatValue>
+          <StyledStatValue>
+            reputacja: {context.state.isLoading ? '...' : context.state.stats.reputation}
+          </StyledStatValue>
+          <StyledStatValue>
+            fani: {context.state.isLoading ? '...' : context.state.stats.fans}
+          </StyledStatValue>
+          <StyledStatValue>
+            {context.state.isLoading ? 'Ładowanie...' : context.state.cash} $
+          </StyledStatValue>
           <StyledStats>
-            <StyledNick>{context.state.nick}</StyledNick>
+            <StyledNick>{context.state.isLoading ? 'Ładowanie...' : context.state.nick}</StyledNick>
             <ProgressBar name="flow" progress={context.state.stats.flow} />
             <ProgressBar name="styl" progress={context.state.stats.style} />
             <ProgressBar name="rymy" progress={context.state.stats.rhymes} />

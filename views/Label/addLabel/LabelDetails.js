@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
 import { Text, Alert, AsyncStorage } from 'react-native';
-import { Title } from 'rap-gra/components/Title';
-import { Paragraph } from 'rap-gra/components/Paragraph';
-import { Button } from 'rap-gra/components/Button';
+import { Paragraph, Title, Button } from 'rap-gra/components';
 
 const StyledParagraph = styled(Paragraph)`
   margin-top: 15px;

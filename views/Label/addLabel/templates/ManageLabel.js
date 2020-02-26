@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ScrollView, View, Text } from 'react-native';
-import { Paragraph } from 'rap-gra/components/Paragraph';
-import { Title } from 'rap-gra/components/Title';
+import { Paragraph, Title } from 'rap-gra/components';
 
 const StyledWrapper = styled(View)`
   width: 100%;

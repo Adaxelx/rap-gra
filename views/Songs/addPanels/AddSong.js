@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Alert, AsyncStorage } from 'react-native';
-import { Paragraph } from 'rap-gra/components/Paragraph';
-import { Title } from 'rap-gra/components/Title';
 import styled from 'styled-components';
-import { Input } from 'rap-gra/components/Input';
-import Switch from 'rap-gra/components/Switch';
-import Bar from 'rap-gra/components/Bar';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
-import { Button } from 'rap-gra/components/Button';
+import { Button, Bar, Switch, Input, Title, Paragraph } from 'rap-gra/components';
 import { checkSong } from 'rap-gra/views/Songs/Functions/checkSong';
 
 const StyledRowCon = styled(View)`

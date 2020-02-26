@@ -4,9 +4,7 @@ import { Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Link } from 'react-router-native';
 import { path } from 'rap-gra/constants/routes';
 import styled from 'styled-components';
-import { ColumnContainer } from 'rap-gra/components/ColumnContainer';
-import { Title } from 'rap-gra/components/Title';
-import { Paragraph } from 'rap-gra/components/Paragraph';
+import { ColumnContainer, Paragraph, Title } from 'rap-gra/components';
 import PopUp from 'rap-gra/views/StartScreen/PopUp';
 
 const StyledCon = styled(ColumnContainer)`

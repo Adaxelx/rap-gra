@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { AsyncStorage, Text } from 'react-native';
 import AppContext from 'rap-gra/context/context';
-import { Title } from 'rap-gra/components/Title';
 import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
-import Bar from 'rap-gra/components/Bar';
-import Switch from 'rap-gra/components/Switch';
-import { Button } from 'rap-gra/components/Button';
+import { Button, Switch, Bar, Title } from 'rap-gra/components';
 import { checkConcert } from 'rap-gra/views/Concerts/Functions/checkConcert';
 
 const ConcertPanel = ({ openConcertPanel, onPress }) => {

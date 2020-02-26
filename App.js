@@ -42,6 +42,7 @@ class App extends React.Component {
     // concerts
     concerts: [],
     component: this,
+    isLoading: true,
   };
   setStats = object => {
     const { fans, flow, style, rhymes, reputation } = object.stats;
@@ -144,6 +145,7 @@ class App extends React.Component {
         this.setState({ records: [...this.state.records, JSON.parse(rec)] });
       }
     } catch (error) {}
+    this.setState({ isLoading: false });
     // AsyncStorage.setItem('songsL', '0');
     // AsyncStorage.setItem('recordsL', '0');
     // Pobranie ilości tematów z AS
@@ -274,12 +276,16 @@ class App extends React.Component {
                 <Route
                   exact
                   path={ALLSONGS}
-                  component={() => <AllSongs songs={this.state.songs} />}
+                  component={() => (
+                    <AllSongs songs={this.state.songs} isLoading={this.state.isLoading} />
+                  )}
                 />
                 <Route
                   exact
                   path={ALLRECORDS}
-                  component={() => <AllRecords records={this.state.records} />}
+                  component={() => (
+                    <AllRecords records={this.state.records} isLoading={this.state.isLoading} />
+                  )}
                 />
               </MainTemplate>
             </Switch>
