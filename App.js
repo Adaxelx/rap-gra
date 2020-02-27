@@ -265,7 +265,17 @@ class App extends React.Component {
               <Route exact path={STARTSCREEN} component={StartScreen} />
               <MainTemplate>
                 <Route exact path={HOME} component={Home} />
-                <Route exact path={SONGS} component={Songs} />
+                <Route
+                  exact
+                  path={SONGS}
+                  component={() => (
+                    <Songs
+                      songsL={this.state.songsL}
+                      recordsL={this.state.recordsL}
+                      songs={this.state.songs}
+                    />
+                  )}
+                />
                 <Route exact path={CONCERTS} component={Concerts} />
                 <Route exact path={LABEL} component={Label} />
 

@@ -39,6 +39,8 @@ const AddSongRec = ({
   recordsL,
   setLengthRec,
   deleteAndAddSong,
+  setRecTempL,
+  setSongsTab,
 }) => {
   const [idActive, setIdActive] = useState([]); // ID aktywnych piosenek
 
@@ -82,26 +84,33 @@ const AddSongRec = ({
 
   // Zapisanie płyty
   const saveData = () => {
+    setRecTempL(parseInt(recordsL, 10) + 1);
     // Sprawdzenie czy została dodana wystarczająca ilość piosenek w zależności od typu min 6 max 9 dla EP, min 10, max 15 dla LP
     switch (rec.type) {
       case 'EP':
         if (idActive.length > 10) {
           Alert.alert('(Maksymalna ilość to: 9)Dodałeś za dużo piosenek');
-        } else if (idActive.length >= 6) {
+          return -1;
+        }
+        if (idActive.length >= 6) {
           onPress();
           setId(idActive);
         } else {
           Alert.alert('(Minimalna ilość to: 6)Dodałeś za mało piosenek');
+          return -1;
         }
         break;
       case 'LP':
         if (idActive.length >= 15) {
           Alert.alert('(Maksymalna ilość to: 15)Dodałeś za dużo piosenek');
-        } else if (idActive.length >= 10) {
+          return -1;
+        }
+        if (idActive.length >= 10) {
           onPress();
           setId(idActive);
         } else {
           Alert.alert('(Minimalna ilość to: 10)Dodałeś za mało piosenek');
+          return -1;
         }
         break;
       default:
@@ -121,10 +130,13 @@ const AddSongRec = ({
         i++;
       }
     });
+    const songsCopy = songs;
     for (let j = 0; j < idActive.length; j++) {
       AsyncStorage.getItem(`song${idActive[j]}`)
         .then(data => {
           const newData = { ...JSON.parse(data), used: true };
+          songsCopy.splice(idActive[j] - 1, 1, newData);
+          setSongsTab(songsCopy);
           deleteAndAddSong(j, newData);
           AsyncStorage.setItem(`song${parseInt(idActive[j], 10)}`, JSON.stringify(newData));
         })

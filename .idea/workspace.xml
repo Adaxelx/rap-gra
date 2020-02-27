@@ -6,12 +6,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12af8f15-968c-4d50-aa51-561382fd01fa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Concerts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Concerts/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Concerts/templates/ConcertPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Concerts/templates/ConcertPanel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Home/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Songs/AllRecords/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/AllRecords/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Songs/AllSongs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/AllSongs/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Songs/addPanels/AddRecord.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/addPanels/AddRecord.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Songs/addPanels/AddSong.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/addPanels/AddSong.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Songs/addPanels/AddSongRec.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/addPanels/AddSongRec.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/Songs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Songs/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,7 +70,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="9" y="47" width="1400" height="757" extended-state="1" />
+    <frame x="9" y="47" width="1400" height="757" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.3298969" />

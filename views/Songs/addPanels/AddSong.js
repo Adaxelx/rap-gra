@@ -44,6 +44,7 @@ const AddSong = ({
   setSong,
   openSubject,
   songsL,
+  setSongsTempL,
   songs,
   setLength,
   subj,
@@ -111,7 +112,7 @@ const AddSong = ({
 
   const saveData = () => {
     let copy = false; // Czy jest taka piosoenka czy nie
-
+    setSongsTempL(parseInt(songsL, 10) + 1);
     songs.forEach(song => {
       // Jeżeli nie było kopii sprawdz czy teraz jest to kopia
       if (copy !== true) {

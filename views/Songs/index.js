@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components';
-import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
-import AddSubject from 'rap-gra/views/Songs/addPanels/AddSubject';
-import AddRecord from 'rap-gra/views/Songs/addPanels/AddRecord';
-import AddSongRec from 'rap-gra/views/Songs/addPanels/AddSongRec';
+import { AddSong, AddRecord, AddSubject, AddSongRec } from 'rap-gra/views/Songs/addPanels';
 import { Button, RowContainer, Title, Paragraph } from 'rap-gra/components';
 import { Link } from 'react-router-native';
 import ListItem from 'rap-gra/views/Songs/ListItem';
@@ -43,9 +40,10 @@ const StyledLink = styled(Link)`
   padding: 5px;
 `;
 
-const Songs = () => {
+const Songs = ({ songsL, recordsL, songs }) => {
   /* songs state */
-
+  const [songsTab, setSongsTab] = useState(songs);
+  const [songsTempL, setSongsTempL] = useState(songsL);
   const [openSong, setOpenSong] = useState(false); // Otwarcie lub zamknięcie okna piosenek
   const [openSubject, setOpenSubject] = useState(false); // Otwarcie lub zamknięcie wyboru tematów
   const [id, setId] = useState([]); // Zapisywanie id piosenek
@@ -53,6 +51,7 @@ const Songs = () => {
 
   /* record state */
 
+  const [recTempL, setRecTempL] = useState(recordsL);
   const [openRec, setOpenRec] = useState(false); // Otwarcie lub zamknięcie tworzenia płyty(bez piosenek)
   const [rec, setRec] = useState({ full: false }); // Zapisanie parametrów płyty(bez piosenek)
   const [openRecSub, setOpenRecSub] = useState(false); // Otwracie lub zamknięcie wyboru piosenek do płyty
@@ -108,7 +107,8 @@ const Songs = () => {
 
           <AddSong
             open={openSong} // Otwarta czy zamknięta piosenka
-            songsL={context.state.songsL} // Pobrana z AS ilość piosenek
+            songsL={songsTempL} // Pobrana z AS ilość piosenek
+            setSongsTempL={setSongsTempL}
             songs={context.state.songs} // Pobrane piosenki z AS
             onPress={() => setOpenSong(!openSong)} // Obsługa otwarcia/zamknięcia okna
             openSubject={() => setOpenSubject(!openSubject)} // Otworzenie kolejnego okna z wyborem tematu
@@ -135,20 +135,22 @@ const Songs = () => {
             onPress={() => setOpenRec(!openRec)} // Obsługa otwarcia/zamknięcia okna
             openSubject={() => setOpenRecSub(!openRecSub)} // Otworzenie kolejnego okna z wyborem piosenek
             songsL={context.state.songsL} // Ilość piosenek
-            recordsL={context.state.recordsL} // Ilośc płyt
+            recordsL={recTempL} // Ilośc płyt
           />
           <AddSongRec
             onPress={() => setOpenRecSub(!openRecSub)} // Obsługa otwarcia/zamknięcia okna
             open={openRecSub} // Otwarty czy zamknięty wybór piosenek do płyty
             rec={rec} // Wartości płyty z poprzedniego okna
             openAddRec={() => setOpenRec(!openRec)} // Ewentualny powrót do wyboru statystyk płyty
-            songs={context.state.songs} // Pobranie piosenek
+            songs={songsTab} // Pobranie piosenek
+            setSongsTab={setSongsTab}
             setId={setId} // Ustalenie aktywnych ID
             setRecord={context.setRecord} // Dodanie płyty do tablicy płyt
-            recordsL={context.state.recordsL} // Ilość płyt
+            recordsL={recTempL} // Ilość płyt
             setLengthRec={context.setLengthRec} // Ustalenie ilości płyt
             deleteAndAddSong={context.deleteAndAddSong} // dodaj i usuń
             retrieveData={context.retrieveData}
+            setRecTempL={setRecTempL}
           />
         </StyledContainer>
       )}

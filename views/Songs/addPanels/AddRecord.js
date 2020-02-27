@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Alert } from 'react-native';
 import styled, { css } from 'styled-components';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
@@ -32,13 +32,6 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL }) => 
   const [cover, setCover] = useState(0); // Wydatki na okładkę płyty
   const [special, setSpecial] = useState(false); // Wydatki na edycje specjalną
   const [ads, setAds] = useState(0); // Wydatki na promocję
-
-  useEffect(() => {
-    // Zaktualizowanie tytułu gdy nazwy piosenek nie zgadzają się(Po dodaniu piosenki)
-    if (title !== `Płyta ${recordsL * 1 + 1}`) {
-      setTitle(`Płyta ${recordsL * 1 + 1}`);
-    }
-  });
 
   // Zapisanie danych do przejścia dalej
   const saveData = () => {

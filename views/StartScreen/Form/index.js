@@ -84,7 +84,7 @@ const Form = ({ component }) => {
         <StyledRC>
           <StyledImgBtn
             onPress={() => {
-              setActivePic(activePic === '' ? '1' : '');
+              setActivePic(activePic === '1' ? '' : '1');
               setVal2(0);
               setVal1(val1 === 0 ? 100 : 0);
             }}
@@ -94,7 +94,7 @@ const Form = ({ component }) => {
           </StyledImgBtn>
           <StyledImgBtn
             onPress={() => {
-              setActivePic(activePic === '' ? '2' : '');
+              setActivePic(activePic === '2' ? '' : '2');
               setVal2(val2 === 0 ? 100 : 0);
               setVal1(0);
             }}
