@@ -22,13 +22,27 @@ const ConcertPanel = ({ openConcertPanel, onPress }) => {
   };
 
   const buttonFn = (array, stats) => {
+    let concertStats = []; // przechowywać tu będę wartości jakie tam wylosuje
     onPress();
+
+    // ocenianie koncertu i rozwoj statystyk, przypisanie wartości uzyskanych do tbalicy
+    concertStats = checkConcert(
+      stats,
+      valueSound,
+      valueTicketsPrice,
+      valueAlcohol,
+      valueClubSize,
+      free,
+    );
+
     array.push({
       key: keyCounter,
       name: keyCounter,
+      fansIncrease: concertStats[0],
+      cashIncrease: concertStats[1],
+      statsIncrease: concertStats[2],
+      reputationIncrease: concertStats[3],
     });
-    // ocenianie koncertu i rozwoj statystyk
-    checkConcert(stats, valueSound, valueTicketsPrice, valueAlcohol, valueClubSize, free);
 
     // zapis
     saveAsync(array);
@@ -78,6 +92,8 @@ const ConcertPanel = ({ openConcertPanel, onPress }) => {
             value={valueClubSize}
             setValue={setValueClubSize}
           />
+
+          <Text>Koszt koncertu: 1000 $</Text>
 
           <Button
             onPress={() => {

@@ -17,6 +17,7 @@ export const resetGame = async (name, pic, component) => {
     await AsyncStorage.setItem('flow', flow);
     await AsyncStorage.setItem('style', style);
     await AsyncStorage.setItem('rhymes', rhymes);
+    await AsyncStorage.setItem('concerts_array', JSON.stringify([]));
   } catch (error) {
     throw new Error(error);
   }

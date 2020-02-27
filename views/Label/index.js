@@ -9,7 +9,6 @@ import LabelDetails from './addLabel/LabelDetails';
 const StyledWrapper = styled(ScrollView)`
   width: 100%;
   background-color: ${({ theme }) => theme.greenL};
-  padding-bottom: 200px;
 `;
 
 const StyledLabelTile = styled(TouchableOpacity)`

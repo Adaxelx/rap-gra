@@ -6,7 +6,6 @@ export const checkConcert = (
   valueClubSize,
   free,
 ) => {
-  console.log('koncert oceniancy', stats.flow, valueSound);
   let fansIncrease;
   let cashIncrease;
   let skillsIncrease;
@@ -17,7 +16,7 @@ export const checkConcert = (
   if (valueAlcohol >= 30 && valueAlcohol <= 32.5) {
     // idealna wartość alkoholu, 1,5 bonus
     if (free) {
-      console.log('darmowe'); // darmowe daje bonus do przyrostu fanów i reputacji o wartości 1.5, brak zarobku, NIE wpłytwa na skille
+      // darmowe daje bonus do przyrostu fanów i reputacji o wartości 1.5, brak zarobku, NIE wpłytwa na skille
       fansIncrease =
         ((Math.random() + 1 - 0.9999) *
           ((stats.flow + stats.style + stats.rhymes) / 3) *
@@ -35,7 +34,6 @@ export const checkConcert = (
           (valueClubSize + valueTicketsPrice + valueSound)) /
         4;
     } else {
-      console.log('płatny');
       fansIncrease =
         (Math.random() *
           ((stats.flow + stats.style + stats.rhymes) / 3) *
@@ -57,7 +55,6 @@ export const checkConcert = (
   ) {
     // za mało alkoholu trochę lub za dużo trochę, bonus 1.35
     if (free) {
-      console.log('darmowe');
       fansIncrease =
         ((Math.random() + 1 - 0.9999) *
           ((stats.flow + stats.style + stats.rhymes) / 3) *
@@ -75,7 +72,6 @@ export const checkConcert = (
           (valueClubSize + valueTicketsPrice + valueSound)) /
         4;
     } else {
-      console.log('płatny');
       fansIncrease =
         (Math.random() *
           ((stats.flow + stats.style + stats.rhymes) / 3) *
@@ -97,7 +93,6 @@ export const checkConcert = (
   ) {
     // dużo za mało lub za dużo, bonus 1.1
     if (free) {
-      console.log('darmowe');
       fansIncrease =
         ((Math.random() + 1 - 0.9999) *
           ((stats.flow + stats.style + stats.rhymes) / 3) *
@@ -115,7 +110,6 @@ export const checkConcert = (
           (valueClubSize + valueTicketsPrice + valueSound)) /
         4;
     } else {
-      console.log('płatny');
       fansIncrease =
         (Math.random() *
           ((stats.flow + stats.style + stats.rhymes) / 3) *
@@ -134,7 +128,6 @@ export const checkConcert = (
   } else {
     // jeśli nie spełniony żaden pozostąły warnuek
     if (free) {
-      console.log('darmowe');
       fansIncrease =
         ((Math.random() + 1 - 0.9999) *
           ((stats.flow + stats.style + stats.rhymes) / 3) *
@@ -150,7 +143,6 @@ export const checkConcert = (
           (valueClubSize + valueTicketsPrice + valueSound)) /
         4;
     } else {
-      console.log('płatny');
       fansIncrease =
         (Math.random() *
           ((stats.flow + stats.style + stats.rhymes) / 3) *
@@ -176,7 +168,12 @@ export const checkConcert = (
     reputationIncrease -= 500;
   }
 
-  console.log(fansIncrease, cashIncrease, skillsIncrease, reputationIncrease);
+  // console.log(fansIncrease, cashIncrease, skillsIncrease, reputationIncrease);
 
-  // return [fansIncrease, cashIncrease, skillsIncrease, reputationIncrease]
+  return [
+    Math.round(fansIncrease),
+    Math.round(cashIncrease),
+    Math.round(skillsIncrease),
+    Math.round(reputationIncrease),
+  ];
 };
