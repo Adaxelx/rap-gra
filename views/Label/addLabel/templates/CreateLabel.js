@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Text, View, AsyncStorage } from 'react-native';
-import { Input } from 'rap-gra/components/Input';
-import { Paragraph } from 'rap-gra/components/Paragraph';
-import { Button } from 'rap-gra/components/Button';
+import { Input, Button, Paragraph } from 'rap-gra/components';
 
 const StyledWrapper = styled(View)`
   height: 100%;

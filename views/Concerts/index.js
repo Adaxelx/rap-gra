@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import AppContext from 'rap-gra/context/context';
 import { ScrollView, Text, View } from 'react-native';
-import { Title } from 'rap-gra/components/Title';
-import { Button } from 'rap-gra/components/Button';
-import { RowContainer } from 'rap-gra/components/RowContainer';
+import { Title, Button, RowContainer } from 'rap-gra/components';
 import ConcertPanel from './templates/ConcertPanel';
 
 const StyledWrapper = styled(ScrollView)`

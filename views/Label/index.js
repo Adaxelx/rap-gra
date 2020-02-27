@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import AppContext from 'rap-gra/context/context';
 import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
-import { Title } from 'rap-gra/components/Title';
-import { Paragraph } from 'rap-gra/components/Paragraph';
-import { Button } from 'rap-gra/components/Button';
+import { Paragraph, Button, Title } from 'rap-gra/components';
 import AddLabel from './addLabel/AddLabel';
 import LabelDetails from './addLabel/LabelDetails';
 

@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Modal, View } from 'react-native';
-import CloseButton from 'rap-gra/components/CloseButton';
-import { Title } from 'rap-gra/components/Title';
+import { Title, Paragraph, CloseButton } from 'rap-gra/components';
 import Form from 'rap-gra/views/StartScreen/Form';
-import { Paragraph } from 'rap-gra/components/Paragraph';
 import AppContext from 'rap-gra/context/context';
 
 const StyledContainer = styled(View)`

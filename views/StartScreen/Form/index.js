@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { View, Image, TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components';
-import { Input } from 'rap-gra/components/Input';
-import { Paragraph } from 'rap-gra/components/Paragraph';
 import Pic from 'rap-gra/assets/avatar.jpg';
 import Pic2 from 'rap-gra/assets/avatar.png';
-import { RowContainer } from 'rap-gra/components/RowContainer';
-import { ColumnContainer } from 'rap-gra/components/ColumnContainer';
-import { Button } from 'rap-gra/components/Button';
+import { ColumnContainer, Button, RowContainer, Paragraph, Input } from 'rap-gra/components';
 import { resetGame } from 'rap-gra/views/StartScreen/resetGame';
 import { Redirect } from 'react-router-native';
 import { path } from 'rap-gra/constants/routes';

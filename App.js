@@ -4,11 +4,7 @@ import { NativeRouter, Route, Switch } from 'react-router-native';
 import { ThemeProvider } from 'styled-components';
 import AppContext from 'rap-gra/context/context';
 import { theme } from 'rap-gra/theme/mainTheme';
-import StartScreen from 'rap-gra/views/StartScreen';
-import Home from 'rap-gra/views/Home';
-import Songs from 'rap-gra/views/Songs';
-import Label from 'rap-gra/views/Label';
-import Concerts from 'rap-gra/views/Concerts';
+import { StartScreen, Home, Songs, Label, Concerts } from 'rap-gra/views';
 import AllSongs from 'rap-gra/views/Songs/AllSongs';
 import AllRecords from 'rap-gra/views/Songs/AllRecords';
 import MainTemplate from 'rap-gra/templates/MainTemplate';
@@ -42,6 +38,7 @@ class App extends React.Component {
     // concerts
     concerts: [],
     component: this,
+    isLoading: true,
   };
   setStats = object => {
     const { fans, flow, style, rhymes, reputation } = object.stats;
@@ -73,7 +70,6 @@ class App extends React.Component {
 
       //sprawdza warunek czy coś pobrał czy nie
       if (
-        label !== null &&
         nick !== null &&
         cash !== null &&
         fans !== null &&
@@ -96,12 +92,11 @@ class App extends React.Component {
             rhymes: JSON.parse(rhymes),
           },
           currentLabel: label,
-          ...this.state,
           concerts: JSON.parse(concerts),
         });
       }
 
-      const subL =  AsyncStorage.getItem(`subjectsL`);
+      const subL = AsyncStorage.getItem(`subjectsL`);
       this.setState({ subL });
 
       let sub;
@@ -146,6 +141,7 @@ class App extends React.Component {
         this.setState({ records: [...this.state.records, JSON.parse(rec)] });
       }
     } catch (error) {}
+    this.setState({ isLoading: false });
     // AsyncStorage.setItem('songsL', '0');
     // AsyncStorage.setItem('recordsL', '0');
     // Pobranie ilości tematów z AS
@@ -276,12 +272,16 @@ class App extends React.Component {
                 <Route
                   exact
                   path={ALLSONGS}
-                  component={() => <AllSongs songs={this.state.songs} />}
+                  component={() => (
+                    <AllSongs songs={this.state.songs} isLoading={this.state.isLoading} />
+                  )}
                 />
                 <Route
                   exact
                   path={ALLRECORDS}
-                  component={() => <AllRecords records={this.state.records} />}
+                  component={() => (
+                    <AllRecords records={this.state.records} isLoading={this.state.isLoading} />
+                  )}
                 />
               </MainTemplate>
             </Switch>

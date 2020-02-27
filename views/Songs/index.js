@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components';
-import { Paragraph } from 'rap-gra/components/Paragraph';
 import AddSong from 'rap-gra/views/Songs/addPanels/AddSong';
 import AddSubject from 'rap-gra/views/Songs/addPanels/AddSubject';
 import AddRecord from 'rap-gra/views/Songs/addPanels/AddRecord';
 import AddSongRec from 'rap-gra/views/Songs/addPanels/AddSongRec';
-import { Title } from 'rap-gra/components/Title';
-import { Button } from 'rap-gra/components/Button';
+import { Button, RowContainer, Title, Paragraph } from 'rap-gra/components';
 import { Link } from 'react-router-native';
-import { RowContainer } from 'rap-gra/components/RowContainer';
 import ListItem from 'rap-gra/views/Songs/ListItem';
 import AppContext from 'rap-gra/context/context';
 
@@ -77,21 +74,27 @@ const Songs = () => {
               </StyledRowContainer>
               <StyledSubtitle>Ostatnie piosenki</StyledSubtitle>
               {/* Wyświetlanie 3 ostatnich piosenek, od najnowszej do najstarszej, [...] ->  skopiowanie tablicy, aby reverse działało po odświerzeniu, slice do wyświetlenia 3 ostatnich */}
-              {[...context.state.songs]
-                .reverse()
-                .slice(0, 3)
-                .map(songData => (
-                  <ListItem
-                    key={songData.id}
-                    title={songData.title}
-                    place={songData.place}
-                    type={songData.type}
-                    earnings={songData.cash}
-                    fans={songData.fans}
-                    rate={songData.rating}
-                    value={songData.views}
-                  />
-                ))}
+              {context.state.isLoading ? (
+                <RowContainer>
+                  <Paragraph>Ładowanie...</Paragraph>
+                </RowContainer>
+              ) : (
+                [...context.state.songs]
+                  .reverse()
+                  .slice(0, 3)
+                  .map(songData => (
+                    <ListItem
+                      key={songData.id}
+                      title={songData.title}
+                      place={songData.place}
+                      type={songData.type}
+                      earnings={songData.cash}
+                      fans={songData.fans}
+                      rate={songData.rating}
+                      value={songData.views}
+                    />
+                  ))
+              )}
             </>
             <StyledRowContainer>
               <StyledLink underlayColor="transparent" to="/allsongs">

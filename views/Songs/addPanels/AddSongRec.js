@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
 import { ScrollView, View, Alert, AsyncStorage } from 'react-native';
-import { Paragraph } from 'rap-gra/components/Paragraph';
-import { Title } from 'rap-gra/components/Title';
+import { Title, Button, Paragraph } from 'rap-gra/components';
 import SongItem from 'rap-gra/views/Songs/SongItem';
 import styled from 'styled-components';
 import { checkRec } from 'rap-gra/views/Songs/Functions/checkRec';
-
-import { Button } from 'rap-gra/components/Button';
 
 /* eslint-disable no-plusplus, array-callback-return, consistent-return */
 

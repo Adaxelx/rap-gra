@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
-import { Paragraph } from 'rap-gra/components/Paragraph';
-import { Title } from 'rap-gra/components/Title';
-import Bar from 'rap-gra/components/Bar';
 import styled, { css } from 'styled-components';
-import Switch from 'rap-gra/components/Switch';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
-import { Input } from 'rap-gra/components/Input';
-import { Button } from 'rap-gra/components/Button';
+import { Input, Button, Switch, Bar, Paragraph, Title } from 'rap-gra/components';
 
 const StyledFormType = styled(View)`
   display: flex;
