@@ -165,10 +165,6 @@ class App extends React.Component {
     });
   };
 
-  labelFn = value => {
-    this.setState({ currentLabel: value });
-  };
-
   //Ustalenie ilości piosenek
   setLength = result => {
     this.setState({ songsL: result });
@@ -200,48 +196,6 @@ class App extends React.Component {
     this.setState({ currentLabel: value });
   };
 
-  testFn = () => {
-    const { flow, style, rhymes } = this.state.stats;
-    //ogranicznik tych śmierdzących progressbarów nie jest to jakieś super to można poprawić jak jest pomysł dlatego się tak nazywa xD
-
-    if (rhymes < 100) {
-      this.setState(prevState => ({
-        stats: {
-          ...this.state.stats,
-          rhymes: prevState.stats.rhymes + 1,
-        },
-      }));
-    } else {
-      this.setState({
-        stats: {
-          ...this.state.stats,
-          rhymes: 100,
-        },
-      });
-    }
-  };
-
-  testFn2 = () => {
-    const { flow, style, rhymes } = this.state.stats;
-    //usuwanie pkt ze stat testowe
-
-    if (rhymes < 100) {
-      this.setState(prevState => ({
-        stats: {
-          ...this.state.stats,
-          rhymes: prevState.stats.rhymes - 1,
-        },
-      }));
-    } else {
-      this.setState({
-        stats: {
-          ...this.state.stats,
-          rhymes: 100,
-        },
-      });
-    }
-  };
-
   render() {
     const { HOME, LABEL, SONGS, ALLSONGS, ALLRECORDS, CONCERTS, STARTSCREEN } = path;
     return (
@@ -254,8 +208,6 @@ class App extends React.Component {
             setLength: this.setLength,
             setRecord: this.setRecord,
             setLengthRec: this.setLengthRec,
-            testFn: this.testFn,
-            testFn2: this.testFn2,
             setStats: this.setStats,
             deleteAndAddSong: this.deleteAndAddSong,
           }}
