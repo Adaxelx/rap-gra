@@ -13,3 +13,5 @@ export const subjects = [
   'Śmierć',
   'Chill',
 ];
+
+export const defaultSubjects = ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'];

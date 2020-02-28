@@ -53,7 +53,6 @@ const setPersonalStats = async object => {
 };
 
 export const checkSong = (song, stats, setStats) => {
-  console.log(stats);
   const { style, bit, rhymes, video } = song.values; // Destrukturyzacja danych o piosence
   // Deklaracja zmiennej bestValues
   const bestValues = {
@@ -103,9 +102,9 @@ export const checkSong = (song, stats, setStats) => {
   checkedSong.rating =
     Math.round(
       (10 *
-        (calcRate(bestValues.S, style + 0.1 * stats.style) +
-          calcRate(bestValues.B, bit + 0.1 * stats.flow) +
-          calcRate(bestValues.R, rhymes + 0.1 * stats.rhymes))) /
+        (calcRate(bestValues.S, (style * stats.style) / 100) +
+          calcRate(bestValues.B, (bit * stats.flow) / 100) +
+          calcRate(bestValues.R, (rhymes * stats.rhymes) / 100))) /
         3,
     ) / 10;
   // Obliczenie przyrostu fanów(na podstawie poprzedniej ilości fanów i oceny piosenki)
@@ -120,7 +119,6 @@ export const checkSong = (song, stats, setStats) => {
   checkedSong.fans = Math.floor(stats.fans * 0.3 + (1 + checkedSong.rating * 0.5));
 
   // Obliczenie zarobionych pieniędzy na podstawie wyświetleń
-  console.log(video.value);
   checkedSong.cash = Math.floor(checkedSong.views * 0.01 - video.value / 2);
   const reputation = calcRep(checkedSong.rating);
   setStats({

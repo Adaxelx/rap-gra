@@ -7,6 +7,7 @@ import { ColumnContainer, Button, RowContainer, Paragraph, Input } from 'rap-gra
 import { resetGame } from 'rap-gra/views/StartScreen/resetGame';
 import { Redirect } from 'react-router-native';
 import { path } from 'rap-gra/constants/routes';
+import AppContext from 'rap-gra/context/context';
 
 const StyledCon = styled(View)`
   display: flex;
@@ -51,14 +52,14 @@ const StyledImgBg = styled(View)`
   ${({ value }) => `transform: translateX(${value - 100}px)`}
 `;
 
-const Form = ({ component }) => {
+const Form = () => {
   const [name, setName] = useState('');
   const [activePic, setActivePic] = useState('');
   const [val1, setVal1] = useState(0);
   const [val2, setVal2] = useState(0);
   const [redirect, setRedirect] = useState(false);
 
-  const sendData = () => {
+  const sendData = setAS => {
     if (name === '') {
       Alert.alert('Podaj pseudonim!');
       return -1;
@@ -67,48 +68,52 @@ const Form = ({ component }) => {
       Alert.alert('Wybierz obrazek!');
       return -1;
     }
-    resetGame(name, activePic, component);
+    resetGame(name, activePic, setAS);
     return setRedirect(true);
   };
 
   const { HOME } = path;
 
   return (
-    <StyledCon>
-      <ColumnContainer>
-        <StyledHeaders>Pseudonim: </StyledHeaders>
-        <Input onChangeText={text => setName(text)} value={name} />
-      </ColumnContainer>
-      <ColumnContainer>
-        <StyledHeaders>Postać: </StyledHeaders>
-        <StyledRC>
-          <StyledImgBtn
-            onPress={() => {
-              setActivePic(activePic === '1' ? '' : '1');
-              setVal2(0);
-              setVal1(val1 === 0 ? 100 : 0);
-            }}
-          >
-            <StyledImgBg value={val1} />
-            <Avatar source={Pic} style={{ resizeMode: 'contain' }} />
-          </StyledImgBtn>
-          <StyledImgBtn
-            onPress={() => {
-              setActivePic(activePic === '2' ? '' : '2');
-              setVal2(val2 === 0 ? 100 : 0);
-              setVal1(0);
-            }}
-          >
-            <StyledImgBg value={val2} />
-            <Avatar source={Pic2} style={{ resizeMode: 'contain' }} />
-          </StyledImgBtn>
-        </StyledRC>
-      </ColumnContainer>
-      <StyledButton onPress={sendData}>
-        <Paragraph>Utwórz</Paragraph>
-      </StyledButton>
-      {redirect ? <Redirect to={HOME} /> : null}
-    </StyledCon>
+    <AppContext.Consumer>
+      {value => (
+        <StyledCon>
+          <ColumnContainer>
+            <StyledHeaders>Pseudonim: </StyledHeaders>
+            <Input onChangeText={text => setName(text)} value={name} />
+          </ColumnContainer>
+          <ColumnContainer>
+            <StyledHeaders>Postać: </StyledHeaders>
+            <StyledRC>
+              <StyledImgBtn
+                onPress={() => {
+                  setActivePic(activePic === '1' ? '' : '1');
+                  setVal2(0);
+                  setVal1(val1 === 0 ? 100 : 0);
+                }}
+              >
+                <StyledImgBg value={val1} />
+                <Avatar source={Pic} style={{ resizeMode: 'contain' }} />
+              </StyledImgBtn>
+              <StyledImgBtn
+                onPress={() => {
+                  setActivePic(activePic === '2' ? '' : '2');
+                  setVal2(val2 === 0 ? 100 : 0);
+                  setVal1(0);
+                }}
+              >
+                <StyledImgBg value={val2} />
+                <Avatar source={Pic2} style={{ resizeMode: 'contain' }} />
+              </StyledImgBtn>
+            </StyledRC>
+          </ColumnContainer>
+          <StyledButton onPress={() => sendData(value.retrieveData)}>
+            <Paragraph>Utwórz</Paragraph>
+          </StyledButton>
+          {redirect ? <Redirect to={HOME} /> : null}
+        </StyledCon>
+      )}
+    </AppContext.Consumer>
   );
 };
 

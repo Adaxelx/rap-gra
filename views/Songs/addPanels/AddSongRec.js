@@ -35,42 +35,20 @@ const AddSongRec = ({
   setId,
   songs,
   rec,
-  setRecord,
+
   recordsL,
-  setLengthRec,
-  deleteAndAddSong,
-  setRecTempL,
-  setSongsTab,
+
+  setTempL,
+
+  records,
 }) => {
   const [idActive, setIdActive] = useState([]); // ID aktywnych piosenek
 
   // Funkcja asynchroniczna zapisująca dane płyty
   const storeRec = async object => {
-    const length = recordsL; // ilość płyt pobrana z AS
-
     try {
       // Dodanie płyty na odpowiednie miejsce w AS np. record3
-      await AsyncStorage.setItem(
-        `record${parseInt(length, 10) + 1}`,
-        JSON.stringify(object),
-        () => {
-          // Pobranie tej płyty z AS i dodanie do tablicy w App.
-          AsyncStorage.getItem(`record${parseInt(length, 10) + 1}`, (err, result) => {
-            setRecord(JSON.parse(result));
-          });
-        },
-      );
-    } catch (error) {
-      throw new Error(error);
-    }
-    try {
-      // Dodanie ilości płyt do AS
-      await AsyncStorage.setItem(`recordsL`, `${parseInt(length, 10) + 1}`, () => {
-        // Pobranie ilości płyt z AS i dodanie do stanu w App
-        AsyncStorage.getItem('recordsL', (err, result) => {
-          setLengthRec(result);
-        });
-      });
+      await AsyncStorage.setItem(`records`, JSON.stringify([...records, object]));
     } catch (error) {
       throw new Error(error);
     }
@@ -84,7 +62,7 @@ const AddSongRec = ({
 
   // Zapisanie płyty
   const saveData = () => {
-    setRecTempL(parseInt(recordsL, 10) + 1);
+    setTempL(records.length + 2);
     // Sprawdzenie czy została dodana wystarczająca ilość piosenek w zależności od typu min 6 max 9 dla EP, min 10, max 15 dla LP
     switch (rec.type) {
       case 'EP':
@@ -131,17 +109,8 @@ const AddSongRec = ({
       }
     });
     const songsCopy = songs;
-    for (let j = 0; j < idActive.length; j++) {
-      AsyncStorage.getItem(`song${idActive[j]}`)
-        .then(data => {
-          const newData = { ...JSON.parse(data), used: true };
-          songsCopy.splice(idActive[j] - 1, 1, newData);
-          setSongsTab(songsCopy);
-          deleteAndAddSong(j, newData);
-          AsyncStorage.setItem(`song${parseInt(idActive[j], 10)}`, JSON.stringify(newData));
-        })
-        .done();
-    }
+    idActive.forEach(id => (songsCopy[id - 1] = { ...songsCopy[id - 1], used: true }));
+    AsyncStorage.setItem(`songs`, JSON.stringify(songsCopy));
 
     // Dodanie płyty do AS
     storeRec(

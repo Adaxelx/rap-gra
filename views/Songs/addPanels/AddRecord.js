@@ -27,7 +27,7 @@ const StyledRowContainer = styled(View)`
 
 const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL }) => {
   const [type, setType] = useState(false); // Wybór typu płyty (LP - true lub EP - false)
-  const [title, setTitle] = useState(`Płyta ${recordsL * 1 + 1}`); // Nazwa płyty
+  const [title, setTitle] = useState(`Płyta ${recordsL + 1}`); // Nazwa płyty
   const [preorder, setPreorder] = useState(false); // Czy będzie preorder
   const [cover, setCover] = useState(0); // Wydatki na okładkę płyty
   const [special, setSpecial] = useState(false); // Wydatki na edycje specjalną
@@ -58,12 +58,12 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL }) => 
       onPress();
       openSubject();
     } else if (songsL <= 6 && typeRec === 'EP')
-      Alert.alert('Aby stworzyć EPke musisz mieć conajmniej 6 piosenek');
+      Alert.alert('Aby stworzyć EPke musisz mieć conajmniej 6 piosenek(nie użytych wcześniej)');
     if (songsL >= 10 && typeRec === 'LP') {
       onPress();
       openSubject();
     } else if (songsL <= 10 && typeRec === 'LP')
-      Alert.alert('Aby stworzyć LP musisz mieć conajmniej 10 piosenek');
+      Alert.alert('Aby stworzyć LP musisz mieć conajmniej 10 piosenek(nie użytych wcześniej)');
   };
   return (
     <AddPanel open={open} onPress={onPress}>

@@ -36,7 +36,7 @@ const StyledDisabled = styled(StyledMenuItem)`
   color: gray;
 `;
 
-const StartScreen = ({ component }) => {
+const StartScreen = () => {
   const { HOME } = path;
   const [open, setOpen] = useState(false);
   const [disabled, setDisabled] = useState(true);
@@ -78,7 +78,7 @@ const StartScreen = ({ component }) => {
           </TouchableOpacity>
         </ColumnContainer>
       </StyledMenu>
-      <PopUp open={open} onPress={() => setOpen(!open)} component={component} />
+      <PopUp open={open} onPress={() => setOpen(!open)} />
     </StyledCon>
   );
 };

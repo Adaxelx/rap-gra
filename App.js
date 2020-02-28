@@ -30,25 +30,22 @@ class App extends React.Component {
     // songs
 
     songs: [], // Piosenki
-    songsL: 0, // Ilość piosenek
-    subjects: ['Miłość', 'Wolność', 'Ziomki', 'Przyjaźń'], // Tematy piosenek
-    subL: 0, // Ilość tematów
+    subjects: [], // Tematy piosenek
     records: [], // Płyty
-    recordsL: 0, // Ilość płyt
     // concerts
     concerts: [],
-    component: this,
     isLoading: true,
   };
+
   setStats = object => {
     const { fans, flow, style, rhymes, reputation } = object.stats;
     this.setState(prevState => ({
       cash: prevState.cash + object.cash,
       stats: {
         fans: prevState.stats.fans + fans,
-        flow,
-        style,
-        rhymes,
+        flow: prevState.stats.flow + flow,
+        style: prevState.stats.style + style,
+        rhymes: prevState.stats.rhymes + rhymes,
         reputation: prevState.stats.reputation + reputation,
       },
     }));
@@ -67,7 +64,25 @@ class App extends React.Component {
       const style = await AsyncStorage.getItem('style');
       const rhymes = await AsyncStorage.getItem('rhymes');
       const concerts = await AsyncStorage.getItem('concerts_array');
-
+      const sub = await AsyncStorage.getItem(`subjects`);
+      const pic = await AsyncStorage.getItem('picture');
+      const songs = await AsyncStorage.getItem('songs');
+      const records = await AsyncStorage.getItem('records');
+      // console.log(
+      //   label,
+      //   nick,
+      //   cash,
+      //   rep,
+      //   fans,
+      //   flow,
+      //   style,
+      //   thymes,
+      //   concerts,
+      //   sub,
+      //   pic,
+      //   songs,
+      //   records,
+      // );
       //sprawdza warunek czy coś pobrał czy nie
       if (
         nick !== null &&
@@ -77,7 +92,11 @@ class App extends React.Component {
         style !== null &&
         rhymes !== null &&
         rep !== null &&
-        concerts !== null
+        concerts !== null &&
+        sub !== null &&
+        pic !== null &&
+        songs !== null &&
+        records !== null
       ) {
         // jeśli pobrał to przypisuje pobrane wartości do stanu
         this.setState({
@@ -93,52 +112,11 @@ class App extends React.Component {
           },
           currentLabel: label,
           concerts: JSON.parse(concerts),
+          subjects: JSON.parse(sub),
+          pic: pic,
+          songs: JSON.parse(songs),
+          records: JSON.parse(records),
         });
-      }
-
-      const subL = AsyncStorage.getItem(`subjectsL`);
-      this.setState({ subL });
-
-      let sub;
-      // pętla po wszystkich tematach(minumum 4 podstawowe)
-      for (let i = 4; i < subL; i++) {
-        //Pobieranie tematów z AS
-        sub = await AsyncStorage.getItem(`subject${i}`);
-        this.setState({ subjects: [...this.state.subjects, sub] });
-      }
-
-      await AsyncStorage.getItem('picture', (err, result) => {
-        this.setState({ pic: result });
-      });
-
-      // //Wstawianie tematów do AS
-      // for (let i = 1; i <= subL; i++) {
-      //   AsyncStorage.setItem(`subject${i}`, subjects[i - 1]);
-      // }
-
-      //Pobranie ilości piosenek z AS
-      const songsL = await AsyncStorage.getItem('songsL');
-      //Ustalenie stanu
-      this.setLength(songsL);
-      let song;
-      this.setState({ songs: [], records: [] });
-      //Pętla po wszystkich piosenkach
-      for (let i = 1; i <= songsL; i++) {
-        //Pobranie piosenek z AS
-        song = await AsyncStorage.getItem(`song${i}`);
-        this.setState({ songs: [...this.state.songs, JSON.parse(song)] });
-      }
-      //Pobranie ilości płyt z AS
-      const recL = await AsyncStorage.getItem('recordsL');
-
-      this.setLengthRec(recL);
-
-      let rec;
-      //Pętla po wszystkich płytach
-      for (let i = 1; i <= recL; i++) {
-        //Pobranie płyt z AS
-        rec = await AsyncStorage.getItem(`record${i}`);
-        this.setState({ records: [...this.state.records, JSON.parse(rec)] });
       }
     } catch (error) {}
     this.setState({ isLoading: false });
@@ -148,12 +126,6 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    // AS -> AsyncStorage
-    let songL; // Ilość piosenek
-    let subL; // Ilość tematów piosenek
-    let recL; // Ilość płyt
-    const { subjects } = this.state;
-
     this.retrieveData(); // wczytuje statystki i label
   }
 
@@ -170,22 +142,15 @@ class App extends React.Component {
   };
 
   //Ustalenie ilości piosenek
-  setLength = result => {
-    this.setState({ songsL: result });
-  };
 
   //Dodanie piosenki
   setSong = song => {
     this.setState({
-      songsL: this.state.songsL + 1,
       songs: [...this.state.songs, song],
     });
   };
 
   //Ustalenie ilości płyt
-  setLengthRec = result => {
-    this.setState({ recordsL: result });
-  };
 
   //Dodanie płyty
   setRecord = record => {
@@ -251,13 +216,12 @@ class App extends React.Component {
             state: this.state,
             labelFn: this.labelFn,
             setSong: this.setSong,
-            setLength: this.setLength,
             setRecord: this.setRecord,
-            setLengthRec: this.setLengthRec,
             testFn: this.testFn,
             testFn2: this.testFn2,
             setStats: this.setStats,
             deleteAndAddSong: this.deleteAndAddSong,
+            retrieveData: this.retrieveData,
           }}
         >
           <ThemeProvider theme={theme}>
@@ -268,13 +232,7 @@ class App extends React.Component {
                 <Route
                   exact
                   path={SONGS}
-                  component={() => (
-                    <Songs
-                      songsL={this.state.songsL}
-                      recordsL={this.state.recordsL}
-                      songs={this.state.songs}
-                    />
-                  )}
+                  component={() => <Songs songs={this.state.songs} records={this.state.records} />}
                 />
                 <Route exact path={CONCERTS} component={Concerts} />
                 <Route exact path={LABEL} component={Label} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Alert, AsyncStorage } from 'react-native';
 import styled from 'styled-components';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
@@ -43,17 +43,14 @@ const AddSong = ({
   onPress,
   setSong,
   openSubject,
-  songsL,
-  setSongsTempL,
   songs,
-  setLength,
   subj,
   stats,
   setStats,
   setSubj,
 }) => {
   // Nazwa piosenki(Początkowa ustalona w zalezności od ilości piosenek). *1 przy songsL jest dlatego że songsL jest stringiem i pomnożenie przez 1 zamienia tą wartość na inta.
-  const [title, setTitle] = useState(`Piosenka ${songsL * 1 + 1}`);
+  const [title, setTitle] = useState(`Piosenka ${songs.length + 1}`);
 
   const [valueVid, setValueVid] = useState(0); // Pieniądze wydane na teledysk
   const [valueStyle, setValueStyle] = useState(0); // Jaki styl
@@ -76,43 +73,17 @@ const AddSong = ({
 
   // Funkcja zapisująca do AS - funkcja asynchroniczna
   const storeSong = async object => {
-    const length = songsL === null ? 0 : songsL; // Jeżeli nie udało się pobrać ilości piosenek ustaw domyślnie na 0
-    // Asynchroniczne pobranie z AS
     try {
       // Ustawienie otrzymanego obiektu na dany klucz w AS np song3
-      await AsyncStorage.setItem(`song${parseInt(length, 10) + 1}`, JSON.stringify(object), () => {
-        // Pobranie tego elementu i dodanie go do  stanu w App
-        AsyncStorage.getItem(`song${parseInt(length, 10) + 1}`, (err, result) => {
-          setSong(JSON.parse(result)); // Parse zeby zamienić JSON na obiekt
-        });
-      });
-    } catch (error) {
-      throw new Error(error);
-    }
-    try {
-      // Ustalenie nowej ilości piosenek
-      await AsyncStorage.setItem(`songsL`, `${parseInt(length, 10) + 1}`, () => {
-        // Pobranie tej długości i dodanie jej do stanu
-        AsyncStorage.getItem('songsL', (err, result) => {
-          setLength(result);
-        });
-      });
+      await AsyncStorage.setItem(`songs`, JSON.stringify([...songs, object]));
+      setSong(object);
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  useEffect(() => {
-    // Zaktualizowanie tytułu gdy nazwy piosenek nie zgadzają się(Po dodaniu piosenki)
-    // saveStats(); // wywołanie zapisywania statystyk
-    // if (title !== `Piosenka ${songsL * 1 + 1}`) {
-    //   setTitle(`Piosenka ${songsL * 1 + 1}`);
-    // }
-  });
-
   const saveData = () => {
     let copy = false; // Czy jest taka piosoenka czy nie
-    setSongsTempL(parseInt(songsL, 10) + 1);
     songs.forEach(song => {
       // Jeżeli nie było kopii sprawdz czy teraz jest to kopia
       if (copy !== true) {
@@ -147,7 +118,7 @@ const AddSong = ({
             bit: Math.floor(valueBit),
           },
           subject: subj,
-          id: songsL * 1 + 1,
+          id: songs.length + 1,
         },
         stats,
         setStats,

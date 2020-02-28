@@ -1,13 +1,12 @@
 import { AsyncStorage } from 'react-native';
+import { defaultSubjects } from 'rap-gra/constants/subjects';
 
-export const resetGame = async (name, pic, component) => {
+export const resetGame = async (name, pic, func) => {
   const flow = Math.floor(Math.random() * 3 + 1).toString();
   const style = Math.floor(Math.random() * 3 + 1).toString();
   const rhymes = Math.floor(Math.random() * 3 + 1).toString();
   try {
-    await AsyncStorage.setItem(`subjectL`, '4');
-    await AsyncStorage.setItem(`songsL`, '0');
-    await AsyncStorage.setItem(`recordsL`, '0');
+    await AsyncStorage.setItem('subjects', JSON.stringify(defaultSubjects));
     await AsyncStorage.setItem('nick', name);
     await AsyncStorage.setItem('picture', pic);
     await AsyncStorage.setItem('label', '');
@@ -17,8 +16,10 @@ export const resetGame = async (name, pic, component) => {
     await AsyncStorage.setItem('flow', flow);
     await AsyncStorage.setItem('style', style);
     await AsyncStorage.setItem('rhymes', rhymes);
+    await AsyncStorage.setItem('songs', JSON.stringify([]));
+    await AsyncStorage.setItem('records', JSON.stringify([]));
   } catch (error) {
     throw new Error(error);
   }
-  component.retrieveData();
+  func();
 };

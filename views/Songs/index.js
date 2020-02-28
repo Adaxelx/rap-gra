@@ -40,21 +40,20 @@ const StyledLink = styled(Link)`
   padding: 5px;
 `;
 
-const Songs = ({ songsL, recordsL, songs }) => {
+const Songs = ({ songs, records }) => {
   /* songs state */
   const [songsTab, setSongsTab] = useState(songs);
-  const [songsTempL, setSongsTempL] = useState(songsL);
   const [openSong, setOpenSong] = useState(false); // Otwarcie lub zamknięcie okna piosenek
   const [openSubject, setOpenSubject] = useState(false); // Otwarcie lub zamknięcie wyboru tematów
-  const [id, setId] = useState([]); // Zapisywanie id piosenek
   const [subj, setSubj] = useState('');
 
   /* record state */
 
-  const [recTempL, setRecTempL] = useState(recordsL);
   const [openRec, setOpenRec] = useState(false); // Otwarcie lub zamknięcie tworzenia płyty(bez piosenek)
   const [rec, setRec] = useState({ full: false }); // Zapisanie parametrów płyty(bez piosenek)
   const [openRecSub, setOpenRecSub] = useState(false); // Otwracie lub zamknięcie wyboru piosenek do płyty
+  const [id, setId] = useState([]); // Zapisywanie id piosenek
+  const [tempL, setTempL] = useState(records.length);
 
   return (
     <AppContext.Consumer>
@@ -107,13 +106,9 @@ const Songs = ({ songsL, recordsL, songs }) => {
 
           <AddSong
             open={openSong} // Otwarta czy zamknięta piosenka
-            songsL={songsTempL} // Pobrana z AS ilość piosenek
-            setSongsTempL={setSongsTempL}
             songs={context.state.songs} // Pobrane piosenki z AS
             onPress={() => setOpenSong(!openSong)} // Obsługa otwarcia/zamknięcia okna
             openSubject={() => setOpenSubject(!openSubject)} // Otworzenie kolejnego okna z wyborem tematu
-            state={context.state} // pobieranie stanu, ale potrzebne było do statystyk
-            setLength={context.setLength} // Ustalenie ilości piosenek
             setSong={context.setSong} // Zapisanie piosenki do tablicy w App
             subj={subj}
             setSubj={setSubj}
@@ -124,7 +119,6 @@ const Songs = ({ songsL, recordsL, songs }) => {
             open={openSubject} // Otwarty czy zamknięty wybór tematu piosenki
             onPress={() => setOpenSubject(!openSubject)} // Zamknięcie okna wybrania tematu
             openAddSong={() => setOpenSong(!openSong)} // Przy ewentualnym powrocie otworzenie okna wyboru statystyk piosenki
-            songsL={context.state.songsL} // Ilość piosenek
             subjects={context.state.subjects} // Pobranie tematów z App context
             subj={subj}
             setSubj={setSubj}
@@ -134,8 +128,8 @@ const Songs = ({ songsL, recordsL, songs }) => {
             setRec={setRec} // Zapisanie danych płyty
             onPress={() => setOpenRec(!openRec)} // Obsługa otwarcia/zamknięcia okna
             openSubject={() => setOpenRecSub(!openRecSub)} // Otworzenie kolejnego okna z wyborem piosenek
-            songsL={context.state.songsL} // Ilość piosenek
-            recordsL={recTempL} // Ilośc płyt
+            songsL={songs.filter(item => item.used === false).length} // Ilość piosenek nie użytych
+            recordsL={tempL}
           />
           <AddSongRec
             onPress={() => setOpenRecSub(!openRecSub)} // Obsługa otwarcia/zamknięcia okna
@@ -146,11 +140,10 @@ const Songs = ({ songsL, recordsL, songs }) => {
             setSongsTab={setSongsTab}
             setId={setId} // Ustalenie aktywnych ID
             setRecord={context.setRecord} // Dodanie płyty do tablicy płyt
-            recordsL={recTempL} // Ilość płyt
-            setLengthRec={context.setLengthRec} // Ustalenie ilości płyt
             deleteAndAddSong={context.deleteAndAddSong} // dodaj i usuń
             retrieveData={context.retrieveData}
-            setRecTempL={setRecTempL}
+            records={context.state.records}
+            setTempL={setTempL}
           />
         </StyledContainer>
       )}
