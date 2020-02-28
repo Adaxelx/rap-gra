@@ -5,7 +5,7 @@ import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
 import { Button, Switch, Bar, Title } from 'rap-gra/components';
 import { checkConcert } from 'rap-gra/views/Concerts/Functions/checkConcert';
 
-const ConcertPanel = ({ openConcertPanel, onPress }) => {
+const ConcertPanel = ({ openConcertPanel, onPress, setStats }) => {
   const [valueSound, setValueSound] = useState(0); // Jaki styl
   const [valueTicketsPrice, setValueTicketsPrice] = useState(0); // Ilość rymów
   const [valueAlcohol, setValueAlcohol] = useState(0); // Jaki bit
@@ -34,6 +34,17 @@ const ConcertPanel = ({ openConcertPanel, onPress }) => {
       valueClubSize,
       free,
     );
+
+    setStats({
+      cash: concertStats[1],
+      stats: {
+        fans: concertStats[0],
+        flow: concertStats[2],
+        style: concertStats[2],
+        rhymes: concertStats[2],
+        reputation: concertStats[3],
+      },
+    });
 
     array.push({
       key: keyCounter,

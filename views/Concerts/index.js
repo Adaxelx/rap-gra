@@ -58,6 +58,7 @@ const Concerts = () => {
             openConcertPanel={openConcertPanel}
             onPress={() => setConcertPanel(!openConcertPanel)}
             concerts={context.state.concerts}
+            setStats={context.setStats}
           />
         </StyledWrapper>
       )}

@@ -46,9 +46,9 @@ class App extends React.Component {
       cash: prevState.cash + object.cash,
       stats: {
         fans: prevState.stats.fans + fans,
-        flow,
-        style,
-        rhymes,
+        flow: prevState.stats.flow + flow,
+        style: prevState.stats.style + style,
+        rhymes: prevState.stats.rhymes + rhymes,
         reputation: prevState.stats.reputation + reputation,
       },
     }));
