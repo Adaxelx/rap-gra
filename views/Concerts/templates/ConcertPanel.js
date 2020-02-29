@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { AsyncStorage, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { AsyncStorage, Text, Alert } from 'react-native';
 import AppContext from 'rap-gra/context/context';
 import AddPanelTemplate from 'rap-gra/templates/AddPanelTemplate';
 import { Button, Switch, Bar, Title } from 'rap-gra/components';
 import { checkConcert } from 'rap-gra/views/Concerts/Functions/checkConcert';
+import { checkCost } from 'rap-gra/views/Concerts/Functions/checkCost';
 
 const ConcertPanel = ({ openConcertPanel, onPress, setStats }) => {
   const [valueSound, setValueSound] = useState(0); // Jaki styl
@@ -12,6 +13,7 @@ const ConcertPanel = ({ openConcertPanel, onPress, setStats }) => {
   const [valueClubSize, setValueClubSize] = useState(0); // Jaki bit
   const [free, setFree] = useState(false); // Darmowe: tak czy nie
   const [keyCounter, setKeyCounter] = useState(0); // Po kolei klucze wyznacza
+  const [cost, setCost] = useState(0); // koszt koncertu
 
   const saveAsync = async array => {
     try {
@@ -21,51 +23,61 @@ const ConcertPanel = ({ openConcertPanel, onPress, setStats }) => {
     }
   };
 
-  const buttonFn = (array, stats) => {
-    let concertStats = []; // przechowywać tu będę wartości jakie tam wylosuje
-    onPress();
+  const buttonFn = (array, state) => {
+    if (cost > state.cash) {
+      // warunek sprawdza czy stać cię w gl na ten koncert
+      Alert.alert('Nie masz dość kasy!');
+    } else {
+      let concertStats = []; // przechowywać tu będę wartości jakie tam wylosuje
+      onPress();
 
-    // ocenianie koncertu i rozwoj statystyk, przypisanie wartości uzyskanych do tbalicy
-    concertStats = checkConcert(
-      stats,
-      valueSound,
-      valueTicketsPrice,
-      valueAlcohol,
-      valueClubSize,
-      free,
-    );
+      // ocenianie koncertu i rozwoj statystyk, przypisanie wartości uzyskanych do tbalicy
+      concertStats = checkConcert(
+        state.stats,
+        valueSound,
+        valueTicketsPrice,
+        valueAlcohol,
+        valueClubSize,
+        free,
+      );
 
-    setStats({
-      cash: concertStats[1],
-      stats: {
-        fans: concertStats[0],
-        flow: concertStats[2],
-        style: concertStats[2],
-        rhymes: concertStats[2],
-        reputation: concertStats[3],
-      },
-    });
+      setStats({
+        cash: concertStats[1] - cost,
+        stats: {
+          fans: concertStats[0],
+          flow: concertStats[2],
+          style: concertStats[2],
+          rhymes: concertStats[2],
+          reputation: concertStats[3],
+        },
+      });
 
-    array.push({
-      key: keyCounter,
-      name: keyCounter,
-      fansIncrease: concertStats[0],
-      cashIncrease: concertStats[1],
-      statsIncrease: concertStats[2],
-      reputationIncrease: concertStats[3],
-    });
+      array.push({
+        key: keyCounter,
+        name: keyCounter,
+        fansIncrease: concertStats[0],
+        cashIncrease: concertStats[1],
+        statsIncrease: concertStats[2],
+        reputationIncrease: concertStats[3],
+      });
 
-    // zapis
-    saveAsync(array);
+      // zapis
+      saveAsync(array);
 
-    // czyszczenie wybranych danych
-    setKeyCounter(keyCounter + 1);
-    setValueSound(0);
-    setValueTicketsPrice(0);
-    setValueAlcohol(0);
-    setValueClubSize(0);
-    setFree(false);
+      // czyszczenie wybranych danych
+      setKeyCounter(keyCounter + 1);
+      setValueSound(0);
+      setValueTicketsPrice(0);
+      setValueAlcohol(0);
+      setValueClubSize(0);
+      setFree(false);
+    }
   };
+
+  useEffect(() => {
+    // console.log("XD")
+    setCost(checkCost(valueSound, valueAlcohol, valueClubSize));
+  });
 
   return (
     <AppContext.Consumer>
@@ -104,11 +116,11 @@ const ConcertPanel = ({ openConcertPanel, onPress, setStats }) => {
             setValue={setValueClubSize}
           />
 
-          <Text>Koszt koncertu: 1000 $</Text>
+          <Text>Koszt koncertu: {cost} $</Text>
 
           <Button
             onPress={() => {
-              buttonFn(context.state.concerts, context.state.stats);
+              buttonFn(context.state.concerts, context.state);
             }}
           >
             <Text>Zagraj koncert!</Text>

@@ -63,7 +63,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="397" y="161" width="1400" height="757" extended-state="0" />
+    <frame x="9" y="47" width="1400" height="757" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.3298969" />
@@ -75,7 +75,7 @@
       <window_info id="Resources Explorer" order="7" weight="0.3298969" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Version Control" order="0" />
-      <window_info anchor="bottom" id="Logcat" order="1" visible="true" weight="0.14887218" />
+      <window_info anchor="bottom" id="Logcat" order="1" visible="true" weight="0.1474359" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
