@@ -37,6 +37,8 @@ class App extends React.Component {
     recordsL: 0, // Ilość płyt
     // concerts
     concerts: [],
+    concertsEnableToPlay: 1,
+    // coś innego xD
     component: this,
     isLoading: true,
   };
@@ -191,9 +193,24 @@ class App extends React.Component {
     });
   };
 
+  // dołączanie do wytwórnii => obsługiwane jest w Label i LabelDetails
   labelFn = value => {
-    // dołączanie do wytwórnii => obsługiwane jest w Label i LabelDetails
     this.setState({ currentLabel: value });
+  };
+
+  // Funkcja obsługująca ile koncertów można zagrać pod rząd
+  setConcertsEnableToPlay = value => {
+    this.setState({
+      concertsEnableToPlay: value,
+    });
+    console.log(this.state.concertsEnableToPlay);
+  };
+
+  // Funckja która odejmuje wartość po każdym zagranym koncercie
+  decreaseConcertsEnableToPlay = () => {
+    this.setState(prevState => ({
+      concertsEnableToPlay: prevState.concertsEnableToPlay - 1,
+    }));
   };
 
   render() {
@@ -210,6 +227,8 @@ class App extends React.Component {
             setLengthRec: this.setLengthRec,
             setStats: this.setStats,
             deleteAndAddSong: this.deleteAndAddSong,
+            setConcertsEnableToPlay: this.setConcertsEnableToPlay,
+            decreaseConcertsEnableToPlay: this.decreaseConcertsEnableToPlay,
           }}
         >
           <ThemeProvider theme={theme}>

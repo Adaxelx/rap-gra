@@ -136,6 +136,7 @@ const Songs = () => {
             openSubject={() => setOpenRecSub(!openRecSub)} // Otworzenie kolejnego okna z wyborem piosenek
             songsL={context.state.songsL} // Ilość piosenek
             recordsL={context.state.recordsL} // Ilośc płyt
+            setConcertsEnableToPlay={context.setConcertsEnableToPlay}
           />
           <AddSongRec
             onPress={() => setOpenRecSub(!openRecSub)} // Obsługa otwarcia/zamknięcia okna

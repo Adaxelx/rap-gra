@@ -59,6 +59,8 @@ const Concerts = () => {
             onPress={() => setConcertPanel(!openConcertPanel)}
             concerts={context.state.concerts}
             setStats={context.setStats}
+            concertsEnableToPlay={context.state.concertsEnableToPlay}
+            decreaseConcertsEnableToPlay={context.decreaseConcertsEnableToPlay}
           />
         </StyledWrapper>
       )}
