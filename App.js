@@ -51,6 +51,12 @@ class App extends React.Component {
     }));
   };
 
+  setCash = cash => {
+    this.setState({
+      cash,
+    });
+  };
+
   // pobiera dane z AS
   retrieveData = async () => {
     try {
@@ -68,21 +74,6 @@ class App extends React.Component {
       const pic = await AsyncStorage.getItem('picture');
       const songs = await AsyncStorage.getItem('songs');
       const records = await AsyncStorage.getItem('records');
-      // console.log(
-      //   label,
-      //   nick,
-      //   cash,
-      //   rep,
-      //   fans,
-      //   flow,
-      //   style,
-      //   thymes,
-      //   concerts,
-      //   sub,
-      //   pic,
-      //   songs,
-      //   records,
-      // );
       //sprawdza warunek czy coś pobrał czy nie
       if (
         nick !== null &&
@@ -154,10 +145,10 @@ class App extends React.Component {
 
   //Dodanie płyty
   setRecord = record => {
-    this.setState({
-      recordsL: this.state.recordsL + 1,
-      records: [...this.state.records, record],
-    });
+    console.log(record);
+    this.setState(prevState => ({
+      records: [...prevState.records, record],
+    }));
   };
 
   labelFn = value => {
@@ -209,19 +200,33 @@ class App extends React.Component {
 
   render() {
     const { HOME, LABEL, SONGS, ALLSONGS, ALLRECORDS, CONCERTS, STARTSCREEN } = path;
+    const {
+      state,
+      labelFn,
+      setSong,
+      setRecord,
+      testFn,
+      testFn2,
+      setStats,
+      deleteAndAddSong,
+      setCash,
+      retrieveData,
+    } = this;
+
     return (
       <NativeRouter>
         <AppContext.Provider
           value={{
-            state: this.state,
-            labelFn: this.labelFn,
-            setSong: this.setSong,
-            setRecord: this.setRecord,
-            testFn: this.testFn,
-            testFn2: this.testFn2,
-            setStats: this.setStats,
-            deleteAndAddSong: this.deleteAndAddSong,
-            retrieveData: this.retrieveData,
+            state,
+            labelFn,
+            setSong,
+            setRecord,
+            testFn,
+            testFn2,
+            setStats,
+            deleteAndAddSong,
+            setCash,
+            retrieveData,
           }}
         >
           <ThemeProvider theme={theme}>

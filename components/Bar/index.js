@@ -50,7 +50,10 @@ const StyledBar = styled(View)`
 
 const Bar = ({ title, val1, val2, value, setValue }) => {
   const handlePress = ev => {
-    setValue(ev.nativeEvent.locationX);
+    let val = -1;
+    if (ev.nativeEvent.locationX > 200) val = 200;
+    else if (ev.nativeEvent.locationX < 0) val = 0;
+    setValue(val !== -1 ? val : ev.nativeEvent.locationX);
   };
   return (
     <StyledContainer>

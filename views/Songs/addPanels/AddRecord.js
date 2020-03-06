@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import styled, { css } from 'styled-components';
 import AddPanel from 'rap-gra/templates/AddPanelTemplate';
@@ -25,13 +25,27 @@ const StyledRowContainer = styled(View)`
   align-items: center;
 `;
 
-const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL }) => {
+const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL, multipler }) => {
   const [type, setType] = useState(false); // Wybór typu płyty (LP - true lub EP - false)
   const [title, setTitle] = useState(`Płyta ${recordsL + 1}`); // Nazwa płyty
   const [preorder, setPreorder] = useState(false); // Czy będzie preorder
   const [cover, setCover] = useState(0); // Wydatki na okładkę płyty
   const [special, setSpecial] = useState(false); // Wydatki na edycje specjalną
   const [ads, setAds] = useState(0); // Wydatki na promocję
+  const [spend, setSpend] = useState(0);
+
+  const calculateVal = () => {
+    let val = 0;
+    if (preorder) val += 1000;
+    if (cover) val += Math.floor((cover / 200) * multipler);
+    if (special) val += 5000;
+    if (ads) val += Math.floor((ads / 200) * multipler);
+    setSpend(Math.floor(val));
+  };
+
+  useEffect(() => {
+    calculateVal();
+  });
 
   // Zapisanie danych do przejścia dalej
   const saveData = () => {
@@ -46,6 +60,7 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL }) => 
       special,
       cover,
       ads,
+      spend,
     });
     setSpecial(false);
     setCover(0);
@@ -89,9 +104,19 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL }) => 
           <Switch active={special} onPress={() => setSpecial(!special)} />
         </StyledRowContainer>
       </StyledFormType>
-      <Bar title="Okładka" val1={`${Math.floor(cover)}zł`} value={cover} setValue={setCover} />
-      <Bar title="Kampania reklamowa" val1={`${Math.floor(ads)}zł`} value={ads} setValue={setAds} />
-      <Paragraph>Wydasz: 1230 zł</Paragraph>
+      <Bar
+        title="Okładka"
+        val1={`${Math.floor((cover / 200) * multipler)}zł`}
+        value={cover}
+        setValue={setCover}
+      />
+      <Bar
+        title="Kampania reklamowa"
+        val1={`${Math.floor((ads / 200) * multipler)}zł`}
+        value={ads}
+        setValue={setAds}
+      />
+      <Paragraph> {`Wydasz: ${spend}zł`}</Paragraph>
       <Button onPress={saveData}>
         <Paragraph>Dalej</Paragraph>
       </Button>

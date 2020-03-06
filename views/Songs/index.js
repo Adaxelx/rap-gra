@@ -42,7 +42,6 @@ const StyledLink = styled(Link)`
 
 const Songs = ({ songs, records }) => {
   /* songs state */
-  const [songsTab, setSongsTab] = useState(songs);
   const [openSong, setOpenSong] = useState(false); // Otwarcie lub zamknięcie okna piosenek
   const [openSubject, setOpenSubject] = useState(false); // Otwarcie lub zamknięcie wyboru tematów
   const [subj, setSubj] = useState('');
@@ -130,20 +129,20 @@ const Songs = ({ songs, records }) => {
             openSubject={() => setOpenRecSub(!openRecSub)} // Otworzenie kolejnego okna z wyborem piosenek
             songsL={songs.filter(item => item.used === false).length} // Ilość piosenek nie użytych
             recordsL={tempL}
+            multipler={context.state.cash / 10}
           />
           <AddSongRec
             onPress={() => setOpenRecSub(!openRecSub)} // Obsługa otwarcia/zamknięcia okna
             open={openRecSub} // Otwarty czy zamknięty wybór piosenek do płyty
             rec={rec} // Wartości płyty z poprzedniego okna
             openAddRec={() => setOpenRec(!openRec)} // Ewentualny powrót do wyboru statystyk płyty
-            songs={songsTab} // Pobranie piosenek
-            setSongsTab={setSongsTab}
+            songs={songs} // Pobranie piosenek
             setId={setId} // Ustalenie aktywnych ID
             setRecord={context.setRecord} // Dodanie płyty do tablicy płyt
-            deleteAndAddSong={context.deleteAndAddSong} // dodaj i usuń
-            retrieveData={context.retrieveData}
             records={context.state.records}
             setTempL={setTempL}
+            setCash={context.setCash}
+            fans={context.state.stats.fans}
           />
         </StyledContainer>
       )}

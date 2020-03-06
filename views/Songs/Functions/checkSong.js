@@ -25,7 +25,7 @@ const calcRep = rate => {
 // Obliczenie oceny(funkcja użyta do obliczenia oceny piosenki)
 const calcRate = (best, choice) => {
   const bestRate = 10;
-  let delta = best - choice / 2; // Różnica między najlepszym wyborem a wyborem gracza(wybór gracza jest podzielony na 2 ze względu na to ze przyjmuje on wartość między 0  a 200,odczas gdy najlepszy wybór jest z zakresu 0 a 100)
+  let delta = best - (choice * 10) / 2; // Różnica między najlepszym wyborem a wyborem gracza(wybór gracza jest podzielony na 2 ze względu na to ze przyjmuje on wartość między 0  a 200,odczas gdy najlepszy wybór jest z zakresu 0 a 100)
   // Jeżeli delta wyszła ujemna (czyli wybór gracza był większy niż najlepsza opcja) mnożymy przez -1 ze wzgledu na zwracaną wartość
   if (delta < 0) {
     delta *= -1;

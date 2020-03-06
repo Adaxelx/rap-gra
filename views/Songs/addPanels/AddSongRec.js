@@ -35,12 +35,11 @@ const AddSongRec = ({
   setId,
   songs,
   rec,
-
-  recordsL,
-
+  setRecord,
   setTempL,
-
   records,
+  setCash,
+  fans,
 }) => {
   const [idActive, setIdActive] = useState([]); // ID aktywnych piosenek
 
@@ -49,6 +48,10 @@ const AddSongRec = ({
     try {
       // Dodanie płyty na odpowiednie miejsce w AS np. record3
       await AsyncStorage.setItem(`records`, JSON.stringify([...records, object]));
+      await AsyncStorage.getItem('cash', (err, result) => {
+        AsyncStorage.setItem('cash', `${result * 1 - rec.spend * 1 + object.sold * 20}`);
+        setCash(result * 1 - rec.spend * 1 + object.sold * 20);
+      });
     } catch (error) {
       throw new Error(error);
     }
@@ -112,19 +115,20 @@ const AddSongRec = ({
     idActive.forEach(id => (songsCopy[id - 1] = { ...songsCopy[id - 1], used: true }));
     AsyncStorage.setItem(`songs`, JSON.stringify(songsCopy));
 
-    // Dodanie płyty do AS
-    storeRec(
-      // sprawdzenie piosenki
-      checkRec(
-        {
-          ...rec,
-          activeTitles,
-          activeSubjects,
-          activeRates,
-        },
-        recordsL,
-      ),
+    // sprawdzenie piosenki
+    const recordChecked = checkRec(
+      {
+        ...rec,
+        activeTitles,
+        activeSubjects,
+        activeRates,
+      },
+      records.length,
+      fans,
     );
+    // Dodanie płyty do AS
+    storeRec(recordChecked);
+    setRecord(recordChecked);
 
     // zresetowanie tablicy
     setIdActive([]);

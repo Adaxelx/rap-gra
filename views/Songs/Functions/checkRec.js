@@ -8,9 +8,9 @@ const pickSubject = arr => {
   return 'Mieszany';
 };
 
-export const checkRec = (rec, length) => {
+export const checkRec = (rec, length, fans) => {
   const { title, type, activeSubjects, preorder, special, ads, cover, activeRates } = rec; // Destrukturyzacja obiektu piosenki
-  const fans = 10; // zastępcza wartość
+  console.log(ads);
   let mult = type === 'EP' ? 0.01 : 0.015; // Mnożnik - zależność od typu płyty
 
   // obiekt sprawdzonej piosenki zwierający tytuł, typ, temat, sprzedane egzemplarze, ocenę, id (w zaleznosci od ilosci piosenek)
@@ -39,6 +39,7 @@ export const checkRec = (rec, length) => {
   }
 
   // sprzedane plyty - algorytm do poprawienia
+  console.log((fans * mult) / 2, fans);
   checkedRec.sold = Math.round(ads * 0.01 + fans * mult + (cover * mult) / 2);
 
   // jezeli tematyka jest zgodna ocena wzrasta
