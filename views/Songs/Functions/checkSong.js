@@ -25,7 +25,7 @@ const calcRep = rate => {
 // Obliczenie oceny(funkcja użyta do obliczenia oceny piosenki)
 const calcRate = (best, choice) => {
   const bestRate = 10;
-  let delta = best - (choice * 10) / 2; // Różnica między najlepszym wyborem a wyborem gracza(wybór gracza jest podzielony na 2 ze względu na to ze przyjmuje on wartość między 0  a 200,odczas gdy najlepszy wybór jest z zakresu 0 a 100)
+  let delta = best - choice / 2; // Różnica między najlepszym wyborem a wyborem gracza(wybór gracza jest podzielony na 2 ze względu na to ze przyjmuje on wartość między 0  a 200,odczas gdy najlepszy wybór jest z zakresu 0 a 100)
   // Jeżeli delta wyszła ujemna (czyli wybór gracza był większy niż najlepsza opcja) mnożymy przez -1 ze wzgledu na zwracaną wartość
   if (delta < 0) {
     delta *= -1;
@@ -95,6 +95,71 @@ export const checkSong = (song, stats, setStats) => {
       bestValues.R = 60 + Math.floor(Math.random() * 20 - 10);
       bestValues.B = 80 + Math.floor(Math.random() * 20 - 10);
       break;
+    case 'Alternatywny':
+      bestValues.S = 70 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 10 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 50 + Math.floor(Math.random() * 20 - 10);
+      break;
+    case 'Polityczny':
+      bestValues.S = 30 + Math.floor(Math.random() * 10 - 5);
+      bestValues.R = 80 + Math.floor(Math.random() * 20 - 10);
+      bestValues.B = 30 + Math.floor(Math.random() * 20 - 10);
+      break;
+    case 'Bóg':
+      bestValues.S = 40 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 90 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 30 + Math.floor(Math.random() * 20 - 10);
+      break;
+    case 'Gangsterski':
+      bestValues.S = 40 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 30 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 10 + Math.floor(Math.random() * 10 - 5);
+      break;
+    case 'Życie codzienne':
+      bestValues.S = 30 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 70 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 60 + Math.floor(Math.random() * 10 - 5);
+      break;
+    case 'Podróże':
+      bestValues.S = 50 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 60 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 70 + Math.floor(Math.random() * 10 - 5);
+      break;
+    case 'Siłownia':
+      bestValues.S = 30 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 80 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 40 + Math.floor(Math.random() * 10 - 5);
+      break;
+    case 'Motywacja':
+      bestValues.S = 80 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 60 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 50 + Math.floor(Math.random() * 10 - 5);
+      break;
+    case 'Więzienie':
+      bestValues.S = 30 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 90 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 20 + Math.floor(Math.random() * 10 - 5);
+      break;
+    case 'Policja':
+      bestValues.S = 60 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 80 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 60 + Math.floor(Math.random() * 10 - 5);
+      break;
+    case 'Smutek':
+      bestValues.S = 20 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 70 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 10 + Math.floor(Math.random() * 10 - 5);
+      break;
+    case 'Śmierć':
+      bestValues.S = 10 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 90 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 5 + Math.floor(Math.random() * 10 - 5);
+      break;
+    case 'Chill':
+      bestValues.S = 30 + Math.floor(Math.random() * 20 - 10);
+      bestValues.R = 50 + Math.floor(Math.random() * 10 - 5);
+      bestValues.B = 80 + Math.floor(Math.random() * 10 - 5);
+      break;
     default:
       throw new Error('Błąd');
   }
@@ -102,9 +167,9 @@ export const checkSong = (song, stats, setStats) => {
   checkedSong.rating =
     Math.round(
       (10 *
-        (calcRate(bestValues.S, (style * stats.style) / 100) +
-          calcRate(bestValues.B, (bit * stats.flow) / 100) +
-          calcRate(bestValues.R, (rhymes * stats.rhymes) / 100))) /
+        (calcRate(bestValues.S, style) +
+          calcRate(bestValues.B, bit) +
+          calcRate(bestValues.R, rhymes))) /
         3,
     ) / 10;
   // Obliczenie przyrostu fanów(na podstawie poprzedniej ilości fanów i oceny piosenki)

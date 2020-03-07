@@ -11,7 +11,7 @@ const StyledContainer = styled(View)`
   flex-grow: 1;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
 `;
 
@@ -23,9 +23,15 @@ const StyledSubject = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+  margin-left: 1.66%;
+  margin-right: 1.66%;
 `;
 const StyledButton = styled(Button)`
   margin-bottom: 10px;
+`;
+
+const StyledParagraph = styled(Paragraph)`
+  text-align: center;
 `;
 
 const AddSubject = ({ open, onPress, openAddSong, subjects, subj, setSubj }) => {
@@ -46,7 +52,7 @@ const AddSubject = ({ open, onPress, openAddSong, subjects, subj, setSubj }) => 
         setSubj(sub);
       }}
     >
-      <Paragraph>{sub}</Paragraph>
+      <StyledParagraph>{sub}</StyledParagraph>
     </StyledSubject>
   ));
   return (

@@ -63,6 +63,7 @@ const AddSongRec = ({
   const handleBack = () => {
     onPress();
     openAddRec();
+    setIdActive([]);
   };
 
   // Zapisanie płyty
@@ -112,9 +113,9 @@ const AddSongRec = ({
         i++;
       }
     });
-    const songsCopy = songs;
-    idActive.forEach(id => (songsCopy[id - 1] = { ...songsCopy[id - 1], used: true }));
-    AsyncStorage.setItem(`songs`, JSON.stringify(songsCopy));
+    // const songsCopy = songs;
+    // idActive.forEach(id => (songsCopy[id - 1] = { ...songsCopy[id - 1], used: true }));
+    // AsyncStorage.setItem(`songs`, JSON.stringify(songsCopy));
 
     // sprawdzenie piosenki
     const recordChecked = checkRec(
@@ -127,7 +128,9 @@ const AddSongRec = ({
       records.length,
       fans,
     );
-    addNewSubject(newSub, recordChecked.type, subjects, setNewSub);
+    if (subjects.length !== 17) {
+      addNewSubject(newSub, recordChecked.type, subjects, setNewSub);
+    }
     // Dodanie płyty do AS
     storeRec(recordChecked);
     setRecord(recordChecked);

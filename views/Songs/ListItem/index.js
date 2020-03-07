@@ -13,7 +13,6 @@ const StyledSong = styled(RowContainer)`
 `;
 
 const StyledSongTitle = styled(Paragraph)`
-  width: 40%;
   font-size: 18px;
   text-align: center;
 `;
@@ -28,12 +27,22 @@ const StyledStatsCon = styled(View)`
   flex-direction: column;
 `;
 
+const StyledTitleCon = styled(View)`
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+`;
+
 const ListItem = ({ type, title, rate, earnings, place, fans, value, subject }) => {
   // Sprawdzenie czy mamy doczynienie z plyta czy z piosenka, w zaleznosci od tego beda wyswietlac sie rozne rzeczy
   const cond = type === 'EP' || type === 'LP';
   return (
     <StyledSong>
-      <StyledSongTitle>{title}</StyledSongTitle>
+      <StyledTitleCon>
+        <StyledSongTitle>{title}</StyledSongTitle>
+        <StyledSongTitle>{`(${subject})`}</StyledSongTitle>
+      </StyledTitleCon>
       <StyledStatsCon>
         <StyledP>Ocena: {rate}/10</StyledP>
         <StyledP>{cond ? `Kupionych egzemplarzy: ${value}` : `Przesłuchań: ${value}`}</StyledP>

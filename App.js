@@ -63,6 +63,7 @@ class App extends React.Component {
   setNewSub = sub => {
     this.setState(prevState => ({
       subjects: [...prevState.subjects, sub],
+      newSub: { e: 0, l: 0 },
     }));
   };
 

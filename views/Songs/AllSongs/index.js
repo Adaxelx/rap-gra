@@ -26,6 +26,7 @@ const AllSongs = ({ songs, isLoading }) => {
         fans={i.fans}
         rate={i.rating}
         value={i.views}
+        subject={i.subject}
       />
     ));
 

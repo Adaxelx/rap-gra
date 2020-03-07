@@ -89,6 +89,7 @@ const Songs = () => {
                       fans={songData.fans}
                       rate={songData.rating}
                       value={songData.views}
+                      subject={songData.subject}
                     />
                   ))
               )}

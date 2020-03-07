@@ -1,5 +1,5 @@
 import { subjects } from 'rap-gra/constants';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 
 export const addNewSubject = (newSub, type, subjectsArr, setNewSub) => {
   const newObj = newSub;
@@ -15,6 +15,7 @@ export const addNewSubject = (newSub, type, subjectsArr, setNewSub) => {
     setNewSub(newSubject);
     AsyncStorage.setItem('newSubCount', JSON.stringify({ e: 0, l: 0 }));
     AsyncStorage.setItem('subjects', JSON.stringify([...subjectsArr, newSubject]));
+    Alert.alert(`Odkryłeś temat: ${newSubject}`);
   } else {
     AsyncStorage.setItem('newSubCount', JSON.stringify(newObj));
   }
