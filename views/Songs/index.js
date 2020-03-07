@@ -40,7 +40,7 @@ const StyledLink = styled(Link)`
   padding: 5px;
 `;
 
-const Songs = ({ songs, records }) => {
+const Songs = () => {
   /* songs state */
   const [openSong, setOpenSong] = useState(false); // Otwarcie lub zamknięcie okna piosenek
   const [openSubject, setOpenSubject] = useState(false); // Otwarcie lub zamknięcie wyboru tematów
@@ -52,7 +52,7 @@ const Songs = ({ songs, records }) => {
   const [rec, setRec] = useState({ full: false }); // Zapisanie parametrów płyty(bez piosenek)
   const [openRecSub, setOpenRecSub] = useState(false); // Otwracie lub zamknięcie wyboru piosenek do płyty
   const [id, setId] = useState([]); // Zapisywanie id piosenek
-  const [tempL, setTempL] = useState(records.length);
+  // const [modal, setModal] = useState(true);
 
   return (
     <AppContext.Consumer>
@@ -127,8 +127,8 @@ const Songs = ({ songs, records }) => {
             setRec={setRec} // Zapisanie danych płyty
             onPress={() => setOpenRec(!openRec)} // Obsługa otwarcia/zamknięcia okna
             openSubject={() => setOpenRecSub(!openRecSub)} // Otworzenie kolejnego okna z wyborem piosenek
-            songsL={songs.filter(item => item.used === false).length} // Ilość piosenek nie użytych
-            recordsL={tempL}
+            songsL={context.state.songs.filter(item => item.used === false).length} // Ilość piosenek nie użytych
+            recordsL={context.state.records.length}
             multipler={context.state.cash / 10}
           />
           <AddSongRec
@@ -136,14 +136,18 @@ const Songs = ({ songs, records }) => {
             open={openRecSub} // Otwarty czy zamknięty wybór piosenek do płyty
             rec={rec} // Wartości płyty z poprzedniego okna
             openAddRec={() => setOpenRec(!openRec)} // Ewentualny powrót do wyboru statystyk płyty
-            songs={songs} // Pobranie piosenek
+            songs={context.state.songs} // Pobranie piosenek
             setId={setId} // Ustalenie aktywnych ID
             setRecord={context.setRecord} // Dodanie płyty do tablicy płyt
             records={context.state.records}
-            setTempL={setTempL}
             setCash={context.setCash}
             fans={context.state.stats.fans}
+            newSub={context.state.newSub}
+            subjects={context.state.subjects}
+            setNewSub={context.setNewSub}
+            // setModal={() => setModal(!modal)}
           />
+          {/* <Popup setOpen={() => setModal(!modal)} open={modal} /> */}
         </StyledContainer>
       )}
     </AppContext.Consumer>

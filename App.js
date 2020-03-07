@@ -28,13 +28,16 @@ class App extends React.Component {
     // label
     currentLabel: '',
     // songs
-
     songs: [], // Piosenki
     subjects: [], // Tematy piosenek
     records: [], // Płyty
     // concerts
     concerts: [],
     isLoading: true,
+    newSub: {
+      e: 0,
+      l: 0,
+    },
   };
 
   setStats = object => {
@@ -57,6 +60,12 @@ class App extends React.Component {
     });
   };
 
+  setNewSub = sub => {
+    this.setState(prevState => ({
+      subjects: [...prevState.subjects, sub],
+    }));
+  };
+
   // pobiera dane z AS
   retrieveData = async () => {
     try {
@@ -74,6 +83,7 @@ class App extends React.Component {
       const pic = await AsyncStorage.getItem('picture');
       const songs = await AsyncStorage.getItem('songs');
       const records = await AsyncStorage.getItem('records');
+      const newSubCount = await AsyncStorage.getItem('newSubCount');
       //sprawdza warunek czy coś pobrał czy nie
       if (
         nick !== null &&
@@ -107,6 +117,7 @@ class App extends React.Component {
           pic: pic,
           songs: JSON.parse(songs),
           records: JSON.parse(records),
+          newSub: JSON.parse(newSubCount),
         });
       }
     } catch (error) {}
@@ -118,6 +129,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.retrieveData(); // wczytuje statystki i label
+    console.log(this.state.newSub);
   }
 
   deleteAndAddSong = (id, song) => {
@@ -145,7 +157,6 @@ class App extends React.Component {
 
   //Dodanie płyty
   setRecord = record => {
-    console.log(record);
     this.setState(prevState => ({
       records: [...prevState.records, record],
     }));
@@ -211,6 +222,7 @@ class App extends React.Component {
       deleteAndAddSong,
       setCash,
       retrieveData,
+      setNewSub,
     } = this;
 
     return (
@@ -227,6 +239,7 @@ class App extends React.Component {
             deleteAndAddSong,
             setCash,
             retrieveData,
+            setNewSub,
           }}
         >
           <ThemeProvider theme={theme}>

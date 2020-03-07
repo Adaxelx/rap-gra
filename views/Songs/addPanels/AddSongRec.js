@@ -4,7 +4,7 @@ import { ScrollView, View, Alert, AsyncStorage } from 'react-native';
 import { Title, Button, Paragraph } from 'rap-gra/components';
 import SongItem from 'rap-gra/views/Songs/SongItem';
 import styled from 'styled-components';
-import { checkRec } from 'rap-gra/views/Songs/Functions/checkRec';
+import { checkRec, addNewSubject } from 'rap-gra/views/Songs/Functions';
 
 /* eslint-disable no-plusplus, array-callback-return, consistent-return */
 
@@ -36,10 +36,12 @@ const AddSongRec = ({
   songs,
   rec,
   setRecord,
-  setTempL,
   records,
   setCash,
   fans,
+  newSub,
+  subjects,
+  setNewSub,
 }) => {
   const [idActive, setIdActive] = useState([]); // ID aktywnych piosenek
 
@@ -65,7 +67,6 @@ const AddSongRec = ({
 
   // Zapisanie płyty
   const saveData = () => {
-    setTempL(records.length + 2);
     // Sprawdzenie czy została dodana wystarczająca ilość piosenek w zależności od typu min 6 max 9 dla EP, min 10, max 15 dla LP
     switch (rec.type) {
       case 'EP':
@@ -126,6 +127,7 @@ const AddSongRec = ({
       records.length,
       fans,
     );
+    addNewSubject(newSub, recordChecked.type, subjects, setNewSub);
     // Dodanie płyty do AS
     storeRec(recordChecked);
     setRecord(recordChecked);
