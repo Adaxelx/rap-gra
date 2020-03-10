@@ -4,7 +4,7 @@ import { NativeRouter, Route, Switch } from 'react-router-native';
 import { ThemeProvider } from 'styled-components';
 import AppContext from 'rap-gra/context/context';
 import { theme } from 'rap-gra/theme/mainTheme';
-import { StartScreen, Home, Songs, Label, Concerts } from 'rap-gra/views';
+import { StartScreen, Home, Songs, Label, Concerts, BestSongs } from 'rap-gra/views';
 import AllSongs from 'rap-gra/views/Songs/AllSongs';
 import AllRecords from 'rap-gra/views/Songs/AllRecords';
 import MainTemplate from 'rap-gra/templates/MainTemplate';
@@ -130,7 +130,6 @@ class App extends React.Component {
 
   componentDidMount() {
     this.retrieveData(); // wczytuje statystki i label
-    console.log(this.state.newSub);
   }
 
   deleteAndAddSong = (id, song) => {
@@ -211,7 +210,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { HOME, LABEL, SONGS, ALLSONGS, ALLRECORDS, CONCERTS, STARTSCREEN } = path;
+    const { HOME, LABEL, SONGS, ALLSONGS, ALLRECORDS, CONCERTS, STARTSCREEN, BESTSONGS } = path;
     const {
       state,
       labelFn,
@@ -270,6 +269,7 @@ class App extends React.Component {
                     <AllRecords records={this.state.records} isLoading={this.state.isLoading} />
                   )}
                 />
+                <Route exact path={BESTSONGS} component={BestSongs} />
               </MainTemplate>
             </Switch>
           </ThemeProvider>

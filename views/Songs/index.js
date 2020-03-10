@@ -15,8 +15,8 @@ const StyledContainer = styled(ScrollView)`
 
 const StyledRowContainer = styled(RowContainer)`
   width: 100%;
-  height: 70px;
-  padding: 15px;
+  height: 50px;
+  padding: 5px;
 `;
 
 const StyledButton = styled(Button)`
@@ -40,6 +40,10 @@ const StyledLink = styled(Link)`
   padding: 5px;
 `;
 
+const StyledParagraph = styled(Paragraph)`
+  text-align: center;
+`;
+
 const Songs = () => {
   /* songs state */
   const [openSong, setOpenSong] = useState(false); // Otwarcie lub zamknięcie okna piosenek
@@ -61,6 +65,11 @@ const Songs = () => {
           <StyledTitle>Piosenki</StyledTitle>
           <StyledContainer>
             <>
+              <StyledRowContainer>
+                <StyledLink to="/bestSongs">
+                  <StyledParagraph>Lista wszechczasów</StyledParagraph>
+                </StyledLink>
+              </StyledRowContainer>
               <StyledRowContainer>
                 <StyledButton onPress={() => setOpenSubject(!openSubject)}>
                   <Paragraph>Dodaj piosenkę</Paragraph>

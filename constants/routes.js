@@ -5,5 +5,6 @@ export const path = {
   CONCERTS: '/concerts',
   LABEL: '/label',
   ALLSONGS: '/allsongs',
+  BESTSONGS: '/bestSongs',
   ALLRECORDS: '/allrecords',
 };
