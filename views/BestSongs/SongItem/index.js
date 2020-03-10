@@ -14,7 +14,7 @@ const StyledCC = styled(ColumnContainer)`
 `;
 
 const StyledPlace = styled(Paragraph)`
-  font-size: 40px;
+  font-size: 30px;
 `;
 
 const StyledParagraph = styled(Paragraph)`

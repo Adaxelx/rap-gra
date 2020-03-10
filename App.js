@@ -38,6 +38,7 @@ class App extends React.Component {
       e: 0,
       l: 0,
     },
+    bestSong: {},
   };
 
   setStats = object => {
@@ -52,6 +53,18 @@ class App extends React.Component {
         reputation: prevState.stats.reputation + reputation,
       },
     }));
+  };
+
+  setBestSong = () => {
+    const { songs } = this.state;
+    let max = 0;
+    songs.forEach(({ views, rating }) => (views > max && rating >= 9 ? (max = views) : null));
+    if (max != 0) {
+      const song = [...songs.filter(({ views }) => max === views)];
+      console.log(song[0]);
+      this.setState({ bestSong: song[0] });
+    }
+    return null;
   };
 
   setCash = cash => {
@@ -123,6 +136,7 @@ class App extends React.Component {
       }
     } catch (error) {}
     this.setState({ isLoading: false });
+    this.setBestSong();
     // AsyncStorage.setItem('songsL', '0');
     // AsyncStorage.setItem('recordsL', '0');
     // Pobranie ilości tematów z AS
@@ -269,7 +283,13 @@ class App extends React.Component {
                     <AllRecords records={this.state.records} isLoading={this.state.isLoading} />
                   )}
                 />
-                <Route exact path={BESTSONGS} component={BestSongs} />
+                <Route
+                  exact
+                  path={BESTSONGS}
+                  component={() => (
+                    <BestSongs bestSong={this.state.bestSong} nick={this.state.nick} />
+                  )}
+                />
               </MainTemplate>
             </Switch>
           </ThemeProvider>

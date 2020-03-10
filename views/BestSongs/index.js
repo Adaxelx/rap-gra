@@ -19,7 +19,15 @@ const StyledItemsCon = styled(ColumnContainer)`
   flex-grow: 1;
 `;
 
-const BestSongs = () => {
+const StyledCC = styled(ColumnContainer)`
+  margin: 10px 0;
+`;
+
+const StyledPB = styled(StyledParagraph)`
+  font-size: 20px;
+`;
+
+const BestSongs = ({ bestSong, nick }) => {
   const items = bestlist.map(({ performer, views, rate, title, place }) => (
     <SongItem
       key={place}
@@ -38,6 +46,20 @@ const BestSongs = () => {
           Na tej liście znajduje się top10 piosenek z największą ilością przesłuchań i z oceną nie
           niższą niż 9.0
         </StyledParagraph>
+        <StyledCC>
+          <StyledPB>Twoja najlepsza piosenka:</StyledPB>
+          {bestSong !== {} ? (
+            <SongItem
+              views={bestSong.views}
+              performer={nick}
+              place={bestSong.place}
+              rate={`${bestSong.rating}/10`}
+              title={bestSong.title}
+            />
+          ) : (
+            <StyledParagraph>{'Nie masz żadnej piosenki, która ma ocenę >=9'}</StyledParagraph>
+          )}
+        </StyledCC>
         <StyledItemsCon>{items}</StyledItemsCon>
       </StyledContainer>
     </ScrollView>
