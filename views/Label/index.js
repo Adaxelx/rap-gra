@@ -158,7 +158,6 @@ const labels = [
 const Label = () => {
   const [openAddLabel, setAddLabel] = useState(false); // otwiera panel zakładania wytrównii
   const [openLabelDetails, setLabelDetails] = useState(false); // otwiera panel szczegółów
-  const [yourLabelName, setYourLabelName] = useState(''); // nazwa twojej wytwórnii
   const [clickedLabelName, setClickedLabelName] = useState('');
   const [clickedLabelHistory, setClickedLabelHistory] = useState('');
   const [clickedLabelRequaierments, setClickedLabelRequaierments] = useState('');
@@ -178,8 +177,7 @@ const Label = () => {
         <StyledWrapper>
           <StyledTitle>Wytwórnie</StyledTitle>
           <StyledText>Obecna wytwórnia: {context.state.currentLabel}</StyledText>
-          <StyledText>Nazwa twojej wytrwórni: {yourLabelName}</StyledText>
-          <StyledText>Kliknięta wytrwórnia: {clickedLabelName}</StyledText>
+          <StyledText>Nazwa twojej wytrwórni: {context.state.yourLabel}</StyledText>
 
           {labels.map(label => (
             <StyledLabelTile key={label.key} onPress={() => buttonFn(label)}>
@@ -198,16 +196,16 @@ const Label = () => {
 
           <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
             <StyledText>
-              {yourLabelName ? 'Zarządzaj wytwórnią' : '+ Załóż własną wytwórnię'}
+              {context.state.yourLabel ? 'Zarządzaj wytwórnią' : '+ Załóż własną wytwórnię'}
             </StyledText>
           </StyledButton>
 
           <AddLabel
             openAddLabel={openAddLabel}
             onPress={() => setAddLabel(!openAddLabel)}
-            setYourLabelName={setYourLabelName}
-            yourLabelName={yourLabelName}
             labelFn={context.labelFn}
+            yourLabelFn={context.yourLabelFn}
+            yourLabel={context.state.yourLabel}
           />
           <LabelDetails
             openLabelDetails={openLabelDetails}

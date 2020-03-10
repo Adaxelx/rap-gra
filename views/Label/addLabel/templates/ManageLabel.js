@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, TouchableNativeFeedback } from 'react-native';
 import { Paragraph, Title } from 'rap-gra/components';
 
 const StyledWrapper = styled(View)`
@@ -24,7 +24,7 @@ const StyledRaperStats = styled(View)`
   margin: 0 5px;
 `;
 
-const StyledAddButton = styled(Text)`
+const StyledAddButton = styled(TouchableNativeFeedback)`
   height: 40px;
   width: 50px;
   font-size: 25px;
@@ -136,6 +136,10 @@ const ManageLabel = ({ yourLabelName }) => {
   return (
     <StyledWrapper>
       <Title> {yourLabelName} </Title>
+      <View>
+        <Text>Zmień azwe</Text>
+        <Text>Usuń wytwórnię</Text>
+      </View>
       <ScrollView>
         {rapers.map(raper => (
           <StyledRaperTile key={raper.key}>
@@ -155,7 +159,9 @@ const ManageLabel = ({ yourLabelName }) => {
               <Paragraph>Przyrost kasy: {raper.profits.cashIncrease}</Paragraph>
             </StyledRaperStats>
 
-            <StyledAddButton>+</StyledAddButton>
+            <StyledAddButton>
+              <Text>+</Text>
+            </StyledAddButton>
           </StyledRaperTile>
         ))}
       </ScrollView>

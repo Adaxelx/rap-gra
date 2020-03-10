@@ -27,6 +27,7 @@ class App extends React.Component {
     },
     // label
     currentLabel: '',
+    yourLabel: '',
     // songs
 
     songs: [], // Piosenki
@@ -69,6 +70,7 @@ class App extends React.Component {
       const style = await AsyncStorage.getItem('style');
       const rhymes = await AsyncStorage.getItem('rhymes');
       const concerts = await AsyncStorage.getItem('concerts_array');
+      const yourLabel = await AsyncStorage.getItem('yourLabel');
 
       //sprawdza warunek czy coś pobrał czy nie
       if (
@@ -80,6 +82,7 @@ class App extends React.Component {
         rhymes !== null &&
         rep !== null &&
         concerts !== null
+        // yourLabel !== null
       ) {
         // jeśli pobrał to przypisuje pobrane wartości do stanu
         this.setState({
@@ -94,6 +97,7 @@ class App extends React.Component {
             rhymes: JSON.parse(rhymes),
           },
           currentLabel: label,
+          yourLabel: yourLabel,
           concerts: JSON.parse(concerts),
         });
       }
@@ -198,6 +202,11 @@ class App extends React.Component {
     this.setState({ currentLabel: value });
   };
 
+  // Zakładanie włąsnej wytwórnii
+  yourLabelFn = value => {
+    this.setState({ yourLabel: value });
+  };
+
   // Funkcja obsługująca ile koncertów można zagrać pod rząd
   setConcertsEnableToPlay = value => {
     this.setState({
@@ -229,6 +238,7 @@ class App extends React.Component {
             deleteAndAddSong: this.deleteAndAddSong,
             setConcertsEnableToPlay: this.setConcertsEnableToPlay,
             decreaseConcertsEnableToPlay: this.decreaseConcertsEnableToPlay,
+            yourLabelFn: this.yourLabelFn,
           }}
         >
           <ThemeProvider theme={theme}>

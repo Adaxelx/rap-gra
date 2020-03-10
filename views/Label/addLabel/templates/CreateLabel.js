@@ -13,12 +13,13 @@ const StyledWrapper = styled(View)`
   align-content: center;
 `;
 
-const CreateLabel = ({ setYourLabelName, onPress, labelFn }) => {
+const CreateLabel = ({ onPress, labelFn, yourLabelFn }) => {
   const [value, onChangeText] = React.useState('Nazwa wytwórni');
 
   const storeData = async () => {
     try {
       await AsyncStorage.setItem('label', value);
+      await AsyncStorage.setItem('yourLabel', value);
       console.log('gitówka');
     } catch (error) {
       console.log('error', typeof value);
@@ -26,9 +27,9 @@ const CreateLabel = ({ setYourLabelName, onPress, labelFn }) => {
   };
 
   const buttonFn = () => {
-    setYourLabelName(value);
     storeData();
     labelFn(value);
+    yourLabelFn(value);
     onPress();
   };
   return (

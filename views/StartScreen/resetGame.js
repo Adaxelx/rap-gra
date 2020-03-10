@@ -18,6 +18,7 @@ export const resetGame = async (name, pic, component) => {
     await AsyncStorage.setItem('style', style);
     await AsyncStorage.setItem('rhymes', rhymes);
     await AsyncStorage.setItem('concerts_array', JSON.stringify([]));
+    await AsyncStorage.setItem('yourLabel', '');
   } catch (error) {
     throw new Error(error);
   }

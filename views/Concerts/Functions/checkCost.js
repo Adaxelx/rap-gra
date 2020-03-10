@@ -1,5 +1,5 @@
 export const checkCost = (valueSound, valueAlcohol, valueClubSize) => {
-  let cost = 0;
+  let cost = 500;
 
   cost = valueSound * 10 + valueAlcohol + valueClubSize * 12;
 

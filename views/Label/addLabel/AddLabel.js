@@ -11,22 +11,15 @@ const StyledAddPanel = styled(View)`
   padding: 40px;
 `;
 
-const AddLabel = ({
-  openAddLabel,
-  onPress,
-  setYourLabelName,
-  yourLabelName,
-  setYourRapers,
-  labelFn,
-}) => {
+const AddLabel = ({ openAddLabel, onPress, setYourRapers, labelFn, yourLabelFn, yourLabel }) => {
   return (
     <>
       <AddPanelTemplate open={openAddLabel} onPress={onPress} top>
         <StyledAddPanel>
-          {yourLabelName ? (
-            <ManageLabel yourLabelName={yourLabelName} setYourRapers={setYourRapers} />
+          {yourLabel ? (
+            <ManageLabel yourLabelName={yourLabel} setYourRapers={setYourRapers} />
           ) : (
-            <CreateLabel setYourLabelName={setYourLabelName} onPress={onPress} labelFn={labelFn} />
+            <CreateLabel onPress={onPress} labelFn={labelFn} yourLabelFn={yourLabelFn} />
           )}
 
           {/* {yourLabelName ? (
