@@ -28,6 +28,7 @@ class App extends React.Component {
     // label
     currentLabel: '',
     yourLabel: '',
+    yourRapers: [],
     // songs
 
     songs: [], // Piosenki
@@ -207,6 +208,16 @@ class App extends React.Component {
     this.setState({ yourLabel: value });
   };
 
+  // Dodawanie raperów do Labelu
+  addYourRaper = value => {
+    this.setState({
+      yourRapers: [...value],
+    });
+    // this.setState(prevState => ({
+    //   yourRapers: [...prevState.yourRapers, value]
+    // }))
+  };
+
   // Funkcja obsługująca ile koncertów można zagrać pod rząd
   setConcertsEnableToPlay = value => {
     this.setState({
@@ -239,6 +250,7 @@ class App extends React.Component {
             setConcertsEnableToPlay: this.setConcertsEnableToPlay,
             decreaseConcertsEnableToPlay: this.decreaseConcertsEnableToPlay,
             yourLabelFn: this.yourLabelFn,
+            addYourRaper: this.addYourRaper,
           }}
         >
           <ThemeProvider theme={theme}>

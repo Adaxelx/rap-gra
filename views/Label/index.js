@@ -163,12 +163,20 @@ const Label = () => {
   const [clickedLabelRequaierments, setClickedLabelRequaierments] = useState('');
   const [clickedLabelProfits, setClickedLabelProfits] = useState('');
 
+  const [yourRapersLocal, setYourRapers] = useState([]);
+
   const buttonFn = label => {
     setLabelDetails(!openLabelDetails); // otwiera
     setClickedLabelName(label.name); // to i reszta ustala w co było kliknięte
     setClickedLabelHistory(label.history);
     setClickedLabelRequaierments(label.requaierments);
     setClickedLabelProfits(label.profits);
+  };
+
+  const openFn = value => {
+    setAddLabel(!openAddLabel);
+    console.log('XD', value);
+    setYourRapers(yourRapersLocal.concat(...value));
   };
 
   return (
@@ -194,7 +202,10 @@ const Label = () => {
             </StyledLabelTile>
           ))}
 
-          <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
+          <StyledButton
+            onPress={() => openFn(context.state.yourRapers)}
+            title="Załóż własną wytwórnię"
+          >
             <StyledText>
               {context.state.yourLabel ? 'Zarządzaj wytwórnią' : '+ Załóż własną wytwórnię'}
             </StyledText>
@@ -206,6 +217,9 @@ const Label = () => {
             labelFn={context.labelFn}
             yourLabelFn={context.yourLabelFn}
             yourLabel={context.state.yourLabel}
+            addYourRaper={context.addYourRaper}
+            yourRapersLocal={yourRapersLocal}
+            setYourRapers={setYourRapers}
           />
           <LabelDetails
             openLabelDetails={openLabelDetails}

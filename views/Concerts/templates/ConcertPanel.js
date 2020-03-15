@@ -13,10 +13,10 @@ const ConcertPanel = ({
   concertsEnableToPlay,
   decreaseConcertsEnableToPlay,
 }) => {
-  const [valueSound, setValueSound] = useState(0); // Jaki styl
-  const [valueTicketsPrice, setValueTicketsPrice] = useState(0); // Ilość rymów
-  const [valueAlcohol, setValueAlcohol] = useState(0); // Jaki bit
-  const [valueClubSize, setValueClubSize] = useState(0); // Jaki bit
+  const [valueSound, setValueSound] = useState(0); // Jakoś dzwięku
+  const [valueTicketsPrice, setValueTicketsPrice] = useState(0); // Cena biletów
+  const [valueAlcohol, setValueAlcohol] = useState(0); // Ilość alko wypitego
+  const [valueClubSize, setValueClubSize] = useState(0); // Wielkość klubu
   const [free, setFree] = useState(false); // Darmowe: tak czy nie
   const [keyCounter, setKeyCounter] = useState(0); // Po kolei klucze wyznacza
   const [cost, setCost] = useState(0); // koszt koncertu
@@ -33,56 +33,56 @@ const ConcertPanel = ({
     if (!concertsEnableToPlay) {
       Alert.alert('Nie możesz zagrać koncertu bez wydania płyty!');
     } else if (cost > state.cash) {
-        // warunek sprawdza czy stać cię wgl na ten koncert
-        Alert.alert('Nie masz dość kasy!');
-      } else {
-        let concertStats = []; // przechowywać tu będę wartości jakie tam wylosuje
-        onPress();
+      // warunek sprawdza czy stać cię wgl na ten koncert
+      Alert.alert('Nie masz dość kasy!');
+    } else {
+      let concertStats = []; // przechowywać tu będę wartości jakie tam wylosuje
+      onPress();
 
-        // ocenianie koncertu i rozwoj statystyk, przypisanie wartości uzyskanych do tbalicy
-        concertStats = checkConcert(
-          state.stats,
-          valueSound,
-          valueTicketsPrice,
-          valueAlcohol,
-          valueClubSize,
-          free,
-        );
+      // ocenianie koncertu i rozwoj statystyk, przypisanie wartości uzyskanych do tbalicy
+      concertStats = checkConcert(
+        state.stats,
+        valueSound,
+        valueTicketsPrice,
+        valueAlcohol,
+        valueClubSize,
+        free,
+      );
 
-        setStats({
-          cash: concertStats[1] - cost,
-          stats: {
-            fans: concertStats[0],
-            flow: concertStats[2],
-            style: concertStats[2],
-            rhymes: concertStats[2],
-            reputation: concertStats[3],
-          },
-        });
+      setStats({
+        cash: concertStats[1] - cost,
+        stats: {
+          fans: concertStats[0],
+          flow: concertStats[2],
+          style: concertStats[2],
+          rhymes: concertStats[2],
+          reputation: concertStats[3],
+        },
+      });
 
-        array.push({
-          key: array.lenght,
-          name: keyCounter,
-          fansIncrease: concertStats[0],
-          cashIncrease: concertStats[1],
-          statsIncrease: concertStats[2],
-          reputationIncrease: concertStats[3],
-        });
+      array.push({
+        key: array.lenght,
+        name: keyCounter,
+        fansIncrease: concertStats[0],
+        cashIncrease: concertStats[1],
+        statsIncrease: concertStats[2],
+        reputationIncrease: concertStats[3],
+      });
 
-        // zapis
-        saveAsync(array);
+      // zapis
+      saveAsync(array);
 
-        // zmniejszanie możliwości grania koncertu
-        decreaseConcertsEnableToPlay();
+      // zmniejszanie możliwości grania koncertu
+      decreaseConcertsEnableToPlay();
 
-        // czyszczenie wybranych danych
-        setKeyCounter(keyCounter + 1);
-        setValueSound(0);
-        setValueTicketsPrice(0);
-        setValueAlcohol(0);
-        setValueClubSize(0);
-        setFree(false);
-      }
+      // czyszczenie wybranych danych
+      setKeyCounter(keyCounter + 1);
+      setValueSound(0);
+      setValueTicketsPrice(0);
+      setValueAlcohol(0);
+      setValueClubSize(0);
+      setFree(false);
+    }
   };
 
   useEffect(() => {

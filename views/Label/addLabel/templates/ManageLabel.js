@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ScrollView, View, Text, TouchableNativeFeedback } from 'react-native';
-import { Paragraph, Title } from 'rap-gra/components';
+import { ScrollView, View, Text } from 'react-native';
+import { Paragraph, Title, Button, RowContainer } from 'rap-gra/components';
 
-const StyledWrapper = styled(View)`
+const StyledWrapper = styled(ScrollView)`
   width: 100%;
   padding-bottom: 50px;
 `;
@@ -24,12 +24,12 @@ const StyledRaperStats = styled(View)`
   margin: 0 5px;
 `;
 
-const StyledAddButton = styled(TouchableNativeFeedback)`
+const StyledAddButton = styled(Button)`
   height: 40px;
   width: 50px;
-  font-size: 25px;
   background-color: cadetblue;
   padding: 0;
+  margin: 0;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -37,6 +37,10 @@ const StyledAddButton = styled(TouchableNativeFeedback)`
   position: absolute;
   top: 0;
   right: 0;
+`;
+
+const StyledButton = styled(Button)`
+  height: 50px;
 `;
 
 const StyledText = styled(Text)`
@@ -132,15 +136,54 @@ const rapers = [
   },
 ];
 
-const ManageLabel = ({ yourLabelName }) => {
+const ManageLabel = ({ yourLabelName, setYourRapers, yourRapers }) => {
+  /*eslint-disable */
+  const findObject = value => {
+    // Ta funkcja ma znaleźć elemetn w tablicy do przesniesiania
+    for (let i = 0; i < rapers.length; i++) {
+      if (rapers[i].name === value) {
+        return rapers[i];
+      }
+    }
+  };
+
+  const addToLabelFn = value => {
+    // ta ma usunąć z poprzedniej i dodać do nowej
+    // setClickedRaper(value);
+    // console.log(findObject(value));
+    const clickedRaper = findObject(value);
+
+    // addYourRaper(clickedRaper);
+
+    setYourRapers(yourRapers.concat(clickedRaper));
+    rapers.splice(clickedRaper.key, 1);
+  };
+  /* eslint-enable */
+
   return (
     <StyledWrapper>
       <Title> {yourLabelName} </Title>
+      <RowContainer>
+        <StyledButton>
+          <Paragraph>Zmień azwe</Paragraph>
+        </StyledButton>
+        <StyledButton>
+          <Paragraph>Usuń wytwórnię</Paragraph>
+        </StyledButton>
+      </RowContainer>
       <View>
-        <Text>Zmień azwe</Text>
-        <Text>Usuń wytwórnię</Text>
+        <StyledText>Członkowie twojej wytwórni:</StyledText>
+        {yourRapers.map(raper => (
+          <StyledRaperTile key={raper.key}>
+            <StyledText>{raper.name}</StyledText>
+            <StyledAddButton>
+              <Paragraph>-</Paragraph>
+            </StyledAddButton>
+          </StyledRaperTile>
+        ))}
       </View>
-      <ScrollView>
+      <View>
+        <StyledText>Raperzy którzy mogą chcieć dołączyć:</StyledText>
         {rapers.map(raper => (
           <StyledRaperTile key={raper.key}>
             <StyledText>{raper.name}</StyledText>
@@ -159,12 +202,12 @@ const ManageLabel = ({ yourLabelName }) => {
               <Paragraph>Przyrost kasy: {raper.profits.cashIncrease}</Paragraph>
             </StyledRaperStats>
 
-            <StyledAddButton>
-              <Text>+</Text>
+            <StyledAddButton onPress={() => addToLabelFn(raper.name)}>
+              <Paragraph>+</Paragraph>
             </StyledAddButton>
           </StyledRaperTile>
         ))}
-      </ScrollView>
+      </View>
     </StyledWrapper>
   );
 };
