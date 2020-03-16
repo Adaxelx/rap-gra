@@ -12,7 +12,7 @@ export const resetGame = async (name, pic, func) => {
     await AsyncStorage.setItem('label', '');
     await AsyncStorage.setItem('cash', '5000');
     await AsyncStorage.setItem('rep', '0');
-    await AsyncStorage.setItem('fans', '1000000');
+    await AsyncStorage.setItem('fans', '0');
     await AsyncStorage.setItem('flow', flow);
     await AsyncStorage.setItem('style', style);
     await AsyncStorage.setItem('rhymes', rhymes);

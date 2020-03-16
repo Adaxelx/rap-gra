@@ -206,29 +206,30 @@ export const checkSong = (song, stats, setStats, setBestSong, changeBestList, ni
       reputation,
     },
   });
-
-  if (checkedSong.views >= 1000000 && checkedSong.views < 23000000)
-    checkedSong.place = Math.floor(
-      ((checkedSong.views - 1000000) * (10 - 200)) / (23000000 - 1000000) + 200,
-    );
-  else if (checkedSong.views >= 23000000) {
-    checkedSong.performer = nick;
-    const itemOnList = constList.find(item => item.performer === checkedSong.performer);
-    if (itemOnList) {
-      if (itemOnList.views < checkedSong.views) {
+  if (checkedSong.rating >= 9) {
+    if (checkedSong.views >= 1000000 && checkedSong.views < 23000000)
+      checkedSong.place = Math.floor(
+        ((checkedSong.views - 1000000) * (10 - 200)) / (23000000 - 1000000) + 200,
+      );
+    else if (checkedSong.views >= 23000000) {
+      checkedSong.performer = nick;
+      const itemOnList = constList.find(item => item.performer === checkedSong.performer);
+      if (itemOnList) {
+        if (itemOnList.views < checkedSong.views) {
+          const index = constList.findIndex(item => item.views < checkedSong.views);
+          checkedSong.place = index + 1;
+          changeBestList(checkedSong, index);
+        }
+      } else {
         const index = constList.findIndex(item => item.views < checkedSong.views);
         checkedSong.place = index + 1;
         changeBestList(checkedSong, index);
       }
-    } else {
-      const index = constList.findIndex(item => item.views < checkedSong.views);
-      checkedSong.place = index + 1;
-      changeBestList(checkedSong, index);
     }
-  }
 
-  if (checkedSong.rating >= 9) {
     setBestSong(checkedSong);
+  } else {
+    checkedSong.place = '--';
   }
 
   setPersonalStats({ fans: checkedSong.fans, cash: checkedSong.cash, reputation, stats });

@@ -43,7 +43,7 @@ const BestSongs = ({ bestSong, nick, bestList }) => {
         <Title>Lista wszechczasów</Title>
         <StyledParagraph>
           Na tej liście znajduje się top10 piosenek z największą ilością przesłuchań i z oceną nie
-          niższą niż 9.0
+          niższą niż 9.0. Uwaga! możesz mieć tylko jedną piosenkę na tej liście.
         </StyledParagraph>
         <StyledCC>
           <StyledPB>Twoja najlepsza piosenka:</StyledPB>
@@ -59,6 +59,7 @@ const BestSongs = ({ bestSong, nick, bestList }) => {
             <StyledParagraph>{'Nie masz żadnej piosenki, która ma ocenę >=9'}</StyledParagraph>
           )}
         </StyledCC>
+        <StyledPB>Lista:</StyledPB>
         <StyledItemsCon>{items}</StyledItemsCon>
       </StyledContainer>
     </ScrollView>

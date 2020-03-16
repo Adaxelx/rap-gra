@@ -45,7 +45,7 @@ const SongItem = ({ performer, title, views, rating, place }) => {
       <StyledCC>
         <StyledTitle>{`${performer} - ${title}`}</StyledTitle>
         <StyledParagraph>{`Przesłuchania: ${calc(views, 1)}`}</StyledParagraph>
-        <StyledParagraph>{`Ocena: ${rating}`}</StyledParagraph>
+        <StyledParagraph>{`Ocena: ${rating}/10`}</StyledParagraph>
       </StyledCC>
     </StyledCon>
   );
