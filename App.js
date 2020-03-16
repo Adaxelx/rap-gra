@@ -58,6 +58,7 @@ class App extends React.Component {
   setBestSong = () => {
     const { songs } = this.state;
     let max = 0;
+    console.log('szukam!');
     songs.forEach(({ views, rating }) => (views > max && rating >= 9 ? (max = views) : null));
     if (max != 0) {
       const song = [...songs.filter(({ views }) => max === views)];
@@ -143,7 +144,9 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    console.log('xd');
     this.retrieveData(); // wczytuje statystki i label
+    // this.setBestSong();
   }
 
   deleteAndAddSong = (id, song) => {
@@ -237,6 +240,7 @@ class App extends React.Component {
       setCash,
       retrieveData,
       setNewSub,
+      setBestSong,
     } = this;
 
     return (
@@ -254,6 +258,7 @@ class App extends React.Component {
             setCash,
             retrieveData,
             setNewSub,
+            setBestSong,
           }}
         >
           <ThemeProvider theme={theme}>

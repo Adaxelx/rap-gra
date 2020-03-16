@@ -36,7 +36,7 @@ const calcRate = (best, choice) => {
 };
 
 const setPersonalStats = async object => {
-  const { fans, cash, reputation } = object;
+  const { fans, cash, reputation, stats } = object;
   try {
     await AsyncStorage.getItem(`fans`, (err, result) => {
       AsyncStorage.setItem(`fans`, `${fans * 1 + result * 1}`);
@@ -46,6 +46,15 @@ const setPersonalStats = async object => {
     });
     await AsyncStorage.getItem(`rep`, (err, result) => {
       AsyncStorage.setItem(`rep`, `${reputation * 1 + result * 1}`);
+    });
+    await AsyncStorage.getItem(`flow`, (err, result) => {
+      AsyncStorage.setItem(`flow`, `${stats.flow * 1 + result * 1}`);
+    });
+    await AsyncStorage.getItem(`rhymes`, (err, result) => {
+      AsyncStorage.setItem(`rhymes`, `${stats.rhymes * 1 + result * 1}`);
+    });
+    await AsyncStorage.getItem(`style`, (err, result) => {
+      AsyncStorage.setItem(`style`, `${stats.style * 1 + result * 1}`);
     });
   } catch (error) {
     throw new Error(error);
@@ -197,6 +206,6 @@ export const checkSong = (song, stats, setStats) => {
     },
   });
 
-  setPersonalStats({ fans: checkedSong.fans, cash: checkedSong.cash, reputation });
+  setPersonalStats({ fans: checkedSong.fans, cash: checkedSong.cash, reputation, stats });
   return checkedSong;
 };

@@ -123,6 +123,7 @@ const Songs = () => {
             setSubj={setSubj}
             stats={context.state.stats} // statystki ze stanu
             setStats={context.setStats} // zapisanie statystyk przy dodawaniu piosenki
+            setBestSong={context.setBestSong}
           />
           <AddSubject
             open={openSubject} // Otwarty czy zamknięty wybór tematu piosenki
