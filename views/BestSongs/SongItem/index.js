@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Paragraph, RowContainer, ColumnContainer } from 'rap-gra/components';
 
+/* eslint-disable no-restricted-properties */
+
 const StyledCon = styled(RowContainer)`
   width: 80%;
   margin: 5px 0;
@@ -27,7 +29,14 @@ const StyledTitle = styled(Paragraph)`
   color: gold;
 `;
 
-const SongItem = ({ performer, title, views, rate, place }) => {
+const SongItem = ({ performer, title, views, rating, place }) => {
+  const calc = (n, d) => {
+    let x = `${n}`.length;
+    const dd = Math.pow(10, d);
+    x -= x % 3;
+    return Math.round((n * dd) / Math.pow(10, x)) / dd + ' kMGTPE'[x / 3];
+  };
+
   return (
     <StyledCon>
       <StyledCC place>
@@ -35,8 +44,8 @@ const SongItem = ({ performer, title, views, rate, place }) => {
       </StyledCC>
       <StyledCC>
         <StyledTitle>{`${performer} - ${title}`}</StyledTitle>
-        <StyledParagraph>{`Przesłuchania: ${views}`}</StyledParagraph>
-        <StyledParagraph>{`Ocena: ${rate}`}</StyledParagraph>
+        <StyledParagraph>{`Przesłuchania: ${calc(views, 1)}`}</StyledParagraph>
+        <StyledParagraph>{`Ocena: ${rating}`}</StyledParagraph>
       </StyledCC>
     </StyledCon>
   );

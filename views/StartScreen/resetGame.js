@@ -12,7 +12,7 @@ export const resetGame = async (name, pic, func) => {
     await AsyncStorage.setItem('label', '');
     await AsyncStorage.setItem('cash', '5000');
     await AsyncStorage.setItem('rep', '0');
-    await AsyncStorage.setItem('fans', '0');
+    await AsyncStorage.setItem('fans', '1000000');
     await AsyncStorage.setItem('flow', flow);
     await AsyncStorage.setItem('style', style);
     await AsyncStorage.setItem('rhymes', rhymes);
@@ -20,6 +20,7 @@ export const resetGame = async (name, pic, func) => {
     await AsyncStorage.setItem('records', JSON.stringify([]));
     await AsyncStorage.setItem('concerts_array', JSON.stringify([]));
     await AsyncStorage.setItem('newSubCount', JSON.stringify({ e: 0, l: 0 }));
+    await AsyncStorage.setItem('bestSong', JSON.stringify({ views: -1 }));
   } catch (error) {
     throw new Error(error);
   }

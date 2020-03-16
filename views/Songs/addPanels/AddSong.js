@@ -49,6 +49,8 @@ const AddSong = ({
   setStats,
   setSubj,
   setBestSong,
+  changeBestList,
+  nick,
 }) => {
   // Nazwa piosenki(Początkowa ustalona w zalezności od ilości piosenek). *1 przy songsL jest dlatego że songsL jest stringiem i pomnożenie przez 1 zamienia tą wartość na inta.
   const [title, setTitle] = useState(`Piosenka ${songs.length + 1}`);
@@ -78,7 +80,6 @@ const AddSong = ({
       // Ustawienie otrzymanego obiektu na dany klucz w AS np song3
       await AsyncStorage.setItem(`songs`, JSON.stringify([...songs, object]));
       setSong(object);
-      setBestSong();
     } catch (error) {
       throw new Error(error);
     }
@@ -124,6 +125,9 @@ const AddSong = ({
         },
         stats,
         setStats,
+        setBestSong,
+        changeBestList,
+        nick,
       ),
     );
     // Zamknij okno

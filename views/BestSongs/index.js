@@ -2,7 +2,6 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components';
 import { ColumnContainer, Paragraph, Title } from 'rap-gra/components';
-import bestlist from 'rap-gra/constants/bestlist';
 import SongItem from 'rap-gra/views/BestSongs/SongItem';
 
 const StyledContainer = styled(ColumnContainer)`
@@ -27,13 +26,13 @@ const StyledPB = styled(StyledParagraph)`
   font-size: 20px;
 `;
 
-const BestSongs = ({ bestSong, nick }) => {
-  const items = bestlist.map(({ performer, views, rate, title, place }) => (
+const BestSongs = ({ bestSong, nick, bestList }) => {
+  const items = bestList.map(({ performer, views, rating, title, place }) => (
     <SongItem
       key={place}
       performer={performer}
       views={views}
-      rate={rate}
+      rating={rating}
       title={title}
       place={place}
     />
@@ -48,12 +47,12 @@ const BestSongs = ({ bestSong, nick }) => {
         </StyledParagraph>
         <StyledCC>
           <StyledPB>Twoja najlepsza piosenka:</StyledPB>
-          {bestSong !== {} ? (
+          {bestSong.views !== -1 ? (
             <SongItem
               views={bestSong.views}
               performer={nick}
               place={bestSong.place}
-              rate={`${bestSong.rating}/10`}
+              rating={`${bestSong.rating}/10`}
               title={bestSong.title}
             />
           ) : (

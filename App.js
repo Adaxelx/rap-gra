@@ -9,7 +9,7 @@ import AllSongs from 'rap-gra/views/Songs/AllSongs';
 import AllRecords from 'rap-gra/views/Songs/AllRecords';
 import MainTemplate from 'rap-gra/templates/MainTemplate';
 import { path } from 'rap-gra/constants/routes';
-
+import constList from 'rap-gra/constants/constList';
 /* eslint-disable */
 
 class App extends React.Component {
@@ -39,6 +39,7 @@ class App extends React.Component {
       l: 0,
     },
     bestSong: {},
+    bestList: constList,
   };
 
   setStats = object => {
@@ -55,17 +56,35 @@ class App extends React.Component {
     }));
   };
 
-  setBestSong = () => {
-    const { songs } = this.state;
-    let max = 0;
-    console.log('szukam!');
-    songs.forEach(({ views, rating }) => (views > max && rating >= 9 ? (max = views) : null));
-    if (max != 0) {
-      const song = [...songs.filter(({ views }) => max === views)];
-      console.log(song[0]);
-      this.setState({ bestSong: song[0] });
+  setBestSong = song => {
+    const { bestSong } = this.state;
+    if (bestSong.views === -1) {
+      this.setState({ bestSong: song });
+      AsyncStorage.setItem('bestSong', JSON.stringify(song));
+    } else if (song.views > bestSong.views) {
+      this.setState({ bestSong: song });
+      AsyncStorage.setItem('bestSong', JSON.stringify(song));
     }
-    return null;
+
+    // let max = 0;
+    // console.log('szukam!');
+    // songs.forEach(({ views, rating }) => (views > max && rating >= 9 ? (max = views) : null));
+    // if (max != 0) {
+    //   const song = [...songs.filter(({ views }) => max === views)];
+    //   console.log(song[0]);
+    //   this.setState({ bestSong: song[0] });
+    // }
+    // return null;
+  };
+
+  changeBestList = (song, index) => {
+    const arr = [...constList];
+    arr.splice(index, 0, song);
+    arr.splice(10, 1);
+    arr.forEach((item, i) => (item.place = i + 1));
+    this.setState({
+      bestList: arr,
+    });
   };
 
   setCash = cash => {
@@ -99,6 +118,7 @@ class App extends React.Component {
       const songs = await AsyncStorage.getItem('songs');
       const records = await AsyncStorage.getItem('records');
       const newSubCount = await AsyncStorage.getItem('newSubCount');
+      const bestSong = await AsyncStorage.getItem('bestSong');
       //sprawdza warunek czy coś pobrał czy nie
       if (
         nick !== null &&
@@ -112,7 +132,8 @@ class App extends React.Component {
         sub !== null &&
         pic !== null &&
         songs !== null &&
-        records !== null
+        records !== null &&
+        bestSong !== null
       ) {
         // jeśli pobrał to przypisuje pobrane wartości do stanu
         this.setState({
@@ -133,18 +154,20 @@ class App extends React.Component {
           songs: JSON.parse(songs),
           records: JSON.parse(records),
           newSub: JSON.parse(newSubCount),
+          bestSong: JSON.parse(bestSong),
         });
+
+        this.changeBestList(JSON.parse(bestSong), JSON.parse(bestSong).place - 1);
       }
     } catch (error) {}
     this.setState({ isLoading: false });
-    this.setBestSong();
+
     // AsyncStorage.setItem('songsL', '0');
     // AsyncStorage.setItem('recordsL', '0');
     // Pobranie ilości tematów z AS
   };
 
   componentDidMount() {
-    console.log('xd');
     this.retrieveData(); // wczytuje statystki i label
     // this.setBestSong();
   }
@@ -241,6 +264,7 @@ class App extends React.Component {
       retrieveData,
       setNewSub,
       setBestSong,
+      changeBestList,
     } = this;
 
     return (
@@ -259,6 +283,7 @@ class App extends React.Component {
             retrieveData,
             setNewSub,
             setBestSong,
+            changeBestList,
           }}
         >
           <ThemeProvider theme={theme}>
@@ -292,7 +317,11 @@ class App extends React.Component {
                   exact
                   path={BESTSONGS}
                   component={() => (
-                    <BestSongs bestSong={this.state.bestSong} nick={this.state.nick} />
+                    <BestSongs
+                      bestSong={this.state.bestSong}
+                      nick={this.state.nick}
+                      bestList={this.state.bestList}
+                    />
                   )}
                 />
               </MainTemplate>
