@@ -6,12 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12af8f15-968c-4d50-aa51-561382fd01fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Concerts/templates/ConcertPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Concerts/templates/ConcertPanel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Label/addLabel/AddLabel.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Label/addLabel/AddLabel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/Label/addLabel/templates/ManageLabel.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Label/addLabel/templates/ManageLabel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Label/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Label/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ScrollView, View, Text } from 'react-native';
 import { Paragraph, Title, Button, RowContainer } from 'rap-gra/components';
@@ -137,35 +137,49 @@ const rapers = [
 ];
 
 const ManageLabel = ({ yourLabelName, setYourRapers, yourRapers }) => {
-  /*eslint-disable */
-  const findObject = value => {
-    // Ta funkcja ma znaleźć elemetn w tablicy do przesniesiania
-    for (let i = 0; i < rapers.length; i++) {
-      if (rapers[i].name === value) {
-        return rapers[i];
-      }
+  const [increase, setIncrease] = useState(1);
+
+  const compare = (a, b) => {
+    if (a.key < b.key) {
+      return -1;
     }
+    if (a.key > b.key) {
+      return 1;
+    }
+    return 0;
   };
 
   const addToLabelFn = value => {
-    // ta ma usunąć z poprzedniej i dodać do nowej
-    // setClickedRaper(value);
-    // console.log(findObject(value));
-    const clickedRaper = findObject(value);
+    const clickedRaper = rapers.find(raper => raper.name === value);
 
-    // addYourRaper(clickedRaper);
+    setIncrease(increase * clickedRaper.profits.fansIncrease);
 
     setYourRapers(yourRapers.concat(clickedRaper));
-    rapers.splice(clickedRaper.key, 1);
+
+    const index = rapers.findIndex(raper => raper.name === clickedRaper.name);
+
+    console.log(index);
+
+    rapers.splice(index, 1);
   };
-  /* eslint-enable */
+
+  const removeFromLabelFn = value => {
+    const clickedRaper = yourRapers.find(raper => raper.name === value);
+
+    setIncrease(increase / clickedRaper.profits.fansIncrease);
+
+    setYourRapers(yourRapers.filter(raper => raper.name !== value));
+    rapers.splice(clickedRaper.key, 0, clickedRaper);
+
+    rapers.sort(compare);
+  };
 
   return (
     <StyledWrapper>
       <Title> {yourLabelName} </Title>
       <RowContainer>
         <StyledButton>
-          <Paragraph>Zmień azwe</Paragraph>
+          <Paragraph>Zmień nazwe</Paragraph>
         </StyledButton>
         <StyledButton>
           <Paragraph>Usuń wytwórnię</Paragraph>
@@ -173,10 +187,11 @@ const ManageLabel = ({ yourLabelName, setYourRapers, yourRapers }) => {
       </RowContainer>
       <View>
         <StyledText>Członkowie twojej wytwórni:</StyledText>
+        <StyledText>Mnożnik: x{increase}</StyledText>
         {yourRapers.map(raper => (
           <StyledRaperTile key={raper.key}>
             <StyledText>{raper.name}</StyledText>
-            <StyledAddButton>
+            <StyledAddButton onPress={() => removeFromLabelFn(raper.name)}>
               <Paragraph>-</Paragraph>
             </StyledAddButton>
           </StyledRaperTile>
