@@ -27,12 +27,16 @@ class App extends React.Component {
     },
     // label
     currentLabel: '',
+    yourLabel: '',
+    yourRapers: [],
     // songs
     songs: [], // Piosenki
     subjects: [], // Tematy piosenek
     records: [], // Płyty
     // concerts
     concerts: [],
+    concertsEnableToPlay: 1,
+    // coś innego xD
     isLoading: true,
     newSub: {
       e: 0,
@@ -119,6 +123,8 @@ class App extends React.Component {
       const records = await AsyncStorage.getItem('records');
       const newSubCount = await AsyncStorage.getItem('newSubCount');
       const bestSong = await AsyncStorage.getItem('bestSong');
+      const yourLabel = await AsyncStorage.getItem('yourLabel');
+
       //sprawdza warunek czy coś pobrał czy nie
       if (
         nick !== null &&
@@ -133,7 +139,9 @@ class App extends React.Component {
         pic !== null &&
         songs !== null &&
         records !== null &&
-        bestSong !== null
+        bestSong !== null &&
+        concerts !== null
+        // yourLabel !== null
       ) {
         // jeśli pobrał to przypisuje pobrane wartości do stanu
         this.setState({
@@ -148,6 +156,7 @@ class App extends React.Component {
             rhymes: JSON.parse(rhymes),
           },
           currentLabel: label,
+          yourLabel: yourLabel,
           concerts: JSON.parse(concerts),
           subjects: JSON.parse(sub),
           pic: pic,
@@ -180,10 +189,6 @@ class App extends React.Component {
     });
   };
 
-  labelFn = value => {
-    this.setState({ currentLabel: value });
-  };
-
   //Ustalenie ilości piosenek
 
   //Dodanie piosenki
@@ -202,51 +207,39 @@ class App extends React.Component {
     }));
   };
 
+  // dołączanie do wytwórnii => obsługiwane jest w Label i LabelDetails
   labelFn = value => {
-    // dołączanie do wytwórnii => obsługiwane jest w Label i LabelDetails
     this.setState({ currentLabel: value });
   };
 
-  testFn = () => {
-    const { flow, style, rhymes } = this.state.stats;
-    //ogranicznik tych śmierdzących progressbarów nie jest to jakieś super to można poprawić jak jest pomysł dlatego się tak nazywa xD
-
-    if (rhymes < 100) {
-      this.setState(prevState => ({
-        stats: {
-          ...this.state.stats,
-          rhymes: prevState.stats.rhymes + 1,
-        },
-      }));
-    } else {
-      this.setState({
-        stats: {
-          ...this.state.stats,
-          rhymes: 100,
-        },
-      });
-    }
+  // Zakładanie włąsnej wytwórnii
+  yourLabelFn = value => {
+    this.setState({ yourLabel: value });
   };
 
-  testFn2 = () => {
-    const { flow, style, rhymes } = this.state.stats;
-    //usuwanie pkt ze stat testowe
+  // Dodawanie raperów do Labelu
+  addYourRaper = value => {
+    this.setState({
+      yourRapers: [...value],
+    });
+    // this.setState(prevState => ({
+    //   yourRapers: [...prevState.yourRapers, value]
+    // }))
+  };
 
-    if (rhymes < 100) {
-      this.setState(prevState => ({
-        stats: {
-          ...this.state.stats,
-          rhymes: prevState.stats.rhymes - 1,
-        },
-      }));
-    } else {
-      this.setState({
-        stats: {
-          ...this.state.stats,
-          rhymes: 100,
-        },
-      });
-    }
+  // Funkcja obsługująca ile koncertów można zagrać pod rząd
+  setConcertsEnableToPlay = value => {
+    this.setState({
+      concertsEnableToPlay: value,
+    });
+    console.log(this.state.concertsEnableToPlay);
+  };
+
+  // Funckja która odejmuje wartość po każdym zagranym koncercie
+  decreaseConcertsEnableToPlay = () => {
+    this.setState(prevState => ({
+      concertsEnableToPlay: prevState.concertsEnableToPlay - 1,
+    }));
   };
 
   render() {
@@ -265,6 +258,10 @@ class App extends React.Component {
       setNewSub,
       setBestSong,
       changeBestList,
+      setConcertsEnableToPlay,
+      decreaseConcertsEnableToPlay,
+      yourLabelFn,
+      addYourRaper,
     } = this;
 
     return (
@@ -284,6 +281,10 @@ class App extends React.Component {
             setNewSub,
             setBestSong,
             changeBestList,
+            setConcertsEnableToPlay,
+            decreaseConcertsEnableToPlay,
+            yourLabelFn,
+            addYourRaper,
           }}
         >
           <ThemeProvider theme={theme}>

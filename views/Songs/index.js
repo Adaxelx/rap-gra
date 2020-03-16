@@ -143,6 +143,7 @@ const Songs = () => {
             songsL={context.state.songs.filter(item => item.used === false).length} // Ilość piosenek nie użytych
             recordsL={context.state.records.length}
             multipler={context.state.cash / 10}
+            setConcertsEnableToPlay={context.setConcertsEnableToPlay}
           />
           <AddSongRec
             onPress={() => setOpenRecSub(!openRecSub)} // Obsługa otwarcia/zamknięcia okna

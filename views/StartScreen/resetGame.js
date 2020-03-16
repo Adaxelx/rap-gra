@@ -21,6 +21,7 @@ export const resetGame = async (name, pic, func) => {
     await AsyncStorage.setItem('concerts_array', JSON.stringify([]));
     await AsyncStorage.setItem('newSubCount', JSON.stringify({ e: 0, l: 0 }));
     await AsyncStorage.setItem('bestSong', JSON.stringify({ views: -1 }));
+    await AsyncStorage.setItem('yourLabel', '');
   } catch (error) {
     throw new Error(error);
   }

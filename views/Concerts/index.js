@@ -6,7 +6,7 @@ import { Title, Button, RowContainer } from 'rap-gra/components';
 import ConcertPanel from './templates/ConcertPanel';
 
 const StyledWrapper = styled(ScrollView)`
-  min-height: 100%;
+  /* min-height: 100%; */
   width: 100%;
   background-color: ${({ theme }) => theme.greenL};
 `;
@@ -35,7 +35,7 @@ const Concerts = () => {
     <AppContext.Consumer>
       {context => (
         <StyledWrapper bounces>
-          <Title>Concerts</Title>
+          <Title>Koncerty</Title>
           <StyledButton onPress={buttonFn}>
             <Text>Zagraj koncert</Text>
           </StyledButton>
@@ -44,10 +44,12 @@ const Concerts = () => {
             <StyledRowContainer key={concert.key}>
               <Title> {concert.name} </Title>
               <View>
-                <Text>Nowi fani: +10</Text>
-                <Text>Flow: +5</Text>
-                <Text>Styl: +5</Text>
-                <Text>Rymy: +15</Text>
+                <Text>Nowi fani: +{concert.fansIncrease}</Text>
+                <Text>Flow: +{concert.statsIncrease}</Text>
+                <Text>Styl: +{concert.statsIncrease}</Text>
+                <Text>Rymy: +{concert.statsIncrease}</Text>
+                <Text>Reputacja: +{concert.reputationIncrease}</Text>
+                <Text>Kasa: +{concert.cashIncrease}</Text>
               </View>
             </StyledRowContainer>
           ))}
@@ -56,6 +58,9 @@ const Concerts = () => {
             openConcertPanel={openConcertPanel}
             onPress={() => setConcertPanel(!openConcertPanel)}
             concerts={context.state.concerts}
+            setStats={context.setStats}
+            concertsEnableToPlay={context.state.concertsEnableToPlay}
+            decreaseConcertsEnableToPlay={context.decreaseConcertsEnableToPlay}
           />
         </StyledWrapper>
       )}

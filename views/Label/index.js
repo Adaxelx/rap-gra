@@ -9,7 +9,6 @@ import LabelDetails from './addLabel/LabelDetails';
 const StyledWrapper = styled(ScrollView)`
   width: 100%;
   background-color: ${({ theme }) => theme.greenL};
-  padding-bottom: 200px;
 `;
 
 const StyledLabelTile = styled(TouchableOpacity)`
@@ -159,11 +158,12 @@ const labels = [
 const Label = () => {
   const [openAddLabel, setAddLabel] = useState(false); // otwiera panel zakładania wytrównii
   const [openLabelDetails, setLabelDetails] = useState(false); // otwiera panel szczegółów
-  const [yourLabelName, setYourLabelName] = useState(''); // nazwa twojej wytwórnii
   const [clickedLabelName, setClickedLabelName] = useState('');
   const [clickedLabelHistory, setClickedLabelHistory] = useState('');
   const [clickedLabelRequaierments, setClickedLabelRequaierments] = useState('');
   const [clickedLabelProfits, setClickedLabelProfits] = useState('');
+
+  const [yourRapersLocal, setYourRapers] = useState([]);
 
   const buttonFn = label => {
     setLabelDetails(!openLabelDetails); // otwiera
@@ -173,14 +173,19 @@ const Label = () => {
     setClickedLabelProfits(label.profits);
   };
 
+  const openFn = value => {
+    setAddLabel(!openAddLabel);
+    console.log('XD', value);
+    setYourRapers(yourRapersLocal.concat(...value));
+  };
+
   return (
     <AppContext.Consumer>
       {context => (
         <StyledWrapper>
           <StyledTitle>Wytwórnie</StyledTitle>
           <StyledText>Obecna wytwórnia: {context.state.currentLabel}</StyledText>
-          <StyledText>Nazwa twojej wytrwórni: {yourLabelName}</StyledText>
-          <StyledText>Kliknięta wytrwórnia: {clickedLabelName}</StyledText>
+          <StyledText>Nazwa twojej wytrwórni: {context.state.yourLabel}</StyledText>
 
           {labels.map(label => (
             <StyledLabelTile key={label.key} onPress={() => buttonFn(label)}>
@@ -197,18 +202,24 @@ const Label = () => {
             </StyledLabelTile>
           ))}
 
-          <StyledButton onPress={() => setAddLabel(!openAddLabel)} title="Załóż własną wytwórnię">
+          <StyledButton
+            onPress={() => openFn(context.state.yourRapers)}
+            title="Załóż własną wytwórnię"
+          >
             <StyledText>
-              {yourLabelName ? 'Zarządzaj wytwórnią' : '+ Załóż własną wytwórnię'}
+              {context.state.yourLabel ? 'Zarządzaj wytwórnią' : '+ Załóż własną wytwórnię'}
             </StyledText>
           </StyledButton>
 
           <AddLabel
             openAddLabel={openAddLabel}
             onPress={() => setAddLabel(!openAddLabel)}
-            setYourLabelName={setYourLabelName}
-            yourLabelName={yourLabelName}
             labelFn={context.labelFn}
+            yourLabelFn={context.yourLabelFn}
+            yourLabel={context.state.yourLabel}
+            addYourRaper={context.addYourRaper}
+            yourRapersLocal={yourRapersLocal}
+            setYourRapers={setYourRapers}
           />
           <LabelDetails
             openLabelDetails={openLabelDetails}

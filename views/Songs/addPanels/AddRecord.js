@@ -25,7 +25,16 @@ const StyledRowContainer = styled(View)`
   align-items: center;
 `;
 
-const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL, multipler }) => {
+const AddRecord = ({
+  open,
+  onPress,
+  setRec,
+  openSubject,
+  songsL,
+  recordsL,
+  multipler,
+  setConcertsEnableToPlay,
+}) => {
   const [type, setType] = useState(false); // Wybór typu płyty (LP - true lub EP - false)
   const [title, setTitle] = useState(`Płyta ${recordsL + 1}`); // Nazwa płyty
   const [preorder, setPreorder] = useState(false); // Czy będzie preorder
@@ -72,11 +81,13 @@ const AddRecord = ({ open, onPress, setRec, openSubject, songsL, recordsL, multi
     if (songsL >= 6 && typeRec === 'EP') {
       onPress();
       openSubject();
+      setConcertsEnableToPlay(5);
     } else if (songsL <= 6 && typeRec === 'EP')
       Alert.alert('Aby stworzyć EPke musisz mieć conajmniej 6 piosenek(nie użytych wcześniej)');
     if (songsL >= 10 && typeRec === 'LP') {
       onPress();
       openSubject();
+      setConcertsEnableToPlay(10);
     } else if (songsL <= 10 && typeRec === 'LP')
       Alert.alert('Aby stworzyć LP musisz mieć conajmniej 10 piosenek(nie użytych wcześniej)');
   };
